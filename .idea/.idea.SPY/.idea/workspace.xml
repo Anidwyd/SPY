@@ -2,44 +2,56 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a8a9619-ceab-4101-b518-0485449bdeb0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SPY/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SPY/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle01 - Idle02.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle01 - Idle02.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle01.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle01.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle02 - Idle01.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle02 - Idle01.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle02.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle02.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Jump01.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Jump01.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Run01.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Run01.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@RunBackwards01.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@RunBackwards01.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Sprint01.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Sprint01.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Walk01.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Walk01.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/PlayerAnimation.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/PlayerAnimation.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AutomaticScript/ParamCompetenceSystem_wrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AutomaticScript/ParamCompetenceSystem_wrapper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AutomaticScript/SettingsManager_wrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AutomaticScript/SettingsManager_wrapper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AutomaticScript/TitleScreenSystem_wrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AutomaticScript/TitleScreenSystem_wrapper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Materials/1panel_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Materials/1panel_C.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Materials/1panel_braced_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Materials/1panel_braced_C.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Texture Normals Maps/1panel_C.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Texture Normals Maps/1panel_C.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Textures/1panel_C.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Textures/1panel_C.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Textures/1panel_braced_C.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Textures/1panel_braced_C.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Cell.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Cell.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Coin.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Coin.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Drone.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Drone.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Robot Kyle.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Robot Kyle.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TitleScreen.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TitleScreen.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Systems/DoorAndConsoleManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Systems/DoorAndConsoleManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Systems/LevelGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Systems/LevelGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/DroneAnimation.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/DroneAnimation.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/KyleAction.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/KyleAction.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/KyleRotation.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/KyleRotation.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/KyleRun.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/KyleRun.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/KyleWalk.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/KyleWalk.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Images.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Images/WaitIcon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Images/WaitIcon.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 1.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 2.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 3.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 4.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 5.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 6.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 7.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 8.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 9.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/Level 9.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/NiveauSpecialArticle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/NiveauSpecialArticle.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestDoubleAgent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestDoubleAgent.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestDoubleAgentScript.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestDoubleAgentScript.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestDrone.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestDrone.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestHistory.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestHistory.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestNiveauSimple1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestNiveauSimple1.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestNiveauSimple2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/InDevProgress/TestNiveauSimple2.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/Niveau21.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Archive/Niveau21.xml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Scenario/Ancienne Campagne.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Scenario/Ancienne Campagne.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Systems/MoveSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Systems/MoveSystem.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +116,7 @@
       <workItem from="1673702725121" duration="650000" />
       <workItem from="1673871309429" duration="2623000" />
       <workItem from="1673889095352" duration="1126000" />
+      <workItem from="1673891668831" duration="392000" />
     </task>
     <servers />
   </component>

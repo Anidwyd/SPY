@@ -82,12 +82,12 @@ public class MoveSystem : FSystem {
 			if (Mathf.Abs(go.transform.localPosition.z / 3 - go.GetComponent<Position>().x) > 0.01f || Mathf.Abs(go.transform.localPosition.x / 3 - go.GetComponent<Position>().y) > 0.01f)
 			{
 				go.transform.localPosition = Vector3.MoveTowards(go.transform.localPosition, new Vector3(go.GetComponent<Position>().y * 3, go.transform.localPosition.y, go.GetComponent<Position>().x * 3), moveSpeed * gameData.gameSpeed_current * Time.deltaTime);
-				if (go.GetComponent<Animator>() && go.tag == "Player")
+				if (go.GetComponent<Animator>() && (go.tag == "Player" || go.tag == "Drone"))
 					playMoveAnimation(go);
 			}
 			else
 			{
-				if (go.GetComponent<Animator>() && go.tag == "Player" && go.GetComponent<ForceMoveAnimation>() == null)
+				if (go.GetComponent<Animator>() && (go.tag == "Player" || go.tag == "Drone") && go.GetComponent<ForceMoveAnimation>() == null)
 				{
 					// Stop moving
 					go.GetComponent<Animator>().SetFloat("Walk", -1f);
