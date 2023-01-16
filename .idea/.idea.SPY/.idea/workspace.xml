@@ -1,7 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6a8a9619-ceab-4101-b518-0485449bdeb0" name="Changes" comment="" />
+    <list default="true" id="6a8a9619-ceab-4101-b518-0485449bdeb0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SPY/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SPY/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle01 - Idle02.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle01 - Idle02.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle02 - Idle01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle02 - Idle01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle02.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Idle02.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Jump01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Jump01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Run01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Run01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@RunBackwards01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@RunBackwards01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Sprint01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Sprint01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Walk01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/BasicMotions@Walk01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/PlayerAnimation.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/PlayerAnimation.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AutomaticScript/ParamCompetenceSystem_wrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AutomaticScript/ParamCompetenceSystem_wrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AutomaticScript/SettingsManager_wrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AutomaticScript/SettingsManager_wrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AutomaticScript/TitleScreenSystem_wrapper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AutomaticScript/TitleScreenSystem_wrapper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Materials/1panel_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Materials/1panel_C.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Materials/1panel_braced_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Materials/1panel_braced_C.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Texture Normals Maps/1panel_C.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Texture Normals Maps/1panel_C.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Textures/1panel_C.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Textures/1panel_C.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Textures/1panel_braced_C.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/TZ_Futuristic Panel Textures Lite/Textures/1panel_braced_C.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Cell.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Cell.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Coin.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Coin.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Drone.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Drone.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Robot Kyle.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Robot Kyle.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/TitleScreen.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/TitleScreen.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Systems/DoorAndConsoleManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Systems/DoorAndConsoleManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Systems/LevelGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Systems/LevelGenerator.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,15 +54,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2020.3.19f1\Editor\Unity.exe" />
@@ -63,6 +102,8 @@
       <option name="presentableId" value="Default" />
       <updated>1673702717319</updated>
       <workItem from="1673702725121" duration="650000" />
+      <workItem from="1673871309429" duration="2623000" />
+      <workItem from="1673889095352" duration="1126000" />
     </task>
     <servers />
   </component>
