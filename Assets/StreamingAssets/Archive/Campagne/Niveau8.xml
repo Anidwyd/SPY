@@ -5,11 +5,11 @@
     <func name="F8"/>
   </info>
   <map>
-    <line><cell value="1" /><cell value="1" /><cell value="1" /></line>
-    <line><cell value="1" /><cell value="3" /><cell value="1" /></line>
-    <line><cell value="1" /><cell value="0" /><cell value="1" /></line>
-    <line><cell value="1" /><cell value="0" /><cell value="1" /></line>
-    <line><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="0" /><cell value="3" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="0" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
     <line><cell value="1" /><cell value="2" /><cell value="1" /></line>
     <line><cell value="1" /><cell value="1" /><cell value="1" /></line>
 
@@ -41,10 +41,12 @@
     <blockLimit blockType="Terminal" limit="0" />
     <blockLimit blockType="Exit" limit="0" />
   </blockLimits>
-  <console state="1" posY="5" posX="1" direction="3">
+  <console state="1" posY="3" posX="1" direction="3">
     <slot slotId="0" />
+    <slot slotId="1" />
   </console>
   <door posY="2" posX="1" slotId="0" direction="0" />
+  <door posY="2" posX="3" slotId="1" direction="0" color="#ff33b8" />
   <player associatedScriptName="Bob" posY="5" posX="1" direction="0" />
   <script name="Bob" editMode="0" />
   <score twoStars="4499" threeStars="5499"/>

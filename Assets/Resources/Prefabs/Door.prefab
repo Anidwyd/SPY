@@ -522,6 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotID: 0
+  color: {r: 0, g: 0.9, b: 1, a: 1}
 --- !u!114 &6334514943062841672
 MonoBehaviour:
   m_ObjectHideFlags: 0

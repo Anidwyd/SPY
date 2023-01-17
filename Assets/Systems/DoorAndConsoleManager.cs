@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using FYFY;
 
@@ -26,9 +27,9 @@ public class DoorAndConsoleManager : FSystem {
 		GameObject go = GameObject.Find("GameData");
 		if (go != null)
 			gameData = go.GetComponent<GameData>();
+		f_gameLoaded.addEntryCallback(connectDoorsAndConsoles);
 		f_consoleOn.addEntryCallback(onNewConsoleTurnedOn); // Console will enter in this family when TurnedOn component will be added to console (see CurrentActionExecutor)
 		f_consoleOff.addEntryCallback(onNewConsoleTurnedOff); // Console will enter in this family when TurnedOn component will be removed from console (see CurrentActionExecutor)
-		f_gameLoaded.addEntryCallback(connectDoorsAndConsoles);
 		
 		f_newStep.addEntryCallback(delegate { onNewStep(); });
 	}
@@ -36,35 +37,40 @@ public class DoorAndConsoleManager : FSystem {
 	private void onNewConsoleTurnedOn(GameObject consoleGO)
     {
 		Activable activable = consoleGO.GetComponent<Activable>();
-		activable.currentPath = 0;
+		activable.currDoorPath = 0;
 		updatePath(activable, true);
 	}
 
 	private void onNewConsoleTurnedOff(GameObject consoleGO)
 	{
 		Activable activable = consoleGO.GetComponent<Activable>();
-		activable.currentPath = 0;
+		activable.currDoorPath = 0;
 		updatePath(activable, false);
 	}
 
 	private void updatePath(Activable activable, bool state)
 	{
-		// parse all slot controled by this console
-		foreach (int id in activable.slotID)
+		// parse all slots controled by this console
+		foreach (int slotId in activable.slotID)
 		{
 			// parse all doors
 			foreach (GameObject slotGo in f_door)
 			{
-				int pathId = activable.currentPath;
-				updatePathColor(id, pathId, state);
+				int currDoorPath = activable.currDoorPath;
+				updatePathColor(slotId, currDoorPath, state);
 				
 				// if slots are equals => activate / disable door
-				if (slotGo.GetComponent<ActivationSlot>().slotID == id && pathId == activable.pathLength - 1)
+				int length;
+				if (!activable.lengths.TryGetValue(slotId, out length))
+					continue;
+				
+				if (slotGo.GetComponent<ActivationSlot>().slotID == slotId  && currDoorPath == length - 1)
 				{
-					// hide door
-					slotGo.transform.parent.GetComponent<AudioSource>().Play();
-					slotGo.transform.parent.GetComponent<Animator>().SetTrigger(state ? "Close" : "Open");
-					slotGo.transform.parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
+					// show / hide door
+					Transform parent = slotGo.transform.parent;
+					parent.GetComponent<AudioSource>().Play();
+					parent.GetComponent<Animator>().SetTrigger(state ? "Close" : "Open");
+					parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
 				}
 			}
 		}
@@ -77,8 +83,11 @@ public class DoorAndConsoleManager : FSystem {
 		    DoorPath doorPath = path.GetComponent<DoorPath>();
 			if (doorPath.slotId == slotId && doorPath.pathId == pathId)
 				foreach (SpriteRenderer sr in path.GetComponentsInChildren<SpriteRenderer>())
-					sr.color = state ? pathOn : pathOff;
+					sr.color = state ? doorPath.color : pathOff;
 	    }
+	  // DoorPath path = activable.paths[slotId][pathId];
+	  // foreach (SpriteRenderer sr in path.GetComponentsInChildren<SpriteRenderer>())
+		 //  sr.color = state ? path.color : pathOff;
     }
 
 	private void connectDoorsAndConsoles(GameObject unused)
@@ -97,38 +106,51 @@ public class DoorAndConsoleManager : FSystem {
 				if (consoleSlots.slotID.Contains(doorSlot.slotID))
 				{
 					// Connect this console with this door
+					int length = 0;
 					Position consolePos = console.GetComponent<Position>();
 					int xStep = consolePos.x < doorPos.x ? 1 : (consolePos.x == doorPos.x ? 0 : -1);
 					int yStep = consolePos.y < doorPos.y ? 1 : (consolePos.y == doorPos.y ? 0 : -1);
+					
 					int x = 0;
-					int id = 0;
 					while (consolePos.x + x != doorPos.x)
 					{
 						GameObject path = Object.Instantiate<GameObject>(doorPathPrefab, gameData.LevelGO.transform.position + new Vector3(consolePos.y * 3, 3, (consolePos.x + x + xStep / 2f) * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
 						path.transform.Find("West").gameObject.SetActive(true);
 						path.transform.Find("East").gameObject.SetActive(true);
-						path.GetComponent<DoorPath>().slotId = doorSlot.slotID;
-						path.GetComponent<DoorPath>().pathId = id++;
+						
+						DoorPath doorPath = path.GetComponent<DoorPath>();
+						doorPath.slotId = doorSlot.slotID;
+						doorPath.pathId = length++;
+						doorPath.color = doorSlot.color;
+						
 						foreach (SpriteRenderer sr in path.GetComponentsInChildren<SpriteRenderer>())
-							sr.color = isOn ? pathOn : pathOff;
+							sr.color = isOn ? doorPath.color : pathOff;
+						
 						GameObjectManager.bind(path);
-						x = x + xStep;
+						x += xStep;
 					}
+					
 					int y = 0;
 					while (consolePos.y + y != doorPos.y)
 					{
 						GameObject path = Object.Instantiate<GameObject>(doorPathPrefab, gameData.LevelGO.transform.position + new Vector3((consolePos.y + y + yStep / 2f) * 3, 3, (consolePos.x + x) * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
 						path.transform.Find("South").gameObject.SetActive(true);
 						path.transform.Find("North").gameObject.SetActive(true);
-						path.GetComponent<DoorPath>().slotId = doorSlot.slotID;
-						path.GetComponent<DoorPath>().pathId = id++;
+						
+						DoorPath doorPath = path.GetComponent<DoorPath>();
+						doorPath.slotId = doorSlot.slotID;
+						doorPath.pathId = length++;
+						doorPath.color = doorSlot.color;
+
 						foreach (SpriteRenderer sr in path.GetComponentsInChildren<SpriteRenderer>())
-							sr.color = isOn ? pathOn : pathOff;
+							sr.color = isOn ? doorPath.color : pathOff;
+						
 						GameObjectManager.bind(path);
-						y = y + yStep;
+						y += yStep;
 					}
 
-					consoleSlots.pathLength = id;
+					consoleSlots.lengths.Add(doorSlot.slotID, length);
+					Debug.Log("oui");
 				}
 
             }
@@ -139,16 +161,14 @@ public class DoorAndConsoleManager : FSystem {
 		foreach (GameObject console in f_consoleOn)
 		{
 			Activable activable = console.GetComponent<Activable>();
-			if (activable.currentPath > activable.pathLength) continue;
-			activable.currentPath++;
+			activable.currDoorPath++;
 			updatePath(activable, true);
 		}
 		
 		foreach (GameObject console in f_consoleOff)
 		{
 			Activable activable = console.GetComponent<Activable>();
-			if (activable.currentPath > activable.pathLength) continue;
-			activable.currentPath++;
+			activable.currDoorPath++;
 			updatePath(activable, false);
 		}
 	}

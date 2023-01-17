@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System.Collections;
+using System.Linq;
 using UnityEngine.Networking;
 using System.Runtime.InteropServices;
 
@@ -126,8 +127,11 @@ public class LevelGenerator : FSystem {
 					readXMLConsole(child);
 					break;
 				case "door":
+					XmlNode color = child.Attributes.GetNamedItem("color");
+					string hex = color != null && color.Value != "" ? color.Value : "#06E5FF";
+					
 					createDoor(int.Parse(child.Attributes.GetNamedItem("posX").Value), int.Parse(child.Attributes.GetNamedItem("posY").Value),
-					(Direction.Dir)int.Parse(child.Attributes.GetNamedItem("direction").Value), int.Parse(child.Attributes.GetNamedItem("slotId").Value));
+					(Direction.Dir)int.Parse(child.Attributes.GetNamedItem("direction").Value), int.Parse(child.Attributes.GetNamedItem("slotId").Value), hex);
 					break;
 				case "player":
 				case "enemy":
@@ -140,7 +144,7 @@ public class LevelGenerator : FSystem {
 					if (agentName != null && agentName.Value != "")
 						nameAgentByUser = agentName.Value;
 
-					string hexColor = (agentColor != null && agentName.Value != "") ? agentColor.Value : "#20CC53";
+					string hexColor = agentColor != null && agentColor.Value != "" ? agentColor.Value : "#20CC53";
 
 					ColorUtility.TryParseHtmlString(hexColor, out colorAgentByUser);
 					
@@ -312,13 +316,21 @@ public class LevelGenerator : FSystem {
 		return entity;
 	}
 
-	private void createDoor(int gridX, int gridY, Direction.Dir orientation, int slotID){
+	private void createDoor(int gridX, int gridY, Direction.Dir orientation, int slotID, string hex){
 		GameObject door = Object.Instantiate<GameObject>(Resources.Load ("Prefabs/Door") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY*3,3,gridX*3), Quaternion.Euler(0,0,0), gameData.LevelGO.transform);
 
+		Color doorColor;
+		ColorUtility.TryParseHtmlString(hex, out doorColor);
+		
 		door.GetComponentInChildren<ActivationSlot>().slotID = slotID;
+		door.GetComponentInChildren<ActivationSlot>().color = doorColor;
 		door.GetComponentInChildren<Position>().x = gridX;
 		door.GetComponentInChildren<Position>().y = gridY;
 		door.GetComponentInChildren<Direction>().direction = orientation;
+
+		doorColor.a = 0.4f;
+		door.GetComponentInChildren<Renderer>().material.color = doorColor;
+		
 		GameObjectManager.bind(door);
 	}
 
@@ -332,14 +344,14 @@ public class LevelGenerator : FSystem {
 		GameObjectManager.bind(decoration);
 	}
 
-	private void createConsole(int state, int gridX, int gridY, List<int> slotIDs, Direction.Dir orientation)
+	private void createConsole(int state, int gridX, int gridY, List<int> slotsID, Direction.Dir orientation)
 	{
 		GameObject activable = Object.Instantiate<GameObject>(Resources.Load("Prefabs/ActivableConsole") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
 
-		activable.GetComponent<Activable>().slotID = slotIDs;
+		activable.GetComponent<Activable>().slotID = slotsID;
 		DoorPath path = activable.GetComponentInChildren<DoorPath>();
-		if (slotIDs.Count > 0)
-			path.slotId = slotIDs[0];
+		if (slotsID.Count > 0)
+			path.slotId = slotsID[0];
 		else
 			path.slotId = -1;
 		activable.GetComponent<Position>().x = gridX;
@@ -436,15 +448,18 @@ public class LevelGenerator : FSystem {
 		}
 	}
 
-	private void readXMLConsole(XmlNode activableNode){
+	private void readXMLConsole(XmlNode activableNode)
+	{
 		List<int> slotsID = new List<int>();
 
-		foreach(XmlNode child in activableNode.ChildNodes){
-			slotsID.Add(int.Parse(child.Attributes.GetNamedItem("slotId").Value));
+		foreach(XmlNode child in activableNode.ChildNodes)
+		{
+			int slotId = int.Parse(child.Attributes.GetNamedItem("slotId").Value); 
+			slotsID.Add(slotId);
 		}
 
 		createConsole(int.Parse(activableNode.Attributes.GetNamedItem("state").Value), int.Parse(activableNode.Attributes.GetNamedItem("posX").Value), int.Parse(activableNode.Attributes.GetNamedItem("posY").Value),
-		 slotsID, (Direction.Dir)int.Parse(activableNode.Attributes.GetNamedItem("direction").Value));
+			slotsID, (Direction.Dir)int.Parse(activableNode.Attributes.GetNamedItem("direction").Value));
 	}
 
 	// Lit le XML d'un script est génère les game objects des instructions
