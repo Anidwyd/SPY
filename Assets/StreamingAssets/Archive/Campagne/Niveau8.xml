@@ -14,16 +14,16 @@
     <line><cell value="1" /><cell value="1" /><cell value="1" /></line>
 
   </map>
-  <dialogs>
+  <!-- <dialogs>
 	<dialog text="Une porte bloque le chemin !&#xA;Il devrait y avoir un moyen de la désactiver..." />
 	<dialog text="Regarde là-bas ! Il y a un terminal.&#xA;Essaye donc de l'activer avec l'action activer." img="ActivateIcon.png"/>
 	<dialog text="Tu n'as pas besoin de te tourner pour activer un terminal."  img="terminalRobot.png"/>
-  </dialogs>
+  </dialogs> -->
   <blockLimits>
     <blockLimit blockType="Forward" limit="-1" />
     <blockLimit blockType="TurnLeft" limit="-1" />
     <blockLimit blockType="TurnRight" limit="-1" />
-    <blockLimit blockType="Wait" limit="0" />
+    <blockLimit blockType="Wait" limit="-1" />
     <blockLimit blockType="Activate" limit="-1" />
     <blockLimit blockType="TurnBack" limit="0" />
     <blockLimit blockType="IfThen" limit="0" />
@@ -41,7 +41,7 @@
     <blockLimit blockType="Terminal" limit="0" />
     <blockLimit blockType="Exit" limit="0" />
   </blockLimits>
-  <console state="1" posY="3" posX="1" direction="3">
+  <console state="1" posY="5" posX="1" direction="3">
     <slot slotId="0" />
   </console>
   <door posY="2" posX="1" slotId="0" direction="0" />
