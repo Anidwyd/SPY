@@ -61,22 +61,31 @@ public class HighLightSystem : FSystem {
 		{
 			go.GetComponent<Image>().color = MainLoop.instance.GetComponent<AgentColor>().currentActionColor;
 			Transform parent = go.transform.parent;
+
 			while (parent != null)
             {
 				if (parent.GetComponent<ForControl>() || parent.GetComponent<ForeverControl>())
-					parent.transform.GetChild(0).GetComponent<Image>().color = MainLoop.instance.GetComponent<AgentColor>().currentActionColor;
+					parent.transform.GetComponentInChildren<Image>().color = MainLoop.instance.GetComponent<AgentColor>().currentActionColor;
 				parent = parent.parent;
 			}
 		}
+		
 		// second manage sensitive UI inside editable panel
 		else if(go.GetComponent<BaseElement>() && go.GetComponent<PointerOver>())
 			go.GetComponent<Image>().color = go.GetComponent<BaseElement>().highlightedColor;
+		
 		// third sensitive UI inside library panel
 		else if (go.GetComponent<ElementToDrag>() && go.GetComponent<PointerOver>())
 			go.GetComponent<Image>().color = go.GetComponent<Highlightable>().highlightedColor;
+		
 		// then process world GameObjects (Walls, drone, robots...)
-		else if (go.GetComponentInChildren<Renderer>(true)){
-			go.GetComponentInChildren<Renderer>(true).material.color = go.GetComponent<Highlightable>().highlightedColor;
+		else if (go.GetComponentInChildren<Renderer>(true))
+		{
+			// go.GetComponentInChildren<Renderer>(true).material.color = go.GetComponent<Highlightable>().highlightedColor;
+			Color highlightedColor = go.GetComponent<Highlightable>().highlightedColor;
+			foreach (Renderer r in go.GetComponentsInChildren<Renderer>())
+				r.material.color = highlightedColor;
+
 			if(go.GetComponent<ScriptRef>()){
 				Image img = go.GetComponent<ScriptRef>().executablePanel.transform.Find("Scroll View").GetComponent<Image>();
 				img.color = img.GetComponent<Highlightable>().highlightedColor;
@@ -96,12 +105,18 @@ public class HighLightSystem : FSystem {
 				parent = parent.parent;
 			}
 		}
+        
 		// the case of item inside library panel
 		else if (go.GetComponent<ElementToDrag>())
 			go.GetComponent<Image>().color = go.GetComponent<Highlightable>().baseColor;
+        
 		// the case of world GameObjects (robot, ground...)
 		else if (go.GetComponentInChildren<Renderer>(true)){
-			go.GetComponentInChildren<Renderer>(true).material.color = go.GetComponent<Highlightable>().baseColor;
+			// go.GetComponentInChildren<Renderer>(true).material.color = go.GetComponent<Highlightable>().baseColor;
+	        Color baseColor = go.GetComponent<Highlightable>().baseColor;
+	        foreach (Renderer r in go.GetComponentsInChildren<Renderer>())
+				r.material.color = baseColor;
+
 			if(go.GetComponent<ScriptRef>()){
 				Image img = go.GetComponent<ScriptRef>().executablePanel.transform.Find("Scroll View").GetComponent<Image>();
 				img.color = img.GetComponent<Highlightable>().baseColor;

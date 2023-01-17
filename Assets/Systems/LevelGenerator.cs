@@ -132,10 +132,19 @@ public class LevelGenerator : FSystem {
 				case "player":
 				case "enemy":
 					string nameAgentByUser = "";
+					Color colorAgentByUser;
+					
 					XmlNode agentName = child.Attributes.GetNamedItem("associatedScriptName");
+					XmlNode agentColor = child.Attributes.GetNamedItem("color");
+					
 					if (agentName != null && agentName.Value != "")
 						nameAgentByUser = agentName.Value;
-					GameObject agent = createEntity(nameAgentByUser, int.Parse(child.Attributes.GetNamedItem("posX").Value), int.Parse(child.Attributes.GetNamedItem("posY").Value),
+
+					string hexColor = (agentColor != null && agentName.Value != "") ? agentColor.Value : "#20CC53";
+
+					ColorUtility.TryParseHtmlString(hexColor, out colorAgentByUser);
+					
+					GameObject agent = createEntity(nameAgentByUser, colorAgentByUser, int.Parse(child.Attributes.GetNamedItem("posX").Value), int.Parse(child.Attributes.GetNamedItem("posY").Value),
 					(Direction.Dir)int.Parse(child.Attributes.GetNamedItem("direction").Value), child.Name);
 					if (child.Name == "enemy")
 					{
@@ -227,14 +236,14 @@ public class LevelGenerator : FSystem {
 	}
 
 	// Créer une entité agent ou robot et y associer un panel container
-	private GameObject createEntity(string nameAgent, int gridX, int gridY, Direction.Dir direction, string type){
+	private GameObject createEntity(string nameAgent, Color agentColor, int gridX, int gridY, Direction.Dir direction, string type){
 		GameObject entity = null;
 		switch(type){
-			case "player": // Robot
-				entity = Object.Instantiate<GameObject>(Resources.Load ("Prefabs/Player") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY*3,1.5f,gridX*3), Quaternion.Euler(0,0,0), gameData.LevelGO.transform);
+			case "player": // Player
+				entity = Object.Instantiate(Resources.Load ("Prefabs/Player") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY*3,1.5f,gridX*3), Quaternion.Euler(0,0,0), gameData.LevelGO.transform);
 				break;
 			case "enemy": // Enemy
-				entity = Object.Instantiate<GameObject>(Resources.Load ("Prefabs/Enemy") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY*3,1.5f,gridX*3), Quaternion.Euler(0,0,0), gameData.LevelGO.transform);
+				entity = Object.Instantiate(Resources.Load ("Prefabs/Enemy") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY*3,1.5f,gridX*3), Quaternion.Euler(0,0,0), gameData.LevelGO.transform);
 				break;
 		}
 
@@ -263,9 +272,19 @@ public class LevelGenerator : FSystem {
 				agentEdit.associatedScriptName = nameAgent;
 			else
 				agentEdit.associatedScriptName = "Agent" + nbAgentCreate;
+			
+			// On colore l'agent
+			foreach (Renderer renderer in entity.GetComponentsInChildren<Renderer>())
+				renderer.material.color = agentColor;
 
 			// Chargement de l'icône de l'agent sur la localisation
-			executablePanel.transform.Find("Header").Find("locateButton").GetComponentInChildren<Image>().sprite = Resources.Load("UI Images/robotIcon", typeof(Sprite)) as Sprite;
+			Image locateButton = executablePanel.transform.Find("Header").Find("locateButton")
+				.GetComponentInChildren<Image>();
+			locateButton.sprite = Resources.Load("UI Images/playerIcon", typeof(Sprite)) as Sprite;
+
+			Color.RGBToHSV(agentColor, out var h, out var s, out _);
+			locateButton.color = Color.HSVToRGB(h, s, 1f);
+			
 			// Affichage du nom de l'agent
 			executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = entity.GetComponent<AgentEdit>().associatedScriptName;
 		}
@@ -282,7 +301,10 @@ public class LevelGenerator : FSystem {
 		}
 
 		AgentColor ac = MainLoop.instance.GetComponent<AgentColor>();
-		scriptref.executablePanel.transform.Find("Scroll View").GetComponent<Image>().color = (type == "player" ? ac.playerBackground : ac.droneBackground);
+		scriptref.executablePanel.transform.Find("Scroll View").GetComponent<Image>().color = type == "player" ? ac.playerBackground : ac.droneBackground;
+
+		// scriptref.executablePanel.transform.Find("Scroll View").GetComponent<Image>().color = agentColor;
+		
 
 		executablePanel.SetActive(false);
 		GameObjectManager.bind(executablePanel);
@@ -362,7 +384,7 @@ public class LevelGenerator : FSystem {
 	}
 
 	private void eraseMap(){
-		foreach( GameObject go in f_level){
+		foreach(GameObject go in f_level){
 			GameObjectManager.unbind(go.gameObject);
 			Object.Destroy(go.gameObject);
 		}
