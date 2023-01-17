@@ -19,7 +19,6 @@ public class DoorAndConsoleManager : FSystem {
 	private GameData gameData;
 
 	public GameObject doorPathPrefab;
-	public Color pathOn;
 	public Color pathOff;
 
 	protected override void onStart()
@@ -36,42 +35,43 @@ public class DoorAndConsoleManager : FSystem {
 
 	private void onNewConsoleTurnedOn(GameObject consoleGO)
     {
-		Activable activable = consoleGO.GetComponent<Activable>();
-		activable.currDoorPath = 0;
-		updatePath(activable, true);
+	    consoleGO.GetComponent<Activable>().currDoorPath = 0;
+		updatePath(consoleGO, true);
 	}
 
 	private void onNewConsoleTurnedOff(GameObject consoleGO)
 	{
-		Activable activable = consoleGO.GetComponent<Activable>();
-		activable.currDoorPath = 0;
-		updatePath(activable, false);
+		consoleGO.GetComponent<Activable>().currDoorPath = 0;
+		updatePath(consoleGO, false);
 	}
 
-	private void updatePath(Activable activable, bool state)
+	private void updatePath(GameObject consoleGO, bool state)
 	{
+		Activable activable = consoleGO.GetComponent<Activable>();
+		
 		// parse all slots controled by this console
 		foreach (int slotId in activable.slotID)
 		{
 			// parse all doors
-			foreach (GameObject slotGo in f_door)
+			foreach (GameObject door in f_door)
 			{
 				int currDoorPath = activable.currDoorPath;
 				updatePathColor(slotId, currDoorPath, state);
 				
+				if (!activable.lengths.TryGetValue(slotId, out var length))
+					continue;
+
 				// if slots are equals => activate / disable door
-				int length;
-				if (!activable.lengths.TryGetValue(slotId, out length))
+				if (door.GetComponent<ActivationSlot>().slotID != slotId || currDoorPath != length - 1)
 					continue;
 				
-				if (slotGo.GetComponent<ActivationSlot>().slotID == slotId  && currDoorPath == length - 1)
-				{
-					// show / hide door
-					Transform parent = slotGo.transform.parent;
-					parent.GetComponent<AudioSource>().Play();
-					parent.GetComponent<Animator>().SetTrigger(state ? "Close" : "Open");
-					parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
-				}
+				// show / hide door
+				Transform parent = door.transform.parent;
+				parent.GetComponent<AudioSource>().Play();
+				parent.GetComponent<Animator>().SetTrigger(state ? "Close" : "Open");
+				parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
+					
+				// GameObjectManager.unbind(consoleGO);
 			}
 		}
 	}
@@ -97,6 +97,7 @@ public class DoorAndConsoleManager : FSystem {
         {
 			Position doorPos = door.GetComponent<Position>();
 			ActivationSlot doorSlot = door.GetComponent<ActivationSlot>();
+			
 			// Parse all consoles
 			foreach(GameObject console in f_console)
             {
@@ -160,16 +161,14 @@ public class DoorAndConsoleManager : FSystem {
 	private void onNewStep(){
 		foreach (GameObject console in f_consoleOn)
 		{
-			Activable activable = console.GetComponent<Activable>();
-			activable.currDoorPath++;
-			updatePath(activable, true);
+			console.GetComponent<Activable>().currDoorPath++;
+			updatePath(console, true);
 		}
 		
 		foreach (GameObject console in f_consoleOff)
 		{
-			Activable activable = console.GetComponent<Activable>();
-			activable.currDoorPath++;
-			updatePath(activable, false);
+			console.GetComponent<Activable>().currDoorPath++;
+			updatePath(console, false);
 		}
 	}
 }

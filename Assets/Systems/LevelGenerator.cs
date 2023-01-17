@@ -359,6 +359,7 @@ public class LevelGenerator : FSystem {
 		activable.GetComponent<Direction>().direction = orientation;
 		if (state == 1)
 			activable.AddComponent<TurnedOn>();
+		
 		GameObjectManager.bind(activable);
 	}
 
