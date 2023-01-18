@@ -43,7 +43,7 @@ public class DoorAndConsoleManager : FSystem {
 		updatePath(consoleGO, false);
 	}
 	
-	private void updatePath(GameObject consoleGO, bool state)
+	private void updatePath(GameObject consoleGO, bool isOn)
 	{
 		Actionable actionable = consoleGO.GetComponent<Actionable>();
 		
@@ -53,7 +53,7 @@ public class DoorAndConsoleManager : FSystem {
 			DoorPath path = actionable.paths[slotId];
 			
 			int sinceActivation = actionable.sinceActivation;
-			updatePathColor(path, sinceActivation, state);
+			updatePathColor(path, sinceActivation, isOn);
 			
 			// check if signal arrived to door slot
 			if (path.door == null || sinceActivation != path.length - 1)
@@ -62,23 +62,23 @@ public class DoorAndConsoleManager : FSystem {
 			// show / hide door
 			Transform parent = path.door.transform.parent;
 			parent.GetComponent<AudioSource>().Play();
-			parent.GetComponent<Animator>().SetTrigger(state ? "Close" : "Open");
+			parent.GetComponent<Animator>().SetTrigger(isOn ? "Close" : "Open");
 			parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
 		}
 	}
 
-	private void updatePathColor(DoorPath doorPath, int sinceActivation, bool state)
+	private void updatePathColor(DoorPath doorPath, int sinceActivation, bool isOn)
     {
 	   if (sinceActivation >= doorPath.length)
 		   return;
 
-	   updateUnitColor(doorPath.units[sinceActivation], state);
+	   updateUnitColor(doorPath.units[sinceActivation], isOn);
     }
 
-	private void updateUnitColor(PathUnit unit, bool state)
+	private void updateUnitColor(PathUnit unit, bool isOn)
 	{
 		foreach (SpriteRenderer sr in unit.GetComponentsInChildren<SpriteRenderer>()) 
-			sr.color = state ? unit.colorOn : unit.colorOff;
+			sr.color = isOn ? unit.colorOn : unit.colorOff;
 	}
 
 	private void connectDoorsAndConsoles(GameObject unused)
@@ -109,18 +109,14 @@ public class DoorAndConsoleManager : FSystem {
 					int x = 0;
 					while (consolePos.x + x != doorPos.x)
 					{
-						string[] dirs = { "West", "East" };
-						createPathUnit(doorPath, doorSlot.color, consolePos.y, consolePos.x + x + xStep / 2f, dirs, isOn);
-
+						createPathUnit(doorPath, doorSlot.color, consolePos.y, consolePos.x + x + xStep / 2f, new [] { "West", "East" }, isOn);
 						x += xStep;
 					}
 					
 					int y = 0;
 					while (consolePos.y + y != doorPos.y)
 					{
-						string[] dirs = { "South", "North" };
-						createPathUnit(doorPath, doorSlot.color, consolePos.y + y + yStep / 2f, consolePos.x + x, dirs, isOn);
-
+						createPathUnit(doorPath, doorSlot.color, consolePos.y + y + yStep / 2f, consolePos.x + x, new [] { "South", "North" }, isOn);
 						y += yStep;
 					}
 
@@ -133,7 +129,7 @@ public class DoorAndConsoleManager : FSystem {
 
 	private void createPathUnit(DoorPath path, Color color, float gridX, float gridY, string[] dirs, bool state)
 	{
-		GameObject pathGo = Object.Instantiate<GameObject>(pathUnitPrefab, gameData.LevelGO.transform.position + new Vector3(gridX * 3, 3, gridY * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
+		GameObject pathGo = Object.Instantiate<GameObject>(pathUnitPrefab, gameData.LevelGO.transform.position + new Vector3(gridX * 3, 3, gridY * 3), Quaternion.identity, gameData.LevelGO.transform);
 		pathGo.transform.Find(dirs[0]).gameObject.SetActive(true);
 		pathGo.transform.Find(dirs[1]).gameObject.SetActive(true);
 						
