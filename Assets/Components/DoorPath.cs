@@ -1,8 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorPath : MonoBehaviour {
-	// Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
-	public int slotId;
-	public int pathId;
-	public Color color;
+public class DoorPath : MonoBehaviour
+{
+    public int slotID;
+    public int step;
+    public int offset;
+    public int length;
+
+    public GameObject door;
+
+    public List<PathUnit> units;
 }

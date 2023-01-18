@@ -25,9 +25,9 @@ public class SaveContent {
     {
         public List<int> slotID;
         public bool state;
-        public RawActivable(Activable act)
+        public RawActivable(Actionable act)
         {
-            slotID = new List<int>(act.slotID);
+            slotID = new List<int>(act.slotsID);
             state = act.GetComponent<TurnedOn>();
         }
     }

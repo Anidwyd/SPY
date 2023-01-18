@@ -344,23 +344,22 @@ public class LevelGenerator : FSystem {
 		GameObjectManager.bind(decoration);
 	}
 
-	private void createConsole(int state, int gridX, int gridY, List<int> slotsID, Direction.Dir orientation)
+	private void createConsole(int state, int gridX, int gridY, List<int> slotsID, Dictionary<int, DoorPath> paths, Direction.Dir orientation)
 	{
-		GameObject activable = Object.Instantiate<GameObject>(Resources.Load("Prefabs/ActivableConsole") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
-
-		activable.GetComponent<Activable>().slotID = slotsID;
-		DoorPath path = activable.GetComponentInChildren<DoorPath>();
-		if (slotsID.Count > 0)
-			path.slotId = slotsID[0];
-		else
-			path.slotId = -1;
-		activable.GetComponent<Position>().x = gridX;
-		activable.GetComponent<Position>().y = gridY;
-		activable.GetComponent<Direction>().direction = orientation;
-		if (state == 1)
-			activable.AddComponent<TurnedOn>();
+		GameObject console = Object.Instantiate<GameObject>(Resources.Load("Prefabs/ActivableConsole") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
 		
-		GameObjectManager.bind(activable);
+		Actionable actionable = console.GetComponent<Actionable>();
+		actionable.slotsID = slotsID;
+		actionable.paths = paths;
+		
+		console.GetComponent<Position>().x = gridX;
+		console.GetComponent<Position>().y = gridY;
+		console.GetComponent<Direction>().direction = orientation;
+		
+		if (state == 1)
+			console.AddComponent<TurnedOn>();
+		
+		GameObjectManager.bind(console);
 	}
 
 	private void createSpawnExit(int gridX, int gridY, bool type){
@@ -452,15 +451,31 @@ public class LevelGenerator : FSystem {
 	private void readXMLConsole(XmlNode activableNode)
 	{
 		List<int> slotsID = new List<int>();
+		Dictionary<int, DoorPath> paths = new Dictionary<int, DoorPath>();
+
+		int gridX = int.Parse(activableNode.Attributes.GetNamedItem("posX").Value);
+		int gridY = int.Parse(activableNode.Attributes.GetNamedItem("posY").Value);
+		Direction.Dir direction = (Direction.Dir)int.Parse(activableNode.Attributes.GetNamedItem("direction").Value);
 
 		foreach(XmlNode child in activableNode.ChildNodes)
 		{
-			int slotId = int.Parse(child.Attributes.GetNamedItem("slotId").Value); 
-			slotsID.Add(slotId);
+			GameObject path = Object.Instantiate<GameObject>(Resources.Load ("Prefabs/DoorPath") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY*3, 1.5f,gridX*3), Quaternion.identity, gameData.LevelGO.transform);
+			DoorPath doorPath = path.GetComponent<DoorPath>();
+			
+			int slotID = int.Parse(child.Attributes.GetNamedItem("slotId").Value);
+			XmlNode step = child.Attributes.GetNamedItem("step");
+			XmlNode offset = child.Attributes.GetNamedItem("offset");
+			
+			doorPath.slotID = slotID;
+			doorPath.step = step == null ? 0 : int.Parse(step.Value);
+			doorPath.offset = offset == null ? 0 : int.Parse(offset.Value);
+			
+			slotsID.Add(slotID);
+			paths.Add(slotID, doorPath);
 		}
 
-		createConsole(int.Parse(activableNode.Attributes.GetNamedItem("state").Value), int.Parse(activableNode.Attributes.GetNamedItem("posX").Value), int.Parse(activableNode.Attributes.GetNamedItem("posY").Value),
-			slotsID, (Direction.Dir)int.Parse(activableNode.Attributes.GetNamedItem("direction").Value));
+		createConsole(int.Parse(activableNode.Attributes.GetNamedItem("state").Value), gridX, gridY,
+			slotsID, paths, direction);
 	}
 
 	// Lit le XML d'un script est génère les game objects des instructions

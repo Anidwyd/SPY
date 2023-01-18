@@ -10,7 +10,7 @@ public class GameStateManager : FSystem {
     private Family f_coins = FamilyManager.getFamily(new AnyOfTags("Coin"));
     private Family f_directions = FamilyManager.getFamily(new AllOfComponents(typeof(Direction)), new NoneOfComponents(typeof(Detector)));
     private Family f_positions = FamilyManager.getFamily(new AllOfComponents(typeof(Position)), new NoneOfComponents(typeof(Detector)));
-    private Family f_activables = FamilyManager.getFamily(new AllOfComponents(typeof(Activable)));
+    private Family f_activables = FamilyManager.getFamily(new AllOfComponents(typeof(Actionable)));
     private Family f_currentActions = FamilyManager.getFamily(new AllOfComponents(typeof(CurrentAction)));
     private Family f_forControls = FamilyManager.getFamily(new AllOfComponents(typeof(ForControl)));
 
@@ -51,7 +51,7 @@ public class GameStateManager : FSystem {
             save.rawSave.positions.Add(new SaveContent.RawPosition(pos.GetComponent<Position>()));
         save.rawSave.activables.Clear();
         foreach (GameObject act in f_activables)
-            save.rawSave.activables.Add(new SaveContent.RawActivable(act.GetComponent<Activable>()));
+            save.rawSave.activables.Add(new SaveContent.RawActivable(act.GetComponent<Actionable>()));
         save.rawSave.currentDroneActions.Clear();    
         foreach(GameObject go in f_currentActions)
             if(go.GetComponent<CurrentAction>().agent.CompareTag("Drone"))
@@ -87,13 +87,13 @@ public class GameStateManager : FSystem {
             Position pos = f_positions.getAt(i).GetComponent<Position>();
             pos.x = save.rawSave.positions[i].x;
             pos.y = save.rawSave.positions[i].y;
-            // Téléport object to the right position
+            // Tï¿½lï¿½port object to the right position
             pos.transform.position = level.transform.position + new Vector3(pos.y * 3, pos.transform.position.y - level.transform.position.y, pos.x * 3);
         }
         for (int i = 0; i < f_activables.Count && i < save.rawSave.activables.Count; i++)
         {
-            Activable act = f_activables.getAt(i).GetComponent<Activable>();
-            act.slotID = save.rawSave.activables[i].slotID;
+            Actionable act = f_activables.getAt(i).GetComponent<Actionable>();
+            act.slotsID = save.rawSave.activables[i].slotID;
             if (save.rawSave.activables[i].state)
             {
                 if (act.GetComponent<TurnedOn>() == null)
