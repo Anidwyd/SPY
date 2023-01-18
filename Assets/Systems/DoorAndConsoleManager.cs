@@ -50,9 +50,16 @@ public class DoorAndConsoleManager : FSystem {
 		if (!slotsConnected) return;
 		
 		Actionable actionable = console.GetComponent<Actionable>();
-		actionable.connected = true;
-		actionable.sinceActivation = 0;
+		resetConsole(actionable);
 		updatePath(actionable, isOn);
+	}
+
+	private void resetConsole(Actionable console)
+	{
+		console.connected = true;
+		console.sinceActivation = 0;
+		foreach (DoorPath path in console.paths.Values)
+			path.pointer = 0;
 	}
 	
 	private void updatePath(Actionable actionable, bool isOn)
@@ -63,15 +70,18 @@ public class DoorAndConsoleManager : FSystem {
 			DoorPath path = actionable.paths[slotId];
 			
 			int sinceActivation = actionable.sinceActivation;
-			int unitID = sinceActivation - path.offset;
-			
-			if (unitID < 0 || sinceActivation >= path.duration + path.offset)
-				continue;
-			
-			updateUnitColor(path.units[unitID], isOn);
+
+			// check if propagation can start or continue
+			if (sinceActivation < path.offset || sinceActivation >= path.duration + path.offset) continue;
+
+			int lastPos = (int)path.pointer;
+			path.pointer += path.step;
+
+			for (int i = lastPos; i < (int) path.pointer; i++)
+				updateUnitColor(path.units[i], isOn);
 			
 			// check if signal arrived to door slot
-			if (path.door == null || sinceActivation != path.duration + path.offset - 1)
+			if (path.door == null || path.pointer < path.length)
 				continue;
 			
 			// show / hide door
@@ -90,38 +100,42 @@ public class DoorAndConsoleManager : FSystem {
 
 	private void connectDoorsAndConsoles(GameObject unused)
     {
-		// Parse all doors
-		foreach (GameObject door in f_door)
+	    string[] xDirs = { "West", "East" }, yDirs = { "South", "North" };
+	    
+	    // Parse all consoles
+		foreach(GameObject console in f_console)
         {
-			Position doorPos = door.GetComponent<Position>();
-			ActivationSlot doorSlot = door.GetComponent<ActivationSlot>();
-			
-			// Parse all consoles
-			foreach(GameObject console in f_console)
-            {
+	        Position consolePos = console.GetComponent<Position>();
+	        Actionable actionable = console.GetComponent<Actionable>();
+	        bool isOn = console.GetComponent<TurnedOn>() != null;
+	        
+			// Parse all doors
+			foreach (GameObject door in f_door)
+	        {
+				Position doorPos = door.GetComponent<Position>();
+				ActivationSlot doorSlot = door.GetComponent<ActivationSlot>();
+				
 				// Check if door is controlled by this console
-				Actionable actionable = console.GetComponent<Actionable>();
-				bool isOn = console.GetComponent<TurnedOn>() != null;
-
 				if (!actionable.paths.ContainsKey(doorSlot.slotID)) continue;
 				
-				DoorPath doorPath = actionable.paths[doorSlot.slotID];
-				doorPath.door = door;
+				// Build the path
+				DoorPath path = actionable.paths[doorSlot.slotID];
+				path.door = door;
 					
 				// Connect this console with this door
-				Position consolePos = console.GetComponent<Position>();
 				int xStep = consolePos.x < doorPos.x ? 1 : consolePos.x == doorPos.x ? 0 : -1;
 				int yStep = consolePos.y < doorPos.y ? 1 : consolePos.y == doorPos.y ? 0 : -1;
-
 				int x, y;
-				string[] xDirs = { "West", "East" }, yDirs = { "South", "North" };
 				
 				for (x = 0; consolePos.x + x != doorPos.x; x += xStep)
-					createPathUnit(doorPath, doorSlot.color, consolePos.y, consolePos.x + x + xStep / 2f, xDirs, isOn);
+					createPathUnit(path, doorSlot.color, consolePos.y, consolePos.x + x + xStep / 2f, xDirs, isOn);
 
 				for (y = 0; consolePos.y + y != doorPos.y; y += yStep)
-					createPathUnit(doorPath, doorSlot.color, consolePos.y + y + yStep / 2f, consolePos.x + x, yDirs, isOn);
-            }
+					createPathUnit(path, doorSlot.color, consolePos.y + y + yStep / 2f, consolePos.x + x, yDirs, isOn);
+
+				path.length = path.units.Count;
+				path.step = (float) path.length / path.duration;
+	        }
         }
 
 		slotsConnected = true;
@@ -131,18 +145,18 @@ public class DoorAndConsoleManager : FSystem {
 	{
 		Vector3 pos = gameData.LevelGO.transform.position + new Vector3(gridX * 3, 3, gridY * 3);
 		
-		GameObject pathGo = Object.Instantiate(pathUnitPrefab, pos, Quaternion.identity, path.transform);
-		pathGo.transform.Find(dirs[0]).gameObject.SetActive(true);
-		pathGo.transform.Find(dirs[1]).gameObject.SetActive(true);
+		GameObject pathUnit = Object.Instantiate(pathUnitPrefab, pos, Quaternion.identity, path.transform);
+		pathUnit.transform.Find(dirs[0]).gameObject.SetActive(true);
+		pathUnit.transform.Find(dirs[1]).gameObject.SetActive(true);
 		
-		PathUnit pathUnit = pathGo.GetComponent<PathUnit>();
-		pathUnit.colorOn = color;
+		PathUnit unit = pathUnit.GetComponent<PathUnit>();
+		unit.colorOn = color;
 		Color.RGBToHSV(color, out var h, out var s, out _);
-		pathUnit.colorOff = Color.HSVToRGB(h, s-0.2f, 0.2f);
+		unit.colorOff = Color.HSVToRGB(h, s-0.2f, 0.2f);
 
-		updateUnitColor(pathUnit, state);
+		updateUnitColor(unit, state);
 								
-		path.units.Add(pathUnit);
+		path.units.Add(unit);
 	}
 	
 	private void onNewStep()

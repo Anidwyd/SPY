@@ -42,8 +42,8 @@
     <blockLimit blockType="Exit" limit="0" />
   </blockLimits>
   <console state="1" posY="3" posX="1" direction="3">
-    <path slotId="0" offset="2" duration="1" />
-    <path slotId="1" duration="3" />
+    <path slotId="0" offset="2" duration="4" />
+    <path slotId="1" duration="4" />
   </console>
   <door posY="2" posX="1" slotId="0" direction="0" />
   <door posY="2" posX="3" slotId="1" direction="0" color="#ff33b8" />
