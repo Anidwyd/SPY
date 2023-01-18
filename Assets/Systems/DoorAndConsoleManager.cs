@@ -129,8 +129,9 @@ public class DoorAndConsoleManager : FSystem {
 
 	private void createPathUnit(DoorPath path, Color color, float gridX, float gridY, string[] dirs, bool state)
 	{
-		GameObject pathGo = Object.Instantiate(pathUnitPrefab, gameData.LevelGO.transform.position + new Vector3(gridX * 3, 3, gridY * 3), Quaternion.identity, gameData.LevelGO.transform);
-		pathGo.transform.parent = path.transform;
+		Vector3 pos = gameData.LevelGO.transform.position + new Vector3(gridX * 3, 3, gridY * 3);
+		
+		GameObject pathGo = Object.Instantiate(pathUnitPrefab, pos, Quaternion.identity, path.transform);
 		pathGo.transform.Find(dirs[0]).gameObject.SetActive(true);
 		pathGo.transform.Find(dirs[1]).gameObject.SetActive(true);
 		
