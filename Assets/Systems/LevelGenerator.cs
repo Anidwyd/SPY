@@ -463,14 +463,12 @@ public class LevelGenerator : FSystem {
 			DoorPath doorPath = path.GetComponent<DoorPath>();
 			
 			int slotID = int.Parse(child.Attributes.GetNamedItem("slotId").Value);
-			XmlNode step = child.Attributes.GetNamedItem("step");
+			XmlNode duration = child.Attributes.GetNamedItem("duration");
 			XmlNode offset = child.Attributes.GetNamedItem("offset");
 			
-			doorPath.slotID = slotID;
-			doorPath.step = step == null ? 0 : int.Parse(step.Value);
+			doorPath.duration = duration == null ? 0 : int.Parse(duration.Value);
 			doorPath.offset = offset == null ? 0 : int.Parse(offset.Value);
 			
-			slotsID.Add(slotID);
 			paths.Add(slotID, doorPath);
 		}
 

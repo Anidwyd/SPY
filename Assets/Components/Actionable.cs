@@ -6,4 +6,5 @@ public class Actionable : MonoBehaviour {
 	public Dictionary<int, DoorPath> paths = new Dictionary<int, DoorPath>();
 	
 	public int sinceActivation;
+	public bool connected;
 }
