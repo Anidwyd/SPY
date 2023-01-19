@@ -12209,6 +12209,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ActivableConsole
       objectReference: {fileID: 0}
+    - target: {fileID: 1503570291079590, guid: 297d5153b1cde19478278e5691f77cc7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4313069716819966, guid: 297d5153b1cde19478278e5691f77cc7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -12259,6 +12263,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4313069716819966, guid: 297d5153b1cde19478278e5691f77cc7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052446100324847347, guid: 297d5153b1cde19478278e5691f77cc7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828601065289666989, guid: 297d5153b1cde19478278e5691f77cc7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2578553312874332475, guid: 297d5153b1cde19478278e5691f77cc7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148664704591726472, guid: 297d5153b1cde19478278e5691f77cc7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800470362247339199, guid: 297d5153b1cde19478278e5691f77cc7,
+        type: 3}
+      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

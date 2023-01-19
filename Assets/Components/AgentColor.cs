@@ -6,8 +6,8 @@ public class AgentColor : MonoBehaviour
 {
     public Color playerAction;
     public Color playerBackground;
-    public Color droneAction;
-    public Color droneBackground;
+    public Color enemyAction;
+    public Color enemyBackground;
     public Color forBaseColor;
     public Color currentActionColor;
 }

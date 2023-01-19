@@ -20,20 +20,20 @@ public class LevelGenerator : FSystem {
 
 	// Famille contenant les agents editables
 	private Family f_level = FamilyManager.getFamily(new AnyOfComponents(typeof(Position), typeof(CurrentAction)));
-	private Family f_drone = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef)), new AnyOfTags("Drone")); // On récupére les agents pouvant être édités
+	private Family f_drone = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef)), new AnyOfTags("Drone")); // On r?cup?re les agents pouvant ?tre ?dit?s
 	private Family f_draggableElement = FamilyManager.getFamily(new AnyOfComponents(typeof(ElementToDrag)));
 
 	private List<List<int>> map;
 	private GameData gameData;
-	private int nbAgentCreate = 0; // Nombre d'agents créés
-	private int nbDroneCreate = 0; // Nombre de drones créés
+	private int nbAgentCreate = 0; // Nombre d'agents cr??s
+	private int nbDroneCreate = 0; // Nombre de drones cr??s
 	private HashSet<string> scriptNameUsed = new HashSet<string>();
 	private GameObject lastAgentCreated = null;
 
 	public GameObject editableCanvas;// Le container qui contient les Viewport/script containers
 	public GameObject scriptContainer;
 	public GameObject library; // Le viewport qui contient la librairie
-	public GameObject EditableContenair; // Le container qui contient les séquences éditables
+	public GameObject EditableContenair; // Le container qui contient les s?quences ?ditables
 	public TMP_Text levelName;
 	public GameObject canvas;
 	public GameObject buttonExecute;
@@ -239,7 +239,7 @@ public class LevelGenerator : FSystem {
 		}
 	}
 
-	// Créer une entité agent ou robot et y associer un panel container
+	// Cr?er une entit? agent ou robot et y associer un panel container
 	private GameObject createEntity(string nameAgent, Color agentColor, int gridX, int gridY, Direction.Dir direction, string type){
 		GameObject entity = null;
 		switch(type){
@@ -251,7 +251,7 @@ public class LevelGenerator : FSystem {
 				break;
 		}
 
-		// Charger l'agent aux bonnes coordonées dans la bonne direction
+		// Charger l'agent aux bonnes coordon?es dans la bonne direction
 		entity.GetComponent<Position>().x = gridX;
 		entity.GetComponent<Position>().y = gridY;
 		entity.GetComponent<Direction>().direction = direction;
@@ -259,9 +259,9 @@ public class LevelGenerator : FSystem {
 		//add new container to entity
 		ScriptRef scriptref = entity.GetComponent<ScriptRef>();
 		GameObject executablePanel = Object.Instantiate<GameObject>(Resources.Load ("Prefabs/ExecutablePanel") as GameObject, scriptContainer.gameObject.transform, false);
-		// Associer à l'agent l'UI container
+		// Associer ? l'agent l'UI container
 		scriptref.executablePanel = executablePanel;
-		// Associer à l'agent le script container
+		// Associer ? l'agent le script container
 		scriptref.executableScript = executablePanel.transform.Find("Scroll View").Find("Viewport").Find("ScriptContainer").gameObject;
 		// Association de l'agent au script de gestion des fonctions
 		executablePanel.GetComponentInChildren<LinkedWith>(true).target = entity;
@@ -281,7 +281,7 @@ public class LevelGenerator : FSystem {
 			foreach (Renderer renderer in entity.GetComponentsInChildren<Renderer>())
 				renderer.material.color = agentColor;
 
-			// Chargement de l'icône de l'agent sur la localisation
+			// Chargement de l'ic?ne de l'agent sur la localisation
 			Image locateButton = executablePanel.transform.Find("Header").Find("locateButton")
 				.GetComponentInChildren<Image>();
 			locateButton.sprite = Resources.Load("UI Images/playerIcon", typeof(Sprite)) as Sprite;
@@ -295,7 +295,7 @@ public class LevelGenerator : FSystem {
 		else if (type == "enemy")
 		{
 			nbDroneCreate++;
-			// Chargement de l'icône de l'agent sur la localisation
+			// Chargement de l'ic?ne de l'agent sur la localisation
 			executablePanel.transform.Find("Header").Find("locateButton").GetComponentInChildren<Image>().sprite = Resources.Load("UI Images/droneIcon", typeof(Sprite)) as Sprite;
 			// Affichage du nom de l'agent
 			if(nameAgent != "")
@@ -305,7 +305,7 @@ public class LevelGenerator : FSystem {
 		}
 
 		AgentColor ac = MainLoop.instance.GetComponent<AgentColor>();
-		scriptref.executablePanel.transform.Find("Scroll View").GetComponent<Image>().color = type == "player" ? ac.playerBackground : ac.droneBackground;
+		scriptref.executablePanel.transform.Find("Scroll View").GetComponent<Image>().color = type == "player" ? ac.playerBackground : ac.enemyBackground;
 
 		// scriptref.executablePanel.transform.Find("Scroll View").GetComponent<Image>().color = agentColor;
 		
@@ -358,7 +358,7 @@ public class LevelGenerator : FSystem {
 		
 		if (state == 1)
 			console.AddComponent<TurnedOn>();
-		
+
 		GameObjectManager.bind(console);
 	}
 
@@ -466,7 +466,7 @@ public class LevelGenerator : FSystem {
 			XmlNode duration = child.Attributes.GetNamedItem("duration");
 			XmlNode offset = child.Attributes.GetNamedItem("offset");
 			
-			doorPath.duration = duration == null ? 0 : int.Parse(duration.Value);
+			doorPath.duration = duration == null ? 1 : int.Parse(duration.Value);
 			doorPath.offset = offset == null ? 0 : int.Parse(offset.Value);
 			
 			paths.Add(slotID, doorPath);
@@ -476,7 +476,7 @@ public class LevelGenerator : FSystem {
 			slotsID, paths, direction);
 	}
 
-	// Lit le XML d'un script est génère les game objects des instructions
+	// Lit le XML d'un script est g?n?re les game objects des instructions
 	private void readXMLScript(XmlNode scriptNode, string name, UIRootContainer.EditMode editMode, UIRootContainer.SolutionType type)
 	{
 		if(scriptNode != null){
@@ -488,7 +488,7 @@ public class LevelGenerator : FSystem {
 			// Look for another script with the same name. If one already exists, we don't create one more.
 			if (!scriptNameUsed.Contains(name))
             {
-				// Rechercher un drone associé à ce script
+				// Rechercher un drone associ? ? ce script
 				bool droneFound = false;
 				foreach (GameObject drone in f_drone)
 				{
@@ -541,7 +541,7 @@ public class LevelGenerator : FSystem {
 				conditionContainer = obj.transform.Find("ConditionContainer");
 				firstContainerBloc = obj.transform.Find("Container");
 
-				// On ajoute les éléments enfants dans les bons containers
+				// On ajoute les ?l?ments enfants dans les bons containers
 				foreach (XmlNode containerNode in actionNode.ChildNodes)
 				{
 					// Ajout des conditions
@@ -571,7 +571,7 @@ public class LevelGenerator : FSystem {
 				firstContainerBloc = obj.transform.Find("Container");
 				secondContainerBloc = obj.transform.Find("ElseContainer");
 
-				// On ajoute les éléments enfants dans les bons containers
+				// On ajoute les ?l?ments enfants dans les bons containers
 				foreach (XmlNode containerNode in actionNode.ChildNodes)
 				{
 					// Ajout des conditions
@@ -617,7 +617,7 @@ public class LevelGenerator : FSystem {
 				firstContainerBloc = obj.transform.Find("Container");
 				conditionContainer = obj.transform.Find("ConditionContainer");
 
-				// On ajoute les éléments enfants dans les bons containers
+				// On ajoute les ?l?ments enfants dans les bons containers
 				foreach (XmlNode containerNode in actionNode.ChildNodes)
 				{
 					// Ajout des conditions
@@ -664,7 +664,7 @@ public class LevelGenerator : FSystem {
 			EditingUtility.addItemOnDropArea(readXMLInstruction(eleNode), emptySlot);
 	}
 
-	// Transforme le noeud d'action XML en gameObject élément/opérator
+	// Transforme le noeud d'action XML en gameObject ?l?ment/op?rator
 	private GameObject readXMLCondition(XmlNode conditionNode) {
 		GameObject obj = null;
 		ReplacementSlot[] slots = null;

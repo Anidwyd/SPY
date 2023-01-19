@@ -43,7 +43,7 @@ public static class EditingUtility
 				GameObjectManager.addComponent<Selected>(dropArea);
 			// On associe l'element au container
 			item.transform.SetParent(targetContainer);
-			// On met l'élément à la position voulue
+			// On met l'ï¿½lï¿½ment ï¿½ la position voulue
 			item.transform.SetSiblingIndex(siblingIndex);
 		}
 		else if (dropArea.GetComponent<ReplacementSlot>()) // we replace the replacementSlot by the item
@@ -54,7 +54,7 @@ public static class EditingUtility
 			{
 				// On associe l'element au container
 				item.transform.SetParent(repSlot.transform.parent);
-				// On met l'élément à la position voulue
+				// On met l'ï¿½lï¿½ment ï¿½ la position voulue
 				item.transform.SetSiblingIndex(repSlot.transform.GetSiblingIndex()); 
 				// disable empty slot
 				repSlot.GetComponent<Outline>().enabled = false;
@@ -68,7 +68,7 @@ public static class EditingUtility
 			{
 				// On associe l'element au container
 				item.transform.SetParent(repSlot.transform.parent);
-				// On met l'élément à la position voulue
+				// On met l'ï¿½lï¿½ment ï¿½ la position voulue
 				item.transform.SetSiblingIndex(repSlot.transform.GetSiblingIndex());
 				// check if the replacement slot is an empty zone (doesn't contain a condition)
 				if (!repSlot.GetComponent<BaseCondition>())
@@ -101,11 +101,11 @@ public static class EditingUtility
 	// We create an editable block from a library item (without binded it to FYFY, depending on context the object has to be binded or not)
 	public static GameObject createEditableBlockFromLibrary(GameObject element, GameObject targetCanvas)
 	{
-		// On récupére le prefab associé à l'action de la librairie
+		// On rï¿½cupï¿½re le prefab associï¿½ ï¿½ l'action de la librairie
 		GameObject prefab = element.GetComponent<ElementToDrag>().actionPrefab;
 		// Create a dragged GameObject
 		GameObject newItem = UnityEngine.Object.Instantiate<GameObject>(prefab, element.transform);
-		// Ajout d'un TooltipContent identique à celui de l'inventaire
+		// Ajout d'un TooltipContent identique ï¿½ celui de l'inventaire
 		if (element.GetComponent<TooltipContent>()) {
 			TooltipContent tooltip = newItem.AddComponent<TooltipContent>();
 			tooltip.text = element.GetComponent<TooltipContent>().text;
@@ -129,8 +129,8 @@ public static class EditingUtility
 	// Copy an editable script to the container of an agent
 	public static void fillExecutablePanel(GameObject srcScript, GameObject targetContainer, string agentTag)
 	{
-		// On va copier la sequence créé par le joueur dans le container de la fenêtre du robot
-		// On commence par créer une copie du container ou se trouve la sequence
+		// On va copier la sequence crï¿½ï¿½ par le joueur dans le container de la fenï¿½tre du robot
+		// On commence par crï¿½er une copie du container ou se trouve la sequence
 		GameObject containerCopy = CopyActionsFromAndInitFirstChild(srcScript, false, agentTag);
 		// On copie les actions dedans 
 		for (int i = 0; i < containerCopy.transform.childCount; i++)
@@ -162,25 +162,25 @@ public static class EditingUtility
 			}
 		}
 		// Va linker les blocs ensemble
-		// C'est à dire qu'il va définir pour chaque bloc, qu'elle est le suivant à exécuter
+		// C'est ï¿½ dire qu'il va dï¿½finir pour chaque bloc, qu'elle est le suivant ï¿½ exï¿½cuter
 		computeNext(targetContainer);
-		// On détruit la copy de la sequence d'action
+		// On dï¿½truit la copy de la sequence d'action
 		UnityEngine.Object.Destroy(containerCopy);
 	}
 
 	/**
 	 * On copie le container qui contient la sequence d'actions et on initialise les firstChild
 	 * Param:
-	 *	Container (GameObject) : Le container qui contient le script à copier
-	 *	isInteractable (bool) : Si le script copié peut contenir des éléments interactable (sinon l'interaction sera desactivé)
-	 *	agent (GameObject) : L'agent sur qui l'on va copier la sequence (pour définir la couleur)
+	 *	Container (GameObject) : Le container qui contient le script ï¿½ copier
+	 *	isInteractable (bool) : Si le script copiï¿½ peut contenir des ï¿½lï¿½ments interactable (sinon l'interaction sera desactivï¿½)
+	 *	agent (GameObject) : L'agent sur qui l'on va copier la sequence (pour dï¿½finir la couleur)
 	 * 
 	 **/
 	private static GameObject CopyActionsFromAndInitFirstChild(GameObject container, bool isInteractable, string agentTag)
 	{
 		// On va travailler avec une copy du container
 		GameObject copyGO = GameObject.Instantiate(container);
-		//Pour tous les élément interactible, on va les désactiver/activer selon le paramétrage
+		//Pour tous les ï¿½lï¿½ment interactible, on va les dï¿½sactiver/activer selon le paramï¿½trage
 		foreach (TMP_Dropdown drop in copyGO.GetComponentsInChildren<TMP_Dropdown>(true))
 		{
 			drop.interactable = isInteractable;
@@ -193,7 +193,7 @@ public static class EditingUtility
 		// Pour chaque bloc for
 		foreach (ForControl forAct in copyGO.GetComponentsInChildren<ForControl>(true))
 		{
-			// Si activé, on note le nombre de tour de boucle à faire
+			// Si activï¿½, on note le nombre de tour de boucle ï¿½ faire
 			if (!isInteractable && !forAct.gameObject.GetComponent<WhileControl>())
 			{
 				try
@@ -203,7 +203,7 @@ public static class EditingUtility
 					forAct.nbFor = 0;
 				}
 				forAct.transform.GetChild(1).GetChild(1).GetComponent<TMP_InputField>().text = (forAct.currentFor).ToString() + " / " + forAct.nbFor.ToString();
-			}// Sinon on met tout à 0
+			}// Sinon on met tout ï¿½ 0
 			else if (isInteractable && !forAct.gameObject.GetComponent<WhileControl>())
 			{
 				forAct.currentFor = 0;
@@ -216,10 +216,10 @@ public static class EditingUtility
 				conditionToStrings(forAct.gameObject.transform.Find("ConditionContainer").GetChild(0).gameObject, ((WhileControl)forAct).condition);
 
 			}
-			// On parcourt les éléments présent dans le block action
+			// On parcourt les ï¿½lï¿½ments prï¿½sent dans le block action
 			foreach (BaseElement act in forAct.GetComponentsInChildren<BaseElement>(true))
 			{
-				// Si ce n'est pas un bloc action alors on le note comme premier élément puis on arrête le parcourt des éléments
+				// Si ce n'est pas un bloc action alors on le note comme premier ï¿½lï¿½ment puis on arrï¿½te le parcourt des ï¿½lï¿½ments
 				if (!act.Equals(forAct))
 				{
 					forAct.firstChild = act.gameObject;
@@ -266,15 +266,15 @@ public static class EditingUtility
 		foreach (Selectable selectable in copyGO.GetComponentsInChildren<Selectable>(true))
 			selectable.interactable = isInteractable;
 
-		// On défini la couleur de l'action selon l'agent à qui appartiendra la script
+		// On dï¿½fini la couleur de l'action selon l'agent ï¿½ qui appartiendra la script
 		Color actionColor;
 		switch (agentTag)
 		{
 			case "Player":
 				actionColor = MainLoop.instance.GetComponent<AgentColor>().playerAction;
 				break;
-			case "Drone":
-				actionColor = MainLoop.instance.GetComponent<AgentColor>().droneAction;
+			case "Enemy":
+				actionColor = MainLoop.instance.GetComponent<AgentColor>().enemyAction;
 				break;
 			default: // agent by default = robot
 				actionColor = MainLoop.instance.GetComponent<AgentColor>().playerAction;
@@ -284,7 +284,7 @@ public static class EditingUtility
 		foreach (BaseElement act in copyGO.GetComponentsInChildren<BaseElement>(true))
 		{
 			act.gameObject.GetComponent<Image>().color = actionColor;
-			if (act.GetComponent<ControlElement>() && agentTag == "Drone")
+			if (act.GetComponent<ControlElement>() && agentTag == "Enemy")
 				foreach (Transform child in act.gameObject.transform) {
 					Image childImg = child.GetComponent<Image>();
 					if (childImg != null)
@@ -303,10 +303,10 @@ public static class EditingUtility
 	 **/
 	public static void CleanControlBlock(Transform specialBlock)
 	{
-		// Vérifier que c'est bien un block de controle
+		// Vï¿½rifier que c'est bien un block de controle
 		if (specialBlock.GetComponent<ControlElement>())
 		{
-			// Récupérer le container des actions
+			// Rï¿½cupï¿½rer le container des actions
 			Transform container = specialBlock.transform.Find("Container");
 			// remove the last child, the emptyZone
 			GameObject emptySlot = container.GetChild(container.childCount - 1).gameObject;
@@ -326,29 +326,29 @@ public static class EditingUtility
 					GameObjectManager.unbind(emptySlot);
 				emptySlot.transform.SetParent(null);
 				GameObject.Destroy(emptySlot);
-				// On parcourt les blocks qui composent le ElseContainer afin de les nettoyer également
+				// On parcourt les blocks qui composent le ElseContainer afin de les nettoyer ï¿½galement
 				foreach (Transform block in elseContainer)
-					// Si c'est le cas on fait un appel récursif
+					// Si c'est le cas on fait un appel rï¿½cursif
 					if (block.GetComponent<ControlElement>())
 						CleanControlBlock(block);
 			}
 
-			// On parcourt les blocks qui composent le container afin de les nettoyer également
+			// On parcourt les blocks qui composent le container afin de les nettoyer ï¿½galement
 			foreach (Transform block in container)
-				// Si c'est le cas on fait un appel récursif
+				// Si c'est le cas on fait un appel rï¿½cursif
 				if (block.GetComponent<ControlElement>())
 					CleanControlBlock(block);
 		}
 	}
 
-	// Transforme une sequence de condition en une chaine de caractére
+	// Transforme une sequence de condition en une chaine de caractï¿½re
 	private static void conditionToStrings(GameObject condition, List<string> chaine)
 	{
 		// Check if condition is a BaseCondition
 		if (condition.GetComponent<BaseCondition>())
 		{
-			// On regarde si la condition reçue est un élément ou bien un opérator
-			// Si c'est un élément, on le traduit en string et on le renvoie 
+			// On regarde si la condition reï¿½ue est un ï¿½lï¿½ment ou bien un opï¿½rator
+			// Si c'est un ï¿½lï¿½ment, on le traduit en string et on le renvoie 
 			if (condition.GetComponent<BaseCaptor>())
 				chaine.Add("" + condition.GetComponent<BaseCaptor>().captorType);
 			else
@@ -357,10 +357,10 @@ public static class EditingUtility
 				if (condition.TryGetComponent<BaseOperator>(out bo))
 				{
 					Transform conditionContainer = bo.transform.GetChild(1);
-					// Si c'est une négation on met "!" puis on fait une récursive sur le container et on renvoie le tous traduit en string
+					// Si c'est une nï¿½gation on met "!" puis on fait une rï¿½cursive sur le container et on renvoie le tous traduit en string
 					if (bo.operatorType == BaseOperator.OperatorType.NotOperator)
 					{
-						// On vérifie qu'il y a bien un élément présent, son container doit contenir 3 enfants (icone, une BaseCondition et le ReplacementSlot)
+						// On vï¿½rifie qu'il y a bien un ï¿½lï¿½ment prï¿½sent, son container doit contenir 3 enfants (icone, une BaseCondition et le ReplacementSlot)
 						if (conditionContainer.childCount == 3)
 						{
 							chaine.Add("NOT");
@@ -373,7 +373,7 @@ public static class EditingUtility
 					}
 					else if (bo.operatorType == BaseOperator.OperatorType.AndOperator)
 					{
-						// Si les côtés de l'opérateur sont remplis, alors il compte 5 childs (2 ReplacementSlots, 2 BaseCondition et 1 icone), sinon cela veux dire que il manque des conditions
+						// Si les cï¿½tï¿½s de l'opï¿½rateur sont remplis, alors il compte 5 childs (2 ReplacementSlots, 2 BaseCondition et 1 icone), sinon cela veux dire que il manque des conditions
 						if (conditionContainer.childCount == 5)
 						{
 							chaine.Add("(");
@@ -389,7 +389,7 @@ public static class EditingUtility
 					}
 					else if (bo.operatorType == BaseOperator.OperatorType.OrOperator)
 					{
-						// Si les côtés de l'opérateur sont remplis, alors il compte 5 childs, sinon cela veux dire que il manque des conditions
+						// Si les cï¿½tï¿½s de l'opï¿½rateur sont remplis, alors il compte 5 childs, sinon cela veux dire que il manque des conditions
 						if (conditionContainer.childCount == 5)
 						{
 							chaine.Add("(");
@@ -415,20 +415,20 @@ public static class EditingUtility
 	}
 	
 	// link actions together => define next property
-	// Associe à chaque bloc le bloc qui sera executé aprés
+	// Associe ï¿½ chaque bloc le bloc qui sera executï¿½ aprï¿½s
 	public static void computeNext(GameObject container)
 	{
-		// parcourir tous les enfants jusqu'à l'avant dernier
+		// parcourir tous les enfants jusqu'ï¿½ l'avant dernier
 		for (int i = 0; i < container.transform.childCount - 1; i++)
 		{
 			Transform child = container.transform.GetChild(i);
 			child.GetComponent<BaseElement>().next = container.transform.GetChild(i + 1).gameObject;
 		}
-		// traitement de la dernière instruction
+		// traitement de la derniï¿½re instruction
 		if (container.transform.childCount > 0)
 		{
 			Transform lastChild = container.transform.GetChild(container.transform.childCount - 1);
-			// Pour la dernière instruction le next dépend du parent
+			// Pour la derniï¿½re instruction le next dï¿½pend du parent
 			Transform parent = container.transform.parent;
 			if (parent != null && parent.GetComponent<BaseElement>() != null) {
 				if (parent.GetComponent<ForControl>() != null || parent.GetComponent<ForeverControl>() != null)
@@ -439,11 +439,11 @@ public static class EditingUtility
 			// Sinon on ne fait rien et fin de la sequence
 		}
 
-		// parcourir tous les enfants jusqu'au dernier cette fois ci pour déclencher des appel récursifs pour les structures de contrôle
+		// parcourir tous les enfants jusqu'au dernier cette fois ci pour dï¿½clencher des appel rï¿½cursifs pour les structures de contrï¿½le
 		for (int i = 0; i < container.transform.childCount; i++)
 		{
 			Transform child = container.transform.GetChild(i);
-			// Si le fils est un contrôle, appel résursif sur leurs containers
+			// Si le fils est un contrï¿½le, appel rï¿½sursif sur leurs containers
 			if (child.GetComponent<ControlElement>())
 			{
 				computeNext(child.transform.Find("Container").gameObject);
