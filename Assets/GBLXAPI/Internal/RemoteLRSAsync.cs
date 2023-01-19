@@ -20,11 +20,11 @@ using UnityEngine.Networking;
 namespace DIG.GBLXAPI.Internal
 {
     public class RemoteLRSAsync
-	{
-		// config
-		public string endpoint { get; set; }
-		public TCAPIVersion version { get; set; }
-		public string auth { get; set; }
+    {
+        // config
+        public string endpoint { get; set; }
+        public TCAPIVersion version { get; set; }
+        public string auth { get; set; }
 
         public class State
         {
@@ -35,80 +35,84 @@ namespace DIG.GBLXAPI.Internal
 
         public List<State> states;
 
-		public RemoteLRSAsync(string endpoint, string username, string password)
+        public RemoteLRSAsync(string endpoint, string username, string password)
         {
-			this.endpoint = endpoint;
+            this.endpoint = endpoint;
 
-			// endpoint should have trailing /
-			if (this.endpoint[this.endpoint.Length - 1] != '/')
-			{
-				this.endpoint += "/";
-			}
+            // endpoint should have trailing /
+            if (this.endpoint[this.endpoint.Length - 1] != '/')
+            {
+                this.endpoint += "/";
+            }
 
-			this.version = TCAPIVersion.latest();
-			this.auth = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
+            this.version = TCAPIVersion.latest();
+            this.auth = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + password));
 
             states = new List<State>();
-		}
+        }
 
-		// ------------------------------------------------------------------------
-		// ------------------------------------------------------------------------
-		public int PostStatements(List<Statement> statements)
-		{
+        // ------------------------------------------------------------------------
+        // ------------------------------------------------------------------------
+        public int PostStatements(List<Statement> statements)
+        {
             // reinit state
             State state = new State();
             states.Add(state);
             int idState = states.Count - 1;
 
-			// https://learninglocker.dig-itgames.com/data/xAPI/statements?statementId=58098b7c-3353-4f9c-b812-1bddb08876fd
-			string queryURL = endpoint + "statements";
+            // https://learninglocker.dig-itgames.com/data/xAPI/statements?statementId=58098b7c-3353-4f9c-b812-1bddb08876fd
+            string queryURL = endpoint + "statements";
 
             string jsonData = "";
             if (statements.Count > 1)
                 jsonData += "[";
-            for (int i = 0; i < statements.Count; i++) {
+            for (int i = 0; i < statements.Count; i++)
+            {
                 jsonData += statements[i].ToJSON(version);
                 if (i < statements.Count - 1)
                     jsonData += ", ";
             }
+
             if (statements.Count > 1)
                 jsonData += "]";
-			
-			if (jsonData != "")
-			{
-				byte[] formBytes = Encoding.UTF8.GetBytes(jsonData);
 
-				UnityWebRequest request = new UnityWebRequest(queryURL, "POST", new DownloadHandlerBuffer(), new UploadHandlerRaw(formBytes));
+            if (jsonData != "")
+            {
+                byte[] formBytes = Encoding.UTF8.GetBytes(jsonData);
 
-				request.SetRequestHeader("Content-Type", "application/json");
-				request.SetRequestHeader("X-Experience-API-Version", version.ToString());
-				request.SetRequestHeader("Authorization", auth);
+                UnityWebRequest request = new UnityWebRequest(queryURL, "POST", new DownloadHandlerBuffer(),
+                    new UploadHandlerRaw(formBytes));
 
-				var requestOperation = request.SendWebRequest();
-				requestOperation.completed += (operation) =>
-				{
-					state.success = !(request.isNetworkError || request.isHttpError);
+                request.SetRequestHeader("Content-Type", "application/json");
+                request.SetRequestHeader("X-Experience-API-Version", version.ToString());
+                request.SetRequestHeader("Authorization", auth);
 
-					if (state.success)
-					{
-						JArray ids = JArray.Parse(request.downloadHandler.text);
-						state.response = ids[0].ToString();
-					}
-					else
-					{
-						state.response = request.error;
-					}
+                var requestOperation = request.SendWebRequest();
+                requestOperation.completed += (operation) =>
+                {
+                    state.success = !(request.result == UnityWebRequest.Result.ConnectionError ||
+                                      request.result == UnityWebRequest.Result.ProtocolError);
 
-					state.complete = true;
-				};
-			}
+                    if (state.success)
+                    {
+                        JArray ids = JArray.Parse(request.downloadHandler.text);
+                        state.response = ids[0].ToString();
+                    }
+                    else
+                    {
+                        state.response = request.error;
+                    }
+
+                    state.complete = true;
+                };
+            }
             else
             {
-				state.success = true;
-				state.complete = true;
+                state.success = true;
+                state.complete = true;
             }
-            return idState;
 
+            return idState;
         }
-	}
+    }
 }
