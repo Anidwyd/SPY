@@ -356,7 +356,7 @@ public class LevelGenerator : FSystem {
 		console.GetComponent<Position>().y = gridY;
 		console.GetComponent<Direction>().direction = orientation;
 		
-		if (state == 1)
+		if (state == 0)
 			console.AddComponent<TurnedOn>();
 
 		GameObjectManager.bind(console);

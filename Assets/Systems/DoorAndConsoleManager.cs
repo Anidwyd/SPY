@@ -90,7 +90,7 @@ public class DoorAndConsoleManager : FSystem
             // show / hide door
             Transform parent = path.door.transform.parent;
             parent.GetComponent<AudioSource>().Play();
-            parent.GetComponent<Animator>().SetTrigger(isOn ? "Close" : "Open");
+            parent.GetComponent<Animator>().SetTrigger(isOn ? "Open" : "Close");
             parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
         }
     }
@@ -139,6 +139,7 @@ public class DoorAndConsoleManager : FSystem
                 for (y = 0; consolePos.y + y != doorPos.y; y += yStep)
                     createPathUnit(path, color, consolePos.y + y + yStep / 2f, consolePos.x + x, yDirs, isOn);
 
+                // Update path attributes
                 path.length = path.units.Count;
                 path.step = (float)path.length / path.duration;
                 
