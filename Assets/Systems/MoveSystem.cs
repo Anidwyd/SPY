@@ -76,7 +76,7 @@ public class MoveSystem : FSystem {
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
 
-		foreach (GameObject go in f_movable)
+		foreach (GameObject go in f_movable) 
 		{
 			// Manage position
 			if (Mathf.Abs(go.transform.localPosition.z / 3 - go.GetComponent<Position>().x) > 0.01f || Mathf.Abs(go.transform.localPosition.x / 3 - go.GetComponent<Position>().y) > 0.01f)

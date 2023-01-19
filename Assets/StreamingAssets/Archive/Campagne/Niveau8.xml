@@ -49,5 +49,7 @@
   <door posY="2" posX="3" slotId="1" direction="0" color="#ff33b8" />
   <player associatedScriptName="Bob" posY="5" posX="1" direction="0" />
   <script name="Bob" editMode="0" />
+
+  <coin posX="1" posY="1" />
   <score twoStars="4499" threeStars="5499"/>
 </level>

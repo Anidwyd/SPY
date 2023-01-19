@@ -49,8 +49,8 @@ public class CurrentActionExecutor : FSystem {
 				break;
 			case BasicAction.ActionType.Activate:
 				Position agentPos = ca.agent.GetComponent<Position>();
-				foreach ( GameObject actGo in f_activableConsole){
-					if(actGo.GetComponent<Position>().x == agentPos.x && actGo.GetComponent<Position>().y == agentPos.y){
+				foreach (GameObject actGo in f_activableConsole) {
+					if (actGo.GetComponent<Position>().x == agentPos.x && actGo.GetComponent<Position>().y == agentPos.y){
 						actGo.GetComponent<AudioSource>().Play();
 						// toggle activable GameObject
 						if (actGo.GetComponent<TurnedOn>())
