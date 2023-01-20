@@ -8313,6 +8313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogPanel: {fileID: 617479264}
+  buttonExecute: {fileID: 1504297953}
 --- !u!114 &361349226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13106,8 +13107,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 665381104}
   m_HandleRect: {fileID: 665381103}
   m_Direction: 2
-  m_Value: 0.999994
-  m_Size: 0.72279745
+  m_Value: 0.9999941
+  m_Size: 0.7169369
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

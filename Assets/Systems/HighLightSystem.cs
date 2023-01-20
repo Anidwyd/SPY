@@ -13,7 +13,10 @@ public class HighLightSystem : FSystem {
 	private Family f_highlightedAction = FamilyManager.getFamily(new AllOfComponents(typeof(LibraryItemRef)), new AnyOfComponents( typeof(CurrentAction), typeof(PointerOver)));
 	private Family f_nonCurrentAction = FamilyManager.getFamily(new AllOfComponents(typeof(LibraryItemRef)), new NoneOfComponents(typeof(CurrentAction), typeof(PointerOver)));
 
+	private GameObject currentConsolePanel;
+	
 	public GameObject dialogPanel;
+	public Button buttonExecute;
 
 	protected override void onStart()
     {
@@ -28,7 +31,7 @@ public class HighLightSystem : FSystem {
 	protected override void onProcess(int familiesUpdateCount) {
 		GameObject highLightedItem = f_highlighted.First();
 		//If click on highlighted item and item has a script, then show its script in the 2nd script window
-		if (!highLightedItem || !Input.GetMouseButtonUp(0) || dialogPanel.activeInHierarchy == true) return;
+		if (!highLightedItem || !Input.GetMouseButtonUp(0) || dialogPanel.activeInHierarchy) return;
 		
 		if (highLightedItem.GetComponent<ScriptRef>())
 		{
@@ -38,8 +41,21 @@ public class HighLightSystem : FSystem {
 		}
 		else if (highLightedItem.GetComponent<Actionable>())
 		{
-			GameObject go = highLightedItem.GetComponent<Actionable>().panel;
-			GameObjectManager.setGameObjectState(go,!go.activeInHierarchy);
+			GameObject newPanel = highLightedItem.GetComponent<Actionable>().panel;
+			
+			if (currentConsolePanel && currentConsolePanel != newPanel)
+				GameObjectManager.setGameObjectState(currentConsolePanel, false);
+				
+			currentConsolePanel = newPanel;
+			bool newState = !currentConsolePanel.activeInHierarchy;
+			
+			GameObjectManager.setGameObjectState(currentConsolePanel, newState);
+
+			if (newState)
+				buttonExecute.interactable = false;
+			else
+				currentConsolePanel.AddComponent<NeedRefreshPlayButton>();
+			
 			MainLoop.instance.GetComponent<AudioSource>().Play();
 		}
 	}

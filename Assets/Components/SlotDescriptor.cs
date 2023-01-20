@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using FYFY;
 using TMPro;
 using UnityEngine;
 
@@ -9,19 +8,19 @@ public class SlotDescriptor : MonoBehaviour
 
     public void IncrementOffset()
     {
-        path.offset++;
-        updateOffset();
+        updateOffset(1);
     }
     
     public void DecrementOffset()
     {
-        if (path.offset <= 0) return;
-        path.offset--;
-        updateOffset();
+        if (path.offset > 0)
+            updateOffset(-1);
     }
 
-    private void updateOffset()
+    private void updateOffset(int v)
     {
+        path.offset += v;
         transform.GetChild(2).GetChild(1).GetComponentInChildren<TMP_Text>().text = path.offset.ToString();
+        MainLoop.instance.GetComponent<AudioSource>().Play();
     }
 }

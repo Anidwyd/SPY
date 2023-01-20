@@ -2,6 +2,7 @@ using UnityEngine;
 using FYFY;
 using TMPro;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// This system enables to manage game mode: playmode vs editmode
@@ -36,7 +37,8 @@ public class ModeManager : FSystem {
 	}
 
 	// Used in ExecuteButton in inspector
-	public void setPlayingMode(){
+	public void setPlayingMode()
+	{
 		GameObjectManager.addComponent<PlayMode>(MainLoop.instance.gameObject);
 	}
 	

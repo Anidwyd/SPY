@@ -3,6 +3,7 @@ using FYFY;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 using FYFY_plugins.PointerManager;
 
 /// <summary>
@@ -146,6 +147,7 @@ public class UISystem : FSystem {
 	{
 		yield return null;
 		buttonExecute.GetComponent<Button>().interactable = false;
+
 		foreach (GameObject container in f_scriptContainer)
 		{
 			if (container.GetComponentsInChildren<BaseElement>(true).Length > 0)
