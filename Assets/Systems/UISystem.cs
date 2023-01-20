@@ -147,6 +147,9 @@ public class UISystem : FSystem {
 	{
 		yield return null;
 		buttonExecute.GetComponent<Button>().interactable = false;
+		
+		if (canvas.transform.Find("ConsoleCanvas").Cast<Transform>().Any(child => child.gameObject.activeInHierarchy))
+			yield break;
 
 		foreach (GameObject container in f_scriptContainer)
 		{

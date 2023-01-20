@@ -47,14 +47,8 @@ public class HighLightSystem : FSystem {
 				GameObjectManager.setGameObjectState(currentConsolePanel, false);
 				
 			currentConsolePanel = newPanel;
-			bool newState = !currentConsolePanel.activeInHierarchy;
-			
-			GameObjectManager.setGameObjectState(currentConsolePanel, newState);
-
-			if (newState)
-				buttonExecute.interactable = false;
-			else
-				currentConsolePanel.AddComponent<NeedRefreshPlayButton>();
+			GameObjectManager.setGameObjectState(currentConsolePanel, !currentConsolePanel.activeInHierarchy);
+			currentConsolePanel.AddComponent<NeedRefreshPlayButton>();
 			
 			MainLoop.instance.GetComponent<AudioSource>().Play();
 		}
