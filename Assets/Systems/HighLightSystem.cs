@@ -36,10 +36,10 @@ public class HighLightSystem : FSystem {
 		if (highLightedItem.GetComponent<ScriptRef>())
 		{
 			GameObject go = highLightedItem.GetComponent<ScriptRef>().executablePanel;
-			GameObjectManager.setGameObjectState(go,!go.activeInHierarchy);
+			GameObjectManager.setGameObjectState(go, !go.activeInHierarchy);
 			MainLoop.instance.GetComponent<AudioSource>().Play();
 		}
-		else if (highLightedItem.GetComponent<Actionable>())
+		else if (highLightedItem.GetComponent<Actionable>() && buttonExecute.gameObject.activeInHierarchy)
 		{
 			GameObject newPanel = highLightedItem.GetComponent<Actionable>().panel;
 			
