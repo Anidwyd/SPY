@@ -27,16 +27,17 @@ public class CoinManager : FSystem {
 		f_editingMode.addEntryCallback(delegate { activeCoin = false; });
 	}
 
-	private void onNewCollision(GameObject robot){
+	private void onNewCollision(GameObject player){
 		if(activeCoin){
-			Triggered3D trigger = robot.GetComponent<Triggered3D>();
-			foreach(GameObject target in trigger.Targets){
+			Triggered3D trigger = player.GetComponent<Triggered3D>();
+			foreach (GameObject target in trigger.Targets)
+			{
 				//Check if the player collide with a coin
-                if(target.CompareTag("Coin")){
-                    gameData.totalCoin++;
-                    target.GetComponent<AudioSource>().Play();
-                    MainLoop.instance.StartCoroutine(coinDestroy(target));					
-				}
+				if (!target.CompareTag("Coin")) continue;
+				
+				gameData.totalCoin++;
+                target.GetComponent<AudioSource>().Play();
+                MainLoop.instance.StartCoroutine(coinDestroy(target));
 			}			
 		}
     }

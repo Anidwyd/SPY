@@ -55,7 +55,7 @@ public class DoorAndConsoleManager : FSystem
 
         Actionable actionable = console.GetComponent<Actionable>();
         resetConsole(actionable);
-        updatePath(actionable, isOn);
+        updatePaths(actionable, isOn);
     }
 
     private void resetConsole(Actionable console)
@@ -65,17 +65,8 @@ public class DoorAndConsoleManager : FSystem
         foreach (DoorPath path in console.paths.Values)
             path.pointer = 0;
     }
-    
-    private void updateOffsetButtons(DoorPath path, bool state)
-    {
-        // if (!path.descriptor) return;
-        
-        Transform offsetPanel = path.descriptor.transform.Find("Offset");
-        offsetPanel.GetChild(0).GetComponent<Button>().interactable = state;
-        offsetPanel.GetChild(2).GetComponent<Button>().interactable = state;
-    }
 
-    private void updatePath(Actionable actionable, bool isOn)
+    private void updatePaths(Actionable actionable, bool isOn)
     {
         // parse all slots controled by this console
         foreach (int slotId in actionable.paths.Keys)
@@ -165,7 +156,7 @@ public class DoorAndConsoleManager : FSystem
                 path.step = (float)path.length / path.duration;
 
                 // Update panel
-                GameObject slotDescriptor = Object.Instantiate(Resources.Load ("Prefabs/SlotDescriptor") as GameObject, actionable.panel.transform.Find("Scroll View").Find("Viewport").transform, false);
+                GameObject slotDescriptor = Object.Instantiate(Resources.Load ("Prefabs/SlotDescriptor") as GameObject, actionable.panel.transform.Find("Body").transform, false);
                 slotDescriptor.transform.GetChild(0).GetComponent<Image>().color = color;
                 slotDescriptor.transform.GetChild(1).GetComponent<TMP_Text>().text = path.duration.ToString();
                 slotDescriptor.transform.GetChild(2).GetChild(1).GetComponentInChildren<TMP_Text>().text = path.offset.ToString();
@@ -186,9 +177,15 @@ public class DoorAndConsoleManager : FSystem
         pathUnit.transform.Find(dirs[1]).gameObject.SetActive(true);
 
         PathUnit unit = pathUnit.GetComponent<PathUnit>();
+
+        // On color
         unit.colorOn = color;
+        unit.colorOn.a = 0.8f;
+        
+        // Off color
         Color.RGBToHSV(color, out var h, out var s, out _);
         unit.colorOff = Color.HSVToRGB(h, s - 0.2f, 0.2f);
+        unit.colorOff.a = 0.8f;
 
         updateUnitColor(unit, state);
 
@@ -204,7 +201,7 @@ public class DoorAndConsoleManager : FSystem
             if (!actionable.connected) continue;
 
             actionable.sinceActivation++;
-            updatePath(actionable, f_consoleOn.Contains(console));
+            updatePaths(actionable, f_consoleOn.Contains(console));
         }
     }
 }

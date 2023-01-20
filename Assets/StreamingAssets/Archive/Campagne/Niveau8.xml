@@ -42,7 +42,7 @@
     <blockLimit blockType="Exit" limit="0" />
   </blockLimits>
 
-  <console state="1" posY="3" posX="1" direction="3">
+  <console posY="3" posX="1" direction="3">
     <path slotId="0" duration="2" offset="1" />
     <path slotId="1" />
     <path slotId="2" duration="3" />

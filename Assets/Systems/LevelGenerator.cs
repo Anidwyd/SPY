@@ -357,7 +357,7 @@ public class LevelGenerator : FSystem {
 		console.GetComponent<Position>().y = gridY;
 		console.GetComponent<Direction>().direction = orientation;
 		
-		if (state == 0)
+		if (state == 1)
 			console.AddComponent<TurnedOn>();
 		
 		GameObject consolePanel = Object.Instantiate(Resources.Load ("Prefabs/ConsolePanel") as GameObject, consoleContainer.gameObject.transform, false);
@@ -465,6 +465,8 @@ public class LevelGenerator : FSystem {
 		int gridY = int.Parse(activableNode.Attributes.GetNamedItem("posY").Value);
 		Direction.Dir direction = (Direction.Dir)int.Parse(activableNode.Attributes.GetNamedItem("direction").Value);
 
+		XmlNode state = activableNode.Attributes.GetNamedItem("state");
+
 		foreach(XmlNode child in activableNode.ChildNodes)
 		{
 			GameObject path = Object.Instantiate<GameObject>(Resources.Load ("Prefabs/DoorPath") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY*3, 1.5f,gridX*3), Quaternion.identity, gameData.LevelGO.transform);
@@ -480,8 +482,7 @@ public class LevelGenerator : FSystem {
 			paths.Add(slotID, doorPath);
 		}
 
-		createConsole(int.Parse(activableNode.Attributes.GetNamedItem("state").Value), gridX, gridY,
-			slotsID, paths, direction);
+		createConsole(state == null ? 0 : int.Parse(state.Value), gridX, gridY, slotsID, paths, direction);
 	}
 
 	// Lit le XML d'un script est g?n?re les game objects des instructions
