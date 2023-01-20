@@ -4,7 +4,7 @@ using FYFY_plugins.PointerManager;
 using UnityEngine.UI;
 
 /// <summary>
-/// Manage highlightable GameObjects (word object as robots, drones, ground and UI object as current action executed or library items
+/// Manage highlightable GameObjects (word object as robots, enemies, ground and UI object as current action executed or library items
 /// </summary>
 public class HighLightSystem : FSystem {
 	private Family f_highlightable = FamilyManager.getFamily(new AnyOfComponents(typeof(Highlightable), typeof(LibraryItemRef))); //has to be defined before nonhighlightedGO because initBaseColor must be called before unHighLightItem
@@ -78,7 +78,7 @@ public class HighLightSystem : FSystem {
 		else if (go.GetComponent<ElementToDrag>() && go.GetComponent<PointerOver>())
 			go.GetComponent<Image>().color = go.GetComponent<Highlightable>().highlightedColor;
 		
-		// then process world GameObjects (Walls, drone, robots...)
+		// then process world GameObjects (Walls, enemies, robots...)
 		else if (go.GetComponentInChildren<Renderer>(true))
 		{
 			// go.GetComponentInChildren<Renderer>(true).material.color = go.GetComponent<Highlightable>().highlightedColor;

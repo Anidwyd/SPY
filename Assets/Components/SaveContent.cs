@@ -61,7 +61,7 @@ public class SaveContent {
         public List<Direction.Dir> directions = new List<Direction.Dir>();
         public List<RawPosition> positions = new List<RawPosition>();
         public List<RawActivable> activables = new List<RawActivable>();
-        public List<RawCurrentAction> currentDroneActions = new List<RawCurrentAction>();
+        public List<RawCurrentAction> currentEnemyActions = new List<RawCurrentAction>();
         public List<RawLoop> currentLoopParams = new List<RawLoop>();
     }
 

@@ -210,7 +210,7 @@ public class UISystem : FSystem {
 		// Show sentinel panels and toggle player panels
 		foreach (GameObject agent in f_agents)
 			if (agent.GetComponent<DetectRange>())
-				// always enable drone execution panel
+				// always enable enemy execution panel
 				GameObjectManager.setGameObjectState(agent.GetComponent<ScriptRef>().executablePanel, true);
 			else
 			{

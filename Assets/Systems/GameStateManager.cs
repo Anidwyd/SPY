@@ -3,7 +3,7 @@ using FYFY;
 using TMPro;
 
 /// <summary>
-/// This manager enables to save the game state and to restore it on demand for instance when the player is detected by drones, he can reset the game on a state just before the previous execution
+/// This manager enables to save the game state and to restore it on demand for instance when the player is detected by enemies, he can reset the game on a state just before the previous execution
 /// </summary>
 public class GameStateManager : FSystem {
 
@@ -52,10 +52,10 @@ public class GameStateManager : FSystem {
         save.rawSave.activables.Clear();
         foreach (GameObject act in f_activables)
             save.rawSave.activables.Add(new SaveContent.RawActivable(act.GetComponent<Actionable>()));
-        save.rawSave.currentDroneActions.Clear();    
+        save.rawSave.currentEnemyActions.Clear();    
         foreach(GameObject go in f_currentActions)
-            if(go.GetComponent<CurrentAction>().agent.CompareTag("Drone"))
-                save.rawSave.currentDroneActions.Add(new SaveContent.RawCurrentAction(go));
+            if(go.GetComponent<CurrentAction>().agent.CompareTag("Enemy"))
+                save.rawSave.currentEnemyActions.Add(new SaveContent.RawCurrentAction(go));
         save.rawSave.currentLoopParams.Clear();
         foreach (GameObject go in f_forControls)
             save.rawSave.currentLoopParams.Add(new SaveContent.RawLoop(go.GetComponent<ForControl>()));
@@ -106,9 +106,9 @@ public class GameStateManager : FSystem {
             }
         }
         foreach(GameObject go in f_currentActions)
-            if(go.GetComponent<CurrentAction>().agent.CompareTag("Drone"))
+            if(go.GetComponent<CurrentAction>().agent.CompareTag("Enemy"))
                 GameObjectManager.removeComponent<CurrentAction>(go);
-        foreach(SaveContent.RawCurrentAction act in save.rawSave.currentDroneActions)
+        foreach(SaveContent.RawCurrentAction act in save.rawSave.currentEnemyActions)
             GameObjectManager.addComponent<CurrentAction>(act.action, new{agent = act.agent});
         for (int i = 0; i < f_forControls.Count && i < save.rawSave.currentLoopParams.Count; i++)
         {

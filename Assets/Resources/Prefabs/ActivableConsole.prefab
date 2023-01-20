@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: -5585399694907766432}
   - component: {fileID: 17534160472782867}
   - component: {fileID: 6956423858022219536}
+  - component: {fileID: 3291653238855387024}
+  - component: {fileID: 8666288725246816471}
   m_Layer: 8
   m_Name: ActivableConsole
   m_TagString: Untagged
@@ -175,6 +177,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 2
+--- !u!114 &3291653238855387024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503570291079590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb8271fbef7525748a512c171b100bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!114 &8666288725246816471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503570291079590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -53623643, guid: e160884b7e39b8e479dc90c5b7dcec1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &190778410815294040
 GameObject:
   m_ObjectHideFlags: 0

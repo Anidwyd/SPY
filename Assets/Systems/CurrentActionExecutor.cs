@@ -63,7 +63,7 @@ public class CurrentActionExecutor : FSystem {
 				break;
 		}
 		// notify agent moving
-		if (ca.agent.CompareTag("Drone") && !ca.agent.GetComponent<Moved>())
+		if (ca.agent.CompareTag("Enemy") && !ca.agent.GetComponent<Moved>())
 			GameObjectManager.addComponent<Moved>(ca.agent);
 	}
 

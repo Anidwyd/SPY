@@ -53,6 +53,7 @@ public class EditableContainerSystem : FSystem
 	{
 		instance = this;
 	}
+	
 	protected override void onStart()
 	{
 		GameObject go = GameObject.Find("GameData");

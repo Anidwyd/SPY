@@ -17,7 +17,7 @@ public class CurrentActionManager : FSystem
 	private Family f_player = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef),typeof(Position)), new AnyOfTags("Player"));
 
 	private Family f_wall = FamilyManager.getFamily(new AllOfComponents(typeof(Position)), new AnyOfTags("Wall"));
-	private Family f_drone = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef), typeof(Position)), new AnyOfTags("Drone"));
+	private Family f_enemy = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef), typeof(Position)), new AnyOfTags("Enemy"));
 	private Family f_door = FamilyManager.getFamily(new AllOfComponents(typeof(ActivationSlot), typeof(Position)), new AnyOfTags("Door"), new AnyOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
 	private Family f_redDetector = FamilyManager.getFamily(new AllOfComponents(typeof(Rigidbody), typeof(Detector), typeof(Position)));
 	private Family f_activableConsole = FamilyManager.getFamily(new AllOfComponents(typeof(Actionable), typeof(Position), typeof(AudioSource)));
@@ -72,9 +72,9 @@ public class CurrentActionManager : FSystem
 			{
 				// init currentAction on the first action of ennemies
 				bool forceNewStep = false;
-				foreach (GameObject drone in f_drone)
-					if (!drone.GetComponent<ScriptRef>().executableScript.GetComponentInChildren<CurrentAction>(true) && !drone.GetComponent<ScriptRef>().scriptFinished)
-						addCurrentActionOnFirstAction(drone);
+				foreach (GameObject enemy in f_enemy)
+					if (!enemy.GetComponent<ScriptRef>().executableScript.GetComponentInChildren<CurrentAction>(true) && !enemy.GetComponent<ScriptRef>().scriptFinished)
+						addCurrentActionOnFirstAction(enemy);
 					else
 						forceNewStep = true; // will move currentAction on next action
 
@@ -321,9 +321,9 @@ public class CurrentActionManager : FSystem
 						ifok = true;
 				break;
 			case "Enemy": // enemies
-				foreach (GameObject drone in f_drone)
-					if (drone.GetComponent<Position>().x == agent.GetComponent<Position>().x + vec.x &&
-						drone.GetComponent<Position>().y == agent.GetComponent<Position>().y + vec.y)
+				foreach (GameObject enemy in f_enemy)
+					if (enemy.GetComponent<Position>().x == agent.GetComponent<Position>().x + vec.x &&
+						enemy.GetComponent<Position>().y == agent.GetComponent<Position>().y + vec.y)
 						ifok = true;
 				break;
 			case "Terminal": // consoles
@@ -361,8 +361,8 @@ public class CurrentActionManager : FSystem
 		foreach(GameObject currentActionGO in f_currentActions){
 			CurrentAction currentAction = currentActionGO.GetComponent<CurrentAction>();
 			nextAction = getNextAction(currentActionGO, currentAction.agent);
-			// check if we reach last action of a drone
-			if (nextAction == null && currentActionGO.GetComponent<CurrentAction>().agent.CompareTag("Drone"))
+			// check if we reach last action of an enemy
+			if (nextAction == null && currentActionGO.GetComponent<CurrentAction>().agent.CompareTag("Enemy"))
 				currentActionGO.GetComponent<CurrentAction>().agent.GetComponent<ScriptRef>().scriptFinished = true;
 			else if (nextAction != null)
 			{

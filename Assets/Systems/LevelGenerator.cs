@@ -20,17 +20,18 @@ public class LevelGenerator : FSystem {
 
 	// Famille contenant les agents editables
 	private Family f_level = FamilyManager.getFamily(new AnyOfComponents(typeof(Position), typeof(CurrentAction)));
-	private Family f_drone = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef)), new AnyOfTags("Drone")); // On r?cup?re les agents pouvant ?tre ?dit?s
+	private Family f_enemy = FamilyManager.getFamily(new AllOfComponents(typeof(ScriptRef)), new AnyOfTags("Enemy")); // On r?cup?re les agents pouvant ?tre ?dit?s
 	private Family f_draggableElement = FamilyManager.getFamily(new AnyOfComponents(typeof(ElementToDrag)));
 
 	private List<List<int>> map;
 	private GameData gameData;
 	private int nbAgentCreate = 0; // Nombre d'agents cr??s
-	private int nbDroneCreate = 0; // Nombre de drones cr??s
+	private int nbEnemyCreate = 0; // Nombre d'ennemis cr??s
 	private HashSet<string> scriptNameUsed = new HashSet<string>();
 	private GameObject lastAgentCreated = null;
 
 	public GameObject editableCanvas;// Le container qui contient les Viewport/script containers
+	public GameObject consoleContainer;
 	public GameObject scriptContainer;
 	public GameObject library; // Le viewport qui contient la librairie
 	public GameObject EditableContenair; // Le container qui contient les s?quences ?ditables
@@ -294,14 +295,14 @@ public class LevelGenerator : FSystem {
 		}
 		else if (type == "enemy")
 		{
-			nbDroneCreate++;
+			nbEnemyCreate++;
 			// Chargement de l'ic?ne de l'agent sur la localisation
-			executablePanel.transform.Find("Header").Find("locateButton").GetComponentInChildren<Image>().sprite = Resources.Load("UI Images/droneIcon", typeof(Sprite)) as Sprite;
+			executablePanel.transform.Find("Header").Find("locateButton").GetComponentInChildren<Image>().sprite = Resources.Load("UI Images/enemyIcon", typeof(Sprite)) as Sprite;
 			// Affichage du nom de l'agent
 			if(nameAgent != "")
 				executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = nameAgent;
             else
-				executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = "Drone "+nbDroneCreate;
+				executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = "Enemy "+nbEnemyCreate;
 		}
 
 		AgentColor ac = MainLoop.instance.GetComponent<AgentColor>();
@@ -358,13 +359,19 @@ public class LevelGenerator : FSystem {
 		
 		if (state == 0)
 			console.AddComponent<TurnedOn>();
+		
+		GameObject consolePanel = Object.Instantiate(Resources.Load ("Prefabs/ConsolePanel") as GameObject, consoleContainer.gameObject.transform, false);
+		// Association de la console à son panel
+		consolePanel.GetComponentInChildren<LinkedWith>(true).target = console;
 
+		consolePanel.SetActive(false);
+		GameObjectManager.bind(consolePanel);
 		GameObjectManager.bind(console);
 	}
 
-	private void createSpawnExit(int gridX, int gridY, bool type){
+	private void createSpawnExit(int gridX, int gridY, bool isSpawn){
 		GameObject spawnExit;
-		if(type)
+		if (isSpawn)
 			spawnExit = Object.Instantiate<GameObject>(Resources.Load ("Prefabs/TeleporterSpawn") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY*3,1.5f,gridX*3), Quaternion.Euler(-90,0,0), gameData.LevelGO.transform);
 		else
 			spawnExit = Object.Instantiate<GameObject>(Resources.Load ("Prefabs/TeleporterExit") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY*3,1.5f,gridX*3), Quaternion.Euler(-90,0,0), gameData.LevelGO.transform);
@@ -488,17 +495,17 @@ public class LevelGenerator : FSystem {
 			// Look for another script with the same name. If one already exists, we don't create one more.
 			if (!scriptNameUsed.Contains(name))
             {
-				// Rechercher un drone associ? ? ce script
-				bool droneFound = false;
-				foreach (GameObject drone in f_drone)
+				// Rechercher un ennemi associ? ? ce script
+				bool enemyFound = false;
+				foreach (GameObject enemy in f_enemy)
 				{
-					ScriptRef scriptRef = drone.GetComponent<ScriptRef>();
+					ScriptRef scriptRef = enemy.GetComponent<ScriptRef>();
 					if (scriptRef.executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text == name)
 					{
 						GameObject tmpContainer = GameObject.Instantiate(scriptRef.executableScript);
 						foreach (GameObject go in script)
 							go.transform.SetParent(tmpContainer.transform, false); //add actions to container
-						EditingUtility.fillExecutablePanel(tmpContainer, scriptRef.executableScript, drone.tag);
+						EditingUtility.fillExecutablePanel(tmpContainer, scriptRef.executableScript, enemy.tag);
 						// bind all child
 						foreach (Transform child in scriptRef.executableScript.transform)
 							GameObjectManager.bind(child.gameObject);
@@ -506,10 +513,10 @@ public class LevelGenerator : FSystem {
 						scriptRef.executablePanel.transform.Find("Header").Find("Toggle").GetComponent<Toggle>().isOn = true;
 						GameObjectManager.setGameObjectState(scriptRef.executablePanel, true);
 						Object.Destroy(tmpContainer);
-						droneFound = true;
+						enemyFound = true;
 					}
 				}
-				if (!droneFound)
+				if (!enemyFound)
 					GameObjectManager.addComponent<AddSpecificContainer>(MainLoop.instance.gameObject, new { title = name, editState = editMode, typeState = type, script = script });
 			}
 			else

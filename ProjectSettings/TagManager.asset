@@ -7,14 +7,13 @@ TagManager:
   - ScriptConstructor
   - Spawn
   - Exit
-  - Ennemy
   - Coin
-  - Drone
   - Wall
   - endpanel
   - Door
   - ResetButton
   - RemoveButton
+  - Enemy
   layers:
   - Default
   - TransparentFX

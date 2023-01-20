@@ -4,6 +4,7 @@ using FYFY;
 public class LevelGenerator_wrapper : BaseWrapper
 {
 	public UnityEngine.GameObject editableCanvas;
+	public UnityEngine.GameObject consoleContainer;
 	public UnityEngine.GameObject scriptContainer;
 	public UnityEngine.GameObject library;
 	public UnityEngine.GameObject EditableContenair;
@@ -14,6 +15,7 @@ public class LevelGenerator_wrapper : BaseWrapper
 	{
 		this.hideFlags = HideFlags.NotEditable;
 		MainLoop.initAppropriateSystemField (system, "editableCanvas", editableCanvas);
+		MainLoop.initAppropriateSystemField (system, "consoleContainer", consoleContainer);
 		MainLoop.initAppropriateSystemField (system, "scriptContainer", scriptContainer);
 		MainLoop.initAppropriateSystemField (system, "library", library);
 		MainLoop.initAppropriateSystemField (system, "EditableContenair", EditableContenair);

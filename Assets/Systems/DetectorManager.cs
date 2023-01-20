@@ -7,11 +7,11 @@ using FYFY_plugins.TriggerManager;
 /// </summary>
 public class DetectorManager : FSystem {
 
-	private Family f_enemy = FamilyManager.getFamily(new AllOfComponents(typeof(DetectRange), typeof(Direction), typeof(Position)), new AnyOfTags("Drone"));
+	private Family f_enemy = FamilyManager.getFamily(new AllOfComponents(typeof(DetectRange), typeof(Direction), typeof(Position)), new AnyOfTags("Enemy"));
 	private Family f_detector = FamilyManager.getFamily(new AllOfComponents(typeof(Detector), typeof(Position), typeof(Rigidbody)));
 	private Family f_wall = FamilyManager.getFamily(new AllOfComponents(typeof(Position)), new AnyOfTags("Wall"));
     private Family f_gameLoaded = FamilyManager.getFamily(new AllOfComponents(typeof(GameLoaded), typeof(MainLoop)));
-    private Family f_enemyMoved = FamilyManager.getFamily(new AllOfComponents(typeof(Moved)), new AnyOfComponents(typeof(DetectRange), typeof(Direction), typeof(Position)), new AnyOfTags("Drone"));
+    private Family f_enemyMoved = FamilyManager.getFamily(new AllOfComponents(typeof(Moved)), new AnyOfComponents(typeof(DetectRange), typeof(Direction), typeof(Position)), new AnyOfTags("Enemy"));
     private Family f_robotcollision = FamilyManager.getFamily(new AllOfComponents(typeof(Triggered3D)), new AnyOfTags("Player"));
 
     private Family f_playingMode = FamilyManager.getFamily(new AllOfComponents(typeof(PlayMode)));
@@ -60,16 +60,16 @@ public class DetectorManager : FSystem {
             updateDetector(detect);
     }
 
-    // Reset detector positions depending on drone properties (position, orientation, range...)
-    private void updateDetector(GameObject drone)
+    // Reset detector positions depending on enemy properties (position, orientation, range...)
+    private void updateDetector(GameObject enemy)
     {
-        foreach (Moved moved in drone.GetComponents<Moved>())
+        foreach (Moved moved in enemy.GetComponents<Moved>())
             GameObjectManager.removeComponent(moved);
 
         //Destroy detection cells
         foreach (GameObject detector in f_detector)
         {
-            if (detector.GetComponent<Detector>().owner == drone)
+            if (detector.GetComponent<Detector>().owner == enemy)
             {
                 // Reset positions (because GameObject is not destroyed immediate)
                 Position pos = detector.GetComponent<Position>();
@@ -82,28 +82,28 @@ public class DetectorManager : FSystem {
 
         bool stop = false;
         //Generate detection cells
-        DetectRange dr = drone.GetComponent<DetectRange>();
-        Position drone_pos = drone.GetComponent<Position>();
+        DetectRange dr = enemy.GetComponent<DetectRange>();
+        Position enemyPos = enemy.GetComponent<Position>();
         switch (dr.type)
         {
             //Line type
             case DetectRange.Type.Line:
                 if (dr.selfRange)
                 {
-                    GameObject newRedArea = Object.Instantiate(Resources.Load("Prefabs/RedDetector") as GameObject, gameData.LevelGO.transform.position + new Vector3(drone_pos.y * 3, 1.5f, drone_pos.x * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
-                    newRedArea.GetComponent<Position>().x = drone_pos.x;
-                    newRedArea.GetComponent<Position>().y = drone_pos.y;
-                    newRedArea.GetComponent<Detector>().owner = drone;
+                    GameObject newRedArea = Object.Instantiate(Resources.Load("Prefabs/RedDetector") as GameObject, gameData.LevelGO.transform.position + new Vector3(enemyPos.y * 3, 1.5f, enemyPos.x * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
+                    newRedArea.GetComponent<Position>().x = enemyPos.x;
+                    newRedArea.GetComponent<Position>().y = enemyPos.y;
+                    newRedArea.GetComponent<Detector>().owner = enemy;
                     GameObjectManager.bind(newRedArea);
                 }
-                switch (drone.GetComponent<Direction>().direction)
+                switch (enemy.GetComponent<Direction>().direction)
                 {
                     case Direction.Dir.North:
                         stop = false;
                         for (int i = 0; i < dr.range; i++)
                         {
-                            int x = drone_pos.x;
-                            int y = drone_pos.y - i - 1;
+                            int x = enemyPos.x;
+                            int y = enemyPos.y - i - 1;
                             foreach (GameObject wall in f_wall)
                                 if (wall.GetComponent<Position>().x == x && wall.GetComponent<Position>().y == y)
                                     stop = true;
@@ -114,7 +114,7 @@ public class DetectorManager : FSystem {
                                 GameObject obj = Object.Instantiate(Resources.Load("Prefabs/RedDetector") as GameObject, gameData.LevelGO.transform.position + new Vector3(y * 3, 1.5f, x * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
                                 obj.GetComponent<Position>().x = x;
                                 obj.GetComponent<Position>().y = y;
-                                obj.GetComponent<Detector>().owner = drone;
+                                obj.GetComponent<Detector>().owner = enemy;
                                 GameObjectManager.bind(obj);
                             }
                         }
@@ -123,8 +123,8 @@ public class DetectorManager : FSystem {
                         stop = false;
                         for (int i = 0; i < dr.range; i++)
                         {
-                            int x = drone_pos.x - i - 1;
-                            int y = drone_pos.y;
+                            int x = enemyPos.x - i - 1;
+                            int y = enemyPos.y;
                             foreach (GameObject wall in f_wall)
                                 if (wall.GetComponent<Position>().x == x && wall.GetComponent<Position>().y == y)
                                     stop = true;
@@ -135,7 +135,7 @@ public class DetectorManager : FSystem {
                                 GameObject obj = Object.Instantiate(Resources.Load("Prefabs/RedDetector") as GameObject, gameData.LevelGO.transform.position + new Vector3(y * 3, 1.5f, x * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
                                 obj.GetComponent<Position>().x = x;
                                 obj.GetComponent<Position>().y = y;
-                                obj.GetComponent<Detector>().owner = drone;
+                                obj.GetComponent<Detector>().owner = enemy;
                                 GameObjectManager.bind(obj);
                             }
                         }
@@ -144,8 +144,8 @@ public class DetectorManager : FSystem {
                         stop = false;
                         for (int i = 0; i < dr.range; i++)
                         {
-                            int x = drone_pos.x;
-                            int y = drone_pos.y + i + 1;
+                            int x = enemyPos.x;
+                            int y = enemyPos.y + i + 1;
                             foreach (GameObject wall in f_wall)
                                 if (wall.GetComponent<Position>().x == x && wall.GetComponent<Position>().y == y)
                                     stop = true;
@@ -156,7 +156,7 @@ public class DetectorManager : FSystem {
                                 GameObject obj = Object.Instantiate(Resources.Load("Prefabs/RedDetector") as GameObject, gameData.LevelGO.transform.position + new Vector3(y * 3, 1.5f, x * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
                                 obj.GetComponent<Position>().x = x;
                                 obj.GetComponent<Position>().y = y;
-                                obj.GetComponent<Detector>().owner = drone;
+                                obj.GetComponent<Detector>().owner = enemy;
                                 GameObjectManager.bind(obj);
                             }
                         }
@@ -165,8 +165,8 @@ public class DetectorManager : FSystem {
                         stop = false;
                         for (int i = 0; i < dr.range; i++)
                         {
-                            int x = drone_pos.x + i + 1;
-                            int y = drone_pos.y;
+                            int x = enemyPos.x + i + 1;
+                            int y = enemyPos.y;
                             foreach (GameObject wall in f_wall)
                                 if (wall.GetComponent<Position>().x == x && wall.GetComponent<Position>().y == y)
                                     stop = true;
@@ -177,7 +177,7 @@ public class DetectorManager : FSystem {
                                 GameObject obj = Object.Instantiate(Resources.Load("Prefabs/RedDetector") as GameObject, gameData.LevelGO.transform.position + new Vector3(y * 3, 1.5f, x * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
                                 obj.GetComponent<Position>().x = x;
                                 obj.GetComponent<Position>().y = y;
-                                obj.GetComponent<Detector>().owner = drone;
+                                obj.GetComponent<Detector>().owner = enemy;
                                 GameObjectManager.bind(obj);
                             }
                         }
