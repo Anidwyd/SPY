@@ -16,7 +16,7 @@ public class DoorAndConsoleManager : FSystem
     private Family f_consoleOn = FamilyManager.getFamily(new AllOfComponents(typeof(Actionable), typeof(Position), typeof(AudioSource), typeof(TurnedOn)));
     private Family f_consoleOff = FamilyManager.getFamily(new AllOfComponents(typeof(Actionable), typeof(Position), typeof(AudioSource)), new NoneOfComponents(typeof(TurnedOn)));
 
-    private Family f_newStep = FamilyManager.getFamily(new AllOfComponents(typeof(NewStep)));
+    private Family f_newCurrentAction = FamilyManager.getFamily(new AllOfComponents(typeof(CurrentAction), typeof(BasicAction)));
     private Family f_gameLoaded = FamilyManager.getFamily(new AllOfComponents(typeof(GameLoaded)));
 
     private GameData gameData;
@@ -36,7 +36,7 @@ public class DoorAndConsoleManager : FSystem
         f_consoleOff.addEntryCallback(onNewConsoleTurnedOff); // Console will enter in this family when TurnedOn component will be removed from console (see CurrentActionExecutor)
         f_gameLoaded.addEntryCallback(connectDoorsAndConsoles);
 
-        f_newStep.addEntryCallback(delegate { onNewStep(); });
+        f_newCurrentAction.addEntryCallback(delegate { onNewCurrentAction(); });
     }
 
     private void onNewConsoleTurnedOn(GameObject console)
@@ -84,7 +84,7 @@ public class DoorAndConsoleManager : FSystem
 
             int sinceActivation = actionable.sinceActivation;
             SlotDescriptor descriptor = path.descriptor.GetComponent<SlotDescriptor>();
-
+ 
             // check if propagation can start or continue
             if (sinceActivation < path.offset) 
             {
@@ -195,7 +195,7 @@ public class DoorAndConsoleManager : FSystem
         path.units.Add(unit);
     }
 
-    private void onNewStep()
+    private void onNewCurrentAction()
     {
         foreach (GameObject console in f_console)
         {
