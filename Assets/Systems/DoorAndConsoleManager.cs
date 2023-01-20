@@ -83,17 +83,14 @@ public class DoorAndConsoleManager : FSystem
             DoorPath path = actionable.paths[slotId];
 
             int sinceActivation = actionable.sinceActivation;
+            SlotDescriptor descriptor = path.descriptor.GetComponent<SlotDescriptor>();
 
             // check if propagation can start or continue
-
-            SlotDescriptor descriptor = path.descriptor.GetComponent<SlotDescriptor>();
-            
             if (sinceActivation < path.offset) 
             {
                 descriptor.updateOffsetButtons(false);
                 continue;    
             }
-            
             if (sinceActivation >= path.duration + path.offset)
             {
                 descriptor.updateOffsetButtons(true);
