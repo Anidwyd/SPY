@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6592150674149379872}
   - component: {fileID: 6592150674149379879}
   - component: {fileID: 6592150674149379878}
+  - component: {fileID: 8416141189558561379}
+  - component: {fileID: 7219435252124186935}
   m_Layer: 8
   m_Name: Wall
   m_TagString: Wall
@@ -61,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: de7e32ef6c2e84928aee67cf65292972, type: 2}
+  - {fileID: 2100000, guid: 981a6c651e539497da0058d713deecde, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,3 +112,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 1
   y: 0
+--- !u!114 &8416141189558561379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6592150674149379876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -53623643, guid: e160884b7e39b8e479dc90c5b7dcec1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7219435252124186935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6592150674149379876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb8271fbef7525748a512c171b100bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightedColor: {r: 1, g: 1, b: 1, a: 0.6}

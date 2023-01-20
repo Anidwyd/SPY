@@ -45,11 +45,13 @@
   <console state="1" posY="3" posX="1" direction="3">
     <path slotId="0" duration="2" offset="1" />
     <path slotId="1" />
+    <path slotId="2" />
   </console>
 
   <door posY="2" posX="1" slotId="0" direction="0" />
   <door posY="2" posX="3" slotId="1" direction="0" color="#ff33b8" />
-  
+  <door posY="1" posX="2" slotId="2" direction="3" color="#ff8b17" />
+
   <player associatedScriptName="Bob" posY="5" posX="1" direction="0" />
   <script name="Bob" editMode="0" />
 

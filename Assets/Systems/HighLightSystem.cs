@@ -30,15 +30,17 @@ public class HighLightSystem : FSystem {
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
 		GameObject highLightedItem = f_highlighted.First();
-		//If click on highlighted item and item has a script, then show its script in the 2nd script window
 		if (!highLightedItem || !Input.GetMouseButtonUp(0) || dialogPanel.activeInHierarchy) return;
 		
+		// If click on highlighted item and item has a script, then show its script in the 2nd script window
 		if (highLightedItem.GetComponent<ScriptRef>())
 		{
 			GameObject go = highLightedItem.GetComponent<ScriptRef>().executablePanel;
 			GameObjectManager.setGameObjectState(go, !go.activeInHierarchy);
 			MainLoop.instance.GetComponent<AudioSource>().Play();
 		}
+		
+		// If click on highlighted console, then show its infos
 		else if (highLightedItem.GetComponent<Actionable>() && buttonExecute.gameObject.activeInHierarchy)
 		{
 			GameObject newPanel = highLightedItem.GetComponent<Actionable>().panel;
@@ -47,9 +49,9 @@ public class HighLightSystem : FSystem {
 				GameObjectManager.setGameObjectState(currentConsolePanel, false);
 				
 			currentConsolePanel = newPanel;
+			
 			GameObjectManager.setGameObjectState(currentConsolePanel, !currentConsolePanel.activeInHierarchy);
 			currentConsolePanel.AddComponent<NeedRefreshPlayButton>();
-			
 			MainLoop.instance.GetComponent<AudioSource>().Play();
 		}
 	}
