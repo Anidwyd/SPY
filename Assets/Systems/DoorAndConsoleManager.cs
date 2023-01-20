@@ -65,6 +65,15 @@ public class DoorAndConsoleManager : FSystem
         foreach (DoorPath path in console.paths.Values)
             path.pointer = 0;
     }
+    
+    private void updateOffsetButtons(DoorPath path, bool state)
+    {
+        // if (!path.descriptor) return;
+        
+        Transform offsetPanel = path.descriptor.transform.Find("Offset");
+        offsetPanel.GetChild(0).GetComponent<Button>().interactable = state;
+        offsetPanel.GetChild(2).GetComponent<Button>().interactable = state;
+    }
 
     private void updatePath(Actionable actionable, bool isOn)
     {
@@ -76,7 +85,20 @@ public class DoorAndConsoleManager : FSystem
             int sinceActivation = actionable.sinceActivation;
 
             // check if propagation can start or continue
-            if (sinceActivation < path.offset || sinceActivation >= path.duration + path.offset) continue;
+
+            SlotDescriptor descriptor = path.descriptor.GetComponent<SlotDescriptor>();
+            
+            if (sinceActivation < path.offset) 
+            {
+                descriptor.updateOffsetButtons(false);
+                continue;    
+            }
+            
+            if (sinceActivation >= path.duration + path.offset)
+            {
+                descriptor.updateOffsetButtons(true);
+                continue;    
+            }
 
             int lastPos = (int)path.pointer;
             path.pointer += path.step;
@@ -144,18 +166,14 @@ public class DoorAndConsoleManager : FSystem
                 // Update path attributes
                 path.length = path.units.Count;
                 path.step = (float)path.length / path.duration;
-                
-                // Update tooltip
-                // string colorTag = $"<#{ColorUtility.ToHtmlStringRGBA(color)}>";
-                // TooltipContent tooltip = console.GetComponentInChildren<TooltipContent>();
-                // tooltip.text += $"\n{colorTag}duration {path.duration} - offset {path.offset}</color>";
-                
+
                 // Update panel
                 GameObject slotDescriptor = Object.Instantiate(Resources.Load ("Prefabs/SlotDescriptor") as GameObject, actionable.panel.transform.Find("Scroll View").Find("Viewport").transform, false);
                 slotDescriptor.transform.GetChild(0).GetComponent<Image>().color = color;
                 slotDescriptor.transform.GetChild(1).GetComponent<TMP_Text>().text = path.duration.ToString();
                 slotDescriptor.transform.GetChild(2).GetChild(1).GetComponentInChildren<TMP_Text>().text = path.offset.ToString();
                 slotDescriptor.GetComponent<SlotDescriptor>().path = path;
+                path.descriptor = slotDescriptor;
             }
         }
 
