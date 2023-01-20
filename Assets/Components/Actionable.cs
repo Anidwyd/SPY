@@ -7,4 +7,6 @@ public class Actionable : MonoBehaviour {
 	
 	public int sinceActivation;
 	public bool connected;
+
+	public GameObject panel;
 }

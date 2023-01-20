@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using System.Linq;
 using FYFY;
+using TMPro;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 /// <summary>
@@ -144,9 +146,16 @@ public class DoorAndConsoleManager : FSystem
                 path.step = (float)path.length / path.duration;
                 
                 // Update tooltip
-                string colorTag = $"<#{ColorUtility.ToHtmlStringRGBA(color)}>";
-                TooltipContent tooltip = console.GetComponentInChildren<TooltipContent>();
-                tooltip.text += $"\n{colorTag}duration {path.duration} - offset {path.offset}</color>";
+                // string colorTag = $"<#{ColorUtility.ToHtmlStringRGBA(color)}>";
+                // TooltipContent tooltip = console.GetComponentInChildren<TooltipContent>();
+                // tooltip.text += $"\n{colorTag}duration {path.duration} - offset {path.offset}</color>";
+                
+                // Update panel
+                GameObject slotDescriptor = Object.Instantiate(Resources.Load ("Prefabs/SlotDescriptor") as GameObject, actionable.panel.transform.Find("Scroll View").Find("Viewport").transform, false);
+                slotDescriptor.transform.GetChild(0).GetComponent<Image>().color = color;
+                slotDescriptor.transform.GetChild(1).GetComponent<TMP_Text>().text = path.duration.ToString();
+                slotDescriptor.transform.GetChild(2).GetChild(1).GetComponentInChildren<TMP_Text>().text = path.offset.ToString();
+                slotDescriptor.GetComponent<SlotDescriptor>().path = path;
             }
         }
 

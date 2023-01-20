@@ -28,9 +28,17 @@ public class HighLightSystem : FSystem {
 	protected override void onProcess(int familiesUpdateCount) {
 		GameObject highLightedItem = f_highlighted.First();
 		//If click on highlighted item and item has a script, then show its script in the 2nd script window
-		if(highLightedItem && Input.GetMouseButtonUp(0) && highLightedItem.GetComponent<ScriptRef>() && dialogPanel.activeInHierarchy == false)
+		if (!highLightedItem || !Input.GetMouseButtonUp(0) || dialogPanel.activeInHierarchy == true) return;
+		
+		if (highLightedItem.GetComponent<ScriptRef>())
 		{
 			GameObject go = highLightedItem.GetComponent<ScriptRef>().executablePanel;
+			GameObjectManager.setGameObjectState(go,!go.activeInHierarchy);
+			MainLoop.instance.GetComponent<AudioSource>().Play();
+		}
+		else if (highLightedItem.GetComponent<Actionable>())
+		{
+			GameObject go = highLightedItem.GetComponent<Actionable>().panel;
 			GameObjectManager.setGameObjectState(go,!go.activeInHierarchy);
 			MainLoop.instance.GetComponent<AudioSource>().Play();
 		}

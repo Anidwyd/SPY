@@ -267,42 +267,43 @@ public class LevelGenerator : FSystem {
 		// Association de l'agent au script de gestion des fonctions
 		executablePanel.GetComponentInChildren<LinkedWith>(true).target = entity;
 
-		// On va charger l'image et le nom de l'agent selon l'agent (robot, ennemi etc...)
-		if (type == "player")
+		switch (type)
 		{
-			nbAgentCreate++;
-			// On nomme l'agent
-			AgentEdit agentEdit = entity.GetComponent<AgentEdit>();
-			if (nameAgent != "")
-				agentEdit.associatedScriptName = nameAgent;
-			else
-				agentEdit.associatedScriptName = "Agent" + nbAgentCreate;
+			// On va charger l'image et le nom de l'agent selon l'agent (robot, ennemi etc...)
+			case "player":
+				nbAgentCreate++;
+				// On nomme l'agent
+				AgentEdit agentEdit = entity.GetComponent<AgentEdit>();
+				if (nameAgent != "")
+					agentEdit.associatedScriptName = nameAgent;
+				else
+					agentEdit.associatedScriptName = "Agent" + nbAgentCreate;
 			
-			// On colore l'agent
-			foreach (Renderer renderer in entity.GetComponentsInChildren<Renderer>())
-				renderer.material.color = agentColor;
+				// On colore l'agent
+				foreach (Renderer renderer in entity.GetComponentsInChildren<Renderer>())
+					renderer.material.color = agentColor;
 
-			// Chargement de l'ic?ne de l'agent sur la localisation
-			Image locateButton = executablePanel.transform.Find("Header").Find("locateButton")
-				.GetComponentInChildren<Image>();
-			locateButton.sprite = Resources.Load("UI Images/playerIcon", typeof(Sprite)) as Sprite;
+				// Chargement de l'ic?ne de l'agent sur la localisation
+				Image locateButton = executablePanel.transform.Find("Header").Find("locateButton")
+					.GetComponentInChildren<Image>();
+				locateButton.sprite = Resources.Load("UI Images/playerIcon", typeof(Sprite)) as Sprite;
 
-			Color.RGBToHSV(agentColor, out var h, out var s, out _);
-			locateButton.color = Color.HSVToRGB(h, s, 1f);
+				Color.RGBToHSV(agentColor, out var h, out var s, out _);
+				locateButton.color = Color.HSVToRGB(h, s, 1f);
 			
-			// Affichage du nom de l'agent
-			executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = entity.GetComponent<AgentEdit>().associatedScriptName;
-		}
-		else if (type == "enemy")
-		{
-			nbEnemyCreate++;
-			// Chargement de l'ic?ne de l'agent sur la localisation
-			executablePanel.transform.Find("Header").Find("locateButton").GetComponentInChildren<Image>().sprite = Resources.Load("UI Images/enemyIcon", typeof(Sprite)) as Sprite;
-			// Affichage du nom de l'agent
-			if(nameAgent != "")
-				executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = nameAgent;
-            else
-				executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = "Enemy "+nbEnemyCreate;
+				// Affichage du nom de l'agent
+				executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = entity.GetComponent<AgentEdit>().associatedScriptName;
+				break;
+			case "enemy":
+				nbEnemyCreate++;
+				// Chargement de l'ic?ne de l'agent sur la localisation
+				executablePanel.transform.Find("Header").Find("locateButton").GetComponentInChildren<Image>().sprite = Resources.Load("UI Images/enemyIcon", typeof(Sprite)) as Sprite;
+				// Affichage du nom de l'agent
+				if(nameAgent != "")
+					executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = nameAgent;
+				else
+					executablePanel.transform.Find("Header").Find("agentName").GetComponent<TMP_InputField>().text = "Enemy "+nbEnemyCreate;
+				break;
 		}
 
 		AgentColor ac = MainLoop.instance.GetComponent<AgentColor>();
@@ -310,7 +311,6 @@ public class LevelGenerator : FSystem {
 
 		// scriptref.executablePanel.transform.Find("Scroll View").GetComponent<Image>().color = agentColor;
 		
-
 		executablePanel.SetActive(false);
 		GameObjectManager.bind(executablePanel);
 		GameObjectManager.bind(entity);
@@ -363,6 +363,7 @@ public class LevelGenerator : FSystem {
 		GameObject consolePanel = Object.Instantiate(Resources.Load ("Prefabs/ConsolePanel") as GameObject, consoleContainer.gameObject.transform, false);
 		// Association de la console à son panel
 		consolePanel.GetComponentInChildren<LinkedWith>(true).target = console;
+		actionable.panel = consolePanel;
 
 		consolePanel.SetActive(false);
 		GameObjectManager.bind(consolePanel);

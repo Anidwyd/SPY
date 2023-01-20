@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 1241420596772593944}
   - component: {fileID: 6633517902826315242}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Duration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -493,8 +493,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -511,12 +511,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11
+  m_fontSize: 16
   m_fontSizeBase: 11
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 8
-  m_fontSizeMax: 11
+  m_fontSizeMax: 16
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -807,7 +807,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3362139836356469283}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6258545772289467714}
+        m_TargetAssemblyTypeName: SlotDescriptor, Assembly-CSharp
+        m_MethodName: IncrementOffset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7389315620717611674
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,6 +936,7 @@ GameObject:
   - component: {fileID: 1773022105499922524}
   - component: {fileID: 9057515418073368802}
   - component: {fileID: 7827210768834398839}
+  - component: {fileID: 6258545772289467714}
   m_Layer: 5
   m_Name: SlotDescriptor
   m_TagString: Untagged
@@ -987,6 +1000,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7695471394403310521}
   m_CullTransparentMesh: 1
+--- !u!114 &6258545772289467714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695471394403310521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c23d12f62e7c8c4c8ea5f205ba79a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: {fileID: 0}
 --- !u!1 &8078645420687055581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,4 +1133,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8760024858378090338}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6258545772289467714}
+        m_TargetAssemblyTypeName: SlotDescriptor, Assembly-CSharp
+        m_MethodName: DecrementOffset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
