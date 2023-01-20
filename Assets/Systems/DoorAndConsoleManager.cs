@@ -55,7 +55,7 @@ public class DoorAndConsoleManager : FSystem
 
         Actionable actionable = console.GetComponent<Actionable>();
         resetConsole(actionable);
-        updatePaths(actionable, isOn);
+        // updatePaths(actionable, isOn);
     }
 
     private void resetConsole(Actionable console)
