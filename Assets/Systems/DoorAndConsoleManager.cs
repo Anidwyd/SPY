@@ -58,8 +58,8 @@ public class DoorAndConsoleManager : FSystem
 
     private void resetConsole(Actionable console, int isOn)
     {
-        console.isConnected[isOn] = true;
-        console.sinceActivation[isOn] = 0;
+        console.isStateActive[isOn] = true;
+        console.sinceStateActivated[isOn] = 0;
         foreach (DoorPath path in console.paths.Values)
             path.pointers[isOn] = 0;
     }
@@ -70,15 +70,15 @@ public class DoorAndConsoleManager : FSystem
         foreach (DoorPath path in actionable.paths.Values)
         {
             // manage instant activation
-            if ((path.duration != 0 || actionable.sinceActivation[isOn] != 0) &&
-                (path.duration <= 0 || actionable.sinceActivation[isOn] <= 0))
+            if ((path.duration != 0 || actionable.sinceStateActivated[isOn] != 0) &&
+                (path.duration <= 0 || actionable.sinceStateActivated[isOn] <= 0))
                 continue;
             
             // disable delay buttons inside panel if needed
             path.descriptor.GetComponent<SlotDescriptor>().updateDelayButtons(path.pointers[isOn] >= path.length - path.step);
             
             // check if propagation can start
-            if ((path.delay > 0 && actionable.sinceActivation[isOn] <= path.delay) || path.pointers[isOn] >= path.length) 
+            if ((path.delay > 0 && actionable.sinceStateActivated[isOn] <= path.delay) || path.pointers[isOn] >= path.length) 
                 continue;
 
             // increment pointer and update the path color
@@ -181,15 +181,13 @@ public class DoorAndConsoleManager : FSystem
         pathUnit.transform.Find(dirs[1]).gameObject.SetActive(true);
 
         PathUnit unit = pathUnit.GetComponent<PathUnit>();
-
         // On color
         unit.colorOn = color;
-        unit.colorOn.a = 0.8f;
-        
+        unit.colorOn.a = 0.6f;
         // Off color
         Color.RGBToHSV(color, out var h, out var s, out _);
         unit.colorOff = Color.HSVToRGB(h, s - 0.2f, 0.2f);
-        unit.colorOff.a = 0.8f;
+        unit.colorOff.a = 0.6f;
 
         updateUnitColor(unit, state);
 
@@ -202,15 +200,20 @@ public class DoorAndConsoleManager : FSystem
         {
             Actionable actionable = console.GetComponent<Actionable>();
             
-            for (var i = 0; i < actionable.sinceActivation.Length; i++)
+            for (var i = 0; i < actionable.sinceStateActivated.Length; i++)
             {
-                if (!actionable.isConnected[i]) continue;
-                actionable.sinceActivation[i]++;
+                // if the state is active, increment the corresponding counter
+                if (!actionable.isStateActive[i]) continue;
+                actionable.sinceStateActivated[i]++;
                 updatePaths(actionable, i);
+                // if all signal have reached their slot, deactivate the state
+                actionable.isStateActive[i] = !actionable.paths.Values.All(path => path.pointers[i] >= path.length);
             }
-            
-            if (actionable.keepSignal > 0 && actionable.sinceActivation[1] == actionable.keepSignal && console.GetComponent<TurnedOn>())
-                GameObjectManager.removeComponent<TurnedOn>(console);
+
+            // if the stay activated limit is reached, turn off the console
+            if (!actionable.keepLimitReached()) continue;
+            GameObjectManager.removeComponent<TurnedOn>(console);
+            console.GetComponent<AudioSource>().Play();
         }
     }
 }

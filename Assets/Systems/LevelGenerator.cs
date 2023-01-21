@@ -352,9 +352,9 @@ public class LevelGenerator : FSystem {
 		Actionable actionable = console.GetComponent<Actionable>();
 		actionable.slotsID = slotsID;
 		actionable.paths = paths;
-		actionable.keepSignal = keep;
-		actionable.sinceActivation = new int[2];
-		actionable.isConnected = new bool[2];
+		actionable.keepActive = keep;
+		actionable.sinceStateActivated = new int[2];
+		actionable.isStateActive = new bool[2];
 		
 		console.GetComponent<Position>().x = gridX;
 		console.GetComponent<Position>().y = gridY;
@@ -367,6 +367,7 @@ public class LevelGenerator : FSystem {
 		// Association de la console à son panel
 		consolePanel.GetComponentInChildren<LinkedWith>(true).target = console;
 		actionable.panel = consolePanel;
+		actionable.panel.transform.Find("Header").Find("KeepSignal").GetChild(1).GetComponent<TMP_Text>().text = actionable.keepActive.ToString();
 
 		consolePanel.SetActive(false);
 		GameObjectManager.bind(consolePanel);
