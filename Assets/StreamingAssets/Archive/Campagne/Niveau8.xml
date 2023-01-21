@@ -43,7 +43,7 @@
   </blockLimits>
 
   <console posY="3" posX="1" direction="3">
-    <path slotId="0" duration="2" offset="1" />
+    <path slotId="0" duration="2" delay="1" />
     <path slotId="1" />
     <path slotId="2" duration="3" />
   </console>

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using System.Linq;
 using FYFY;
@@ -52,15 +51,14 @@ public class DoorAndConsoleManager : FSystem
     private void onConsoleStateChanged(GameObject console, bool isOn)
     {
         if (!slotsConnected) return;
-
         Actionable actionable = console.GetComponent<Actionable>();
         resetConsole(actionable);
-        // updatePaths(actionable, isOn);
+        updatePaths(actionable, isOn);
     }
 
     private void resetConsole(Actionable console)
     {
-        console.connected = true;
+        console.isConnected = true;
         console.sinceActivation = 0;
         foreach (DoorPath path in console.paths.Values)
             path.pointer = 0;
@@ -69,25 +67,19 @@ public class DoorAndConsoleManager : FSystem
     private void updatePaths(Actionable actionable, bool isOn)
     {
         // parse all slots controled by this console
-        foreach (int slotId in actionable.paths.Keys)
+        foreach (DoorPath path in actionable.paths.Values)
         {
-            DoorPath path = actionable.paths[slotId];
+            if (path.duration == 0 && actionable.sinceActivation != 0)
+                return;
+            
+            // disable delay buttons inside panel if needed
+            path.descriptor.GetComponent<SlotDescriptor>().updateDelayButtons(path.pointer >= path.length - path.step);
+            
+            // check if propagation can start
+            if (actionable.sinceActivation <= path.delay || path.pointer >= path.length) 
+                continue;
 
-            int sinceActivation = actionable.sinceActivation;
-            SlotDescriptor descriptor = path.descriptor.GetComponent<SlotDescriptor>();
- 
-            // check if propagation can start or continue
-            if (sinceActivation < path.offset) 
-            {
-                descriptor.updateOffsetButtons(false);
-                continue;    
-            }
-            if (sinceActivation >= path.duration + path.offset)
-            {
-                descriptor.updateOffsetButtons(true);
-                continue;    
-            }
-
+            // increment pointer
             int lastPos = (int)path.pointer;
             path.pointer += path.step;
 
@@ -95,7 +87,7 @@ public class DoorAndConsoleManager : FSystem
             for (int i = lastPos; i < (int)path.pointer; i++)
                 updateUnitColor(path.units[i], isOn);
 
-            // check if signal has reached the door
+            // if signal has not reached the door, continue
             if (path.door == null || path.pointer < path.length)
                 continue;
 
@@ -153,13 +145,25 @@ public class DoorAndConsoleManager : FSystem
 
                 // Update path attributes
                 path.length = path.units.Count;
-                path.step = (float)path.length / path.duration;
+                switch (path.duration)
+                {
+                    case -1:
+                        path.duration = path.length;
+                        path.step = 1;
+                        break;
+                    case 0:
+                        path.step = path.length;
+                        break;
+                    default:
+                        path.step = (float)path.length / path.duration;
+                        break;
+                }
 
                 // Update panel
                 GameObject slotDescriptor = Object.Instantiate(Resources.Load ("Prefabs/SlotDescriptor") as GameObject, actionable.panel.transform.Find("Body").transform, false);
                 slotDescriptor.transform.GetChild(0).GetComponent<Image>().color = color;
                 slotDescriptor.transform.GetChild(1).GetComponent<TMP_Text>().text = path.duration.ToString();
-                slotDescriptor.transform.GetChild(2).GetChild(1).GetComponentInChildren<TMP_Text>().text = path.offset.ToString();
+                slotDescriptor.transform.GetChild(2).GetChild(1).GetComponentInChildren<TMP_Text>().text = path.delay.ToString();
                 slotDescriptor.GetComponent<SlotDescriptor>().path = path;
                 path.descriptor = slotDescriptor;
             }
@@ -198,10 +202,16 @@ public class DoorAndConsoleManager : FSystem
         {
             Actionable actionable = console.GetComponent<Actionable>();
 
-            if (!actionable.connected) continue;
+            if (!actionable.isConnected) continue;
+
+            if (actionable.paths.Values.All(p => p.pointer >= p.length))
+                actionable.isConnected = false;
 
             actionable.sinceActivation++;
             updatePaths(actionable, f_consoleOn.Contains(console));
+            
+            // if (actionable.sinceActivation > actionable.keepSignal && console.GetComponent<TurnedOn>())
+            //     GameObjectManager.removeComponent<TurnedOn>(console);
         }
     }
 }

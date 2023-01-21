@@ -7,23 +7,12 @@ public class DoorPath : MonoBehaviour
 {
     public List<PathUnit> units;
     public GameObject door;
+    public float pointer;
+    
     public int duration;
     public int length;
-    public int offset;
+    public int delay;
     public float step;
-    public float pointer;
 
     public GameObject descriptor;
-
-    public void incrementOffset()
-    {
-        if (!descriptor) return;
-        offset++;
-    }
-    
-    public void decrementOffset()
-    {
-        if (!descriptor) return;
-        offset--;
-    }
 }

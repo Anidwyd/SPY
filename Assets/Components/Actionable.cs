@@ -6,7 +6,8 @@ public class Actionable : MonoBehaviour {
 	public Dictionary<int, DoorPath> paths = new Dictionary<int, DoorPath>();
 	
 	public int sinceActivation;
-	public bool connected;
+	public bool isConnected;
+	public int keepSignal;
 
 	public GameObject panel;
 }

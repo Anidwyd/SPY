@@ -345,13 +345,14 @@ public class LevelGenerator : FSystem {
 		GameObjectManager.bind(decoration);
 	}
 
-	private void createConsole(int state, int gridX, int gridY, List<int> slotsID, Dictionary<int, DoorPath> paths, Direction.Dir orientation)
+	private void createConsole(int state, int gridX, int gridY, List<int> slotsID, Dictionary<int, DoorPath> paths, Direction.Dir orientation, int keep)
 	{
 		GameObject console = Object.Instantiate<GameObject>(Resources.Load("Prefabs/ActivableConsole") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
 		
 		Actionable actionable = console.GetComponent<Actionable>();
 		actionable.slotsID = slotsID;
 		actionable.paths = paths;
+		actionable.keepSignal = keep;
 		
 		console.GetComponent<Position>().x = gridX;
 		console.GetComponent<Position>().y = gridY;
@@ -465,7 +466,8 @@ public class LevelGenerator : FSystem {
 		int gridY = int.Parse(activableNode.Attributes.GetNamedItem("posY").Value);
 		Direction.Dir direction = (Direction.Dir)int.Parse(activableNode.Attributes.GetNamedItem("direction").Value);
 
-		XmlNode state = activableNode.Attributes.GetNamedItem("state");
+		XmlNode stateXml = activableNode.Attributes.GetNamedItem("state");
+		XmlNode keepXml = activableNode.Attributes.GetNamedItem("keep");
 
 		foreach(XmlNode child in activableNode.ChildNodes)
 		{
@@ -474,15 +476,17 @@ public class LevelGenerator : FSystem {
 			
 			int slotID = int.Parse(child.Attributes.GetNamedItem("slotId").Value);
 			XmlNode duration = child.Attributes.GetNamedItem("duration");
-			XmlNode offset = child.Attributes.GetNamedItem("offset");
+			XmlNode delay = child.Attributes.GetNamedItem("delay");
 			
 			doorPath.duration = duration == null ? 1 : int.Parse(duration.Value);
-			doorPath.offset = offset == null ? 0 : int.Parse(offset.Value);
+			doorPath.delay = delay == null ? 0 : int.Parse(delay.Value);
 			
 			paths.Add(slotID, doorPath);
 		}
 
-		createConsole(state == null ? 0 : int.Parse(state.Value), gridX, gridY, slotsID, paths, direction);
+		int state = stateXml == null ? 0 : int.Parse(stateXml.Value);
+		int keep = keepXml == null ? 1 : int.Parse(keepXml.Value);
+		createConsole(state, gridX, gridY, slotsID, paths, direction, keep);
 	}
 
 	// Lit le XML d'un script est g?n?re les game objects des instructions

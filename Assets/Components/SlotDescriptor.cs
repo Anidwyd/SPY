@@ -7,28 +7,27 @@ public class SlotDescriptor : MonoBehaviour
 {
     public DoorPath path;
 
-    public void IncrementOffset()
+    public void IncrementDelay()
     {
-        updateOffset(1);
+        updateDelay(1);
     }
     
-    public void DecrementOffset()
+    public void DecrementDelay()
     {
-        if (path.offset > 0)
-            updateOffset(-1);
+        if (path.delay > 0) updateDelay(-1);
     }
 
-    private void updateOffset(int v)
+    private void updateDelay(int v)
     {
-        path.offset += v;
-        transform.GetChild(2).GetChild(1).GetComponentInChildren<TMP_Text>().text = path.offset.ToString();
+        path.delay += v;
+        transform.GetChild(2).GetChild(1).GetComponentInChildren<TMP_Text>().text = path.delay.ToString();
         MainLoop.instance.GetComponent<AudioSource>().Play();
     }
     
-    public void updateOffsetButtons(bool state)
+    public void updateDelayButtons(bool state)
     {
-        Transform offsetPanel = gameObject.transform.Find("Offset");
-        offsetPanel.GetChild(0).GetComponent<Button>().interactable = state;
-        offsetPanel.GetChild(2).GetComponent<Button>().interactable = state;
+        Transform delayContainer = gameObject.transform.Find("Delay");
+        delayContainer.GetChild(0).GetComponent<Button>().interactable = state;
+        delayContainer.GetChild(2).GetComponent<Button>().interactable = state;
     }
 }
