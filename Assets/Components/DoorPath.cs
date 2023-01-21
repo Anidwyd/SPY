@@ -7,7 +7,7 @@ public class DoorPath : MonoBehaviour
 {
     public List<PathUnit> units;
     public GameObject door;
-    public float pointer;
+    public float[] pointers;
     
     public int duration;
     public int length;

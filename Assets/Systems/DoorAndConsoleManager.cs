@@ -40,72 +40,70 @@ public class DoorAndConsoleManager : FSystem
 
     private void onNewConsoleTurnedOn(GameObject console)
     {
-        onConsoleStateChanged(console, true);
+        onConsoleStateChanged(console, 1);
     }
 
     private void onNewConsoleTurnedOff(GameObject console)
     {
-        onConsoleStateChanged(console, false);
+        onConsoleStateChanged(console, 0);
     }
 
-    private void onConsoleStateChanged(GameObject console, bool isOn)
+    private void onConsoleStateChanged(GameObject console, int isOn)
     {
         if (!slotsConnected) return;
         Actionable actionable = console.GetComponent<Actionable>();
-        resetConsole(actionable);
+        resetConsole(actionable, isOn);
         updatePaths(actionable, isOn);
     }
 
-    private void resetConsole(Actionable console)
+    private void resetConsole(Actionable console, int isOn)
     {
-        console.isConnected = true;
-        console.sinceActivation = 0;
+        console.isConnected[isOn] = true;
+        console.sinceActivation[isOn] = 0;
         foreach (DoorPath path in console.paths.Values)
-            path.pointer = 0;
+            path.pointers[isOn] = 0;
     }
 
-    private void updatePaths(Actionable actionable, bool isOn)
+    private void updatePaths(Actionable actionable, int isOn)
     {
         // parse all slots controled by this console
         foreach (DoorPath path in actionable.paths.Values)
         {
             // manage instant activation
-            if ((path.duration != 0 || actionable.sinceActivation != 0) &&
-                (path.duration <= 0 || actionable.sinceActivation <= 0))
+            if ((path.duration != 0 || actionable.sinceActivation[isOn] != 0) &&
+                (path.duration <= 0 || actionable.sinceActivation[isOn] <= 0))
                 continue;
             
             // disable delay buttons inside panel if needed
-            path.descriptor.GetComponent<SlotDescriptor>().updateDelayButtons(path.pointer >= path.length - path.step);
+            path.descriptor.GetComponent<SlotDescriptor>().updateDelayButtons(path.pointers[isOn] >= path.length - path.step);
             
             // check if propagation can start
-            if ((path.delay > 0 && actionable.sinceActivation < path.delay) || path.pointer >= path.length) 
+            if ((path.delay > 0 && actionable.sinceActivation[isOn] <= path.delay) || path.pointers[isOn] >= path.length) 
                 continue;
 
-            // increment pointer
-            int lastPos = (int)path.pointer;
-            path.pointer += path.step;
+            // increment pointer and update the path color
+            int lastPos = (int)path.pointers[isOn];
+            path.pointers[isOn] += path.step;
 
-            // update path color
-            for (int i = lastPos; i < (int)path.pointer; i++)
+            for (int i = lastPos; i < (int)path.pointers[isOn]; i++)
                 updateUnitColor(path.units[i], isOn);
 
-            // if signal has not reached the door, continue
-            if (path.door == null || path.pointer < path.length)
+            // if signal has reached the door open / close the door
+            if (path.door == null || path.pointers[isOn] < path.length)
                 continue;
 
-            // show / hide door
             Transform parent = path.door.transform.parent;
             parent.GetComponent<AudioSource>().Play();
-            parent.GetComponent<Animator>().SetTrigger(isOn ? "Open" : "Close");
+            parent.GetComponent<Animator>().SetTrigger(isOn == 1 ? "Open" : "Close");
             parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
         }
     }
 
-    private void updateUnitColor(PathUnit unit, bool isOn)
+    private void updateUnitColor(PathUnit unit, int isOn)
     {
         SpriteRenderer[] renderers = unit.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer r in renderers)
-            r.color = isOn ? unit.colorOn : unit.colorOff;
+            r.color = isOn == 1 ? unit.colorOn : unit.colorOff;
     }
 
     private void connectDoorsAndConsoles(GameObject _)
@@ -117,7 +115,7 @@ public class DoorAndConsoleManager : FSystem
         {
             Position consolePos = console.GetComponent<Position>();
             Actionable actionable = console.GetComponent<Actionable>();
-            bool isOn = console.GetComponent<TurnedOn>() != null;
+            int isOn = console.GetComponent<TurnedOn>() != null ? 1 : 0;
 
             // Parse all doors
             foreach (GameObject door in f_door)
@@ -174,7 +172,7 @@ public class DoorAndConsoleManager : FSystem
         slotsConnected = true;
     }
 
-    private void createPathUnit(DoorPath path, Color color, float gridX, float gridY, string[] dirs, bool state)
+    private void createPathUnit(DoorPath path, Color color, float gridX, float gridY, string[] dirs, int state)
     {
         Vector3 pos = gameData.LevelGO.transform.position + new Vector3(gridX * 3, 3, gridY * 3);
 
@@ -203,14 +201,16 @@ public class DoorAndConsoleManager : FSystem
         foreach (GameObject console in f_console)
         {
             Actionable actionable = console.GetComponent<Actionable>();
-
-            if (!actionable.isConnected) continue;
-
-            actionable.sinceActivation++;
-            updatePaths(actionable, f_consoleOn.Contains(console));
             
-            // if (actionable.sinceActivation > actionable.keepSignal && console.GetComponent<TurnedOn>())
-            //     GameObjectManager.removeComponent<TurnedOn>(console);
+            for (var i = 0; i < actionable.sinceActivation.Length; i++)
+            {
+                if (!actionable.isConnected[i]) continue;
+                actionable.sinceActivation[i]++;
+                updatePaths(actionable, i);
+            }
+            
+            if (actionable.keepSignal > 0 && actionable.sinceActivation[1] == actionable.keepSignal && console.GetComponent<TurnedOn>())
+                GameObjectManager.removeComponent<TurnedOn>(console);
         }
     }
 }

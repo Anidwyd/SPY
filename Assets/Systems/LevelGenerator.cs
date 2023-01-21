@@ -353,6 +353,8 @@ public class LevelGenerator : FSystem {
 		actionable.slotsID = slotsID;
 		actionable.paths = paths;
 		actionable.keepSignal = keep;
+		actionable.sinceActivation = new int[2];
+		actionable.isConnected = new bool[2];
 		
 		console.GetComponent<Position>().x = gridX;
 		console.GetComponent<Position>().y = gridY;
@@ -480,6 +482,7 @@ public class LevelGenerator : FSystem {
 			
 			doorPath.duration = duration == null ? 1 : int.Parse(duration.Value);
 			doorPath.delay = delay == null ? 0 : int.Parse(delay.Value);
+			doorPath.pointers = new float[2];
 			
 			paths.Add(slotID, doorPath);
 		}
