@@ -69,14 +69,16 @@ public class DoorAndConsoleManager : FSystem
         // parse all slots controled by this console
         foreach (DoorPath path in actionable.paths.Values)
         {
-            if (path.duration == 0 && actionable.sinceActivation != 0)
-                return;
+            // manage instant activation
+            if ((path.duration != 0 || actionable.sinceActivation != 0) &&
+                (path.duration <= 0 || actionable.sinceActivation <= 0))
+                continue;
             
             // disable delay buttons inside panel if needed
             path.descriptor.GetComponent<SlotDescriptor>().updateDelayButtons(path.pointer >= path.length - path.step);
             
             // check if propagation can start
-            if (actionable.sinceActivation <= path.delay || path.pointer >= path.length) 
+            if ((path.delay > 0 && actionable.sinceActivation < path.delay) || path.pointer >= path.length) 
                 continue;
 
             // increment pointer
@@ -106,7 +108,7 @@ public class DoorAndConsoleManager : FSystem
             r.color = isOn ? unit.colorOn : unit.colorOff;
     }
 
-    private void connectDoorsAndConsoles(GameObject unused)
+    private void connectDoorsAndConsoles(GameObject _)
     {
         string[] xDirs = { "West", "East" }, yDirs = { "South", "North" };
 
@@ -203,9 +205,6 @@ public class DoorAndConsoleManager : FSystem
             Actionable actionable = console.GetComponent<Actionable>();
 
             if (!actionable.isConnected) continue;
-
-            if (actionable.paths.Values.All(p => p.pointer >= p.length))
-                actionable.isConnected = false;
 
             actionable.sinceActivation++;
             updatePaths(actionable, f_consoleOn.Contains(console));
