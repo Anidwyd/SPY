@@ -1,0 +1,90 @@
+﻿<?xml version="1.0"?>
+<level>
+	<map>
+		<line>
+			<cell value="-1"/>
+			<cell value="1" />
+			<cell value="3" />
+			<cell value="1" />
+			<cell value="-1"/>
+		</line>
+		<line>
+			<cell value="-1"/>
+			<cell value="1" />
+			<cell value="0" />
+			<cell value="1" />
+			<cell value="-1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="1" />
+			<cell value="0" />
+			<cell value="1" />
+			<cell value="1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="1" />
+			<cell value="1" />
+			<cell value="1" />
+			<cell value="1"/>
+		</line>
+	</map>
+	<dialogs>
+		<dialog text="...Réveillez-vous !&#xA;&#xA;Il est temps de retrouver vos esprits..."/>
+		<dialog text="Vous êtes la conscience collective qui unit nos esprits, nous autres habitants de la planète XP443"/>
+		<dialog text="Nous avons été capturés par des êtres cruels de la planète Terre qui nous exhibent tels des trophées dans leur 'Zoo extraterrestre' "/>
+		<dialog text="Notre connexion a longtemps été brouillée par des sédatifs, mais nous y sommes devenus tolérants." />
+		<dialog text="L'un des gardes à laissé la porte de l'un des nôtres ouverte, guidez-le vers sa liberté, et la nôtre."/>
+	</dialogs>
+	<blockLimits>
+		<blockLimit blockType="Forward" limit="1" />
+		<blockLimit blockType="TurnLeft" limit="0" />
+		<blockLimit blockType="TurnRight" limit="0" />
+		<blockLimit blockType="Wait" limit="0" />
+		<blockLimit blockType="Activate" limit="0" />
+		<blockLimit blockType="TurnBack" limit="0" />
+		<blockLimit blockType="IfThen" limit="0" />
+		<blockLimit blockType="IfElse" limit="0" />
+		<blockLimit blockType="ForLoop" limit="0" />
+		<blockLimit blockType="While" limit="0" />
+		<blockLimit blockType="Forever" limit="0" />
+		<blockLimit blockType="AndOperator" limit="0" />
+		<blockLimit blockType="OrOperator" limit="0" />
+		<blockLimit blockType="NotOperator" limit="0" />
+		<blockLimit blockType="WallFront" limit="0" />
+		<blockLimit blockType="Enemy" limit="0" />
+		<blockLimit blockType="RedArea" limit="0" />
+		<blockLimit blockType="FieldGate" limit="0" />
+		<blockLimit blockType="Terminal" limit="0" />
+		<blockLimit blockType="Exit" limit="0" />
+	</blockLimits>
+	<console state ="1" posY="1" posX="2" direction="2">
+		<path slotId="0"/>
+	</console>
+	<door posX="2" posY="2" direction="0" slotId="0"/>
+	<player associatedScriptName="Bob" posY="5" posX="2" direction="0" />
+	<script name="Bob" editMode="0" />
+	<score twoStars="0" threeStars="10500"/>
+</level>
