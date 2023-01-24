@@ -12,12 +12,11 @@
     <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
     <line><cell value="1" /><cell value="2" /><cell value="1" /></line>
     <line><cell value="1" /><cell value="1" /><cell value="1" /></line>
-
   </map>
   <!-- <dialogs>
-	<dialog text="Une porte bloque le chemin !&#xA;Il devrait y avoir un moyen de la désactiver..." />
-	<dialog text="Regarde là-bas ! Il y a un terminal.&#xA;Essaye donc de l'activer avec l'action activer." img="ActivateIcon.png"/>
-	<dialog text="Tu n'as pas besoin de te tourner pour activer un terminal."  img="terminalRobot.png"/>
+    <dialog text="Une porte bloque le chemin !&#xA;Il devrait y avoir un moyen de la désactiver..." />
+    <dialog text="Regarde là-bas ! Il y a un terminal.&#xA;Essaye donc de l'activer avec l'action activer." img="ActivateIcon.png"/>
+    <dialog text="Tu n'as pas besoin de te tourner pour activer un terminal."  img="terminalRobot.png"/>
   </dialogs> -->
   <blockLimits>
     <blockLimit blockType="Forward" limit="-1" />
@@ -42,7 +41,7 @@
     <blockLimit blockType="Exit" limit="0" />
   </blockLimits>
 
-  <console posY="3" posX="1" direction="3" keep="2">
+  <console posY="3" posX="1" state="1" direction="3" keep="2">
     <path slotId="0" duration="2" delay="1" />
     <path slotId="1" />
     <path slotId="2" duration="-1" />

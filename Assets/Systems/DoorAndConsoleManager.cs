@@ -120,6 +120,10 @@ public class DoorAndConsoleManager : FSystem
             // Parse all doors
             foreach (GameObject door in f_door)
             {
+                Transform parent = door.transform.parent;
+                parent.GetComponent<Animator>().SetTrigger(isOn == 1 ? "Open" : "Close");
+                parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
+                
                 Position doorPos = door.GetComponent<Position>();
                 ActivationSlot doorSlot = door.GetComponent<ActivationSlot>();
                 int slotID = doorSlot.slotID;
