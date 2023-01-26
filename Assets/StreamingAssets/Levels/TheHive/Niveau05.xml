@@ -1,0 +1,130 @@
+﻿<?xml version="1.0"?>
+<level>
+	<map>
+		<line>
+			<cell value="1" />
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="-1"/>
+			<cell value="-1"/>
+			<cell value="-1" />
+			<cell value="-1"/>
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="3"/>
+			<cell value="1"/>
+			<cell value="-1"/>
+			<cell value="-1"/>
+			<cell value="-1" />
+			<cell value="-1"/>
+		</line>
+		<line>
+
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="1"/>
+			<cell value="-1"/>
+			<cell value="-1"/>
+			<cell value="-1" />
+			<cell value="-1"/>
+		</line>
+		<line>
+
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1" />
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="0"/>
+			<cell value="1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="1" />
+			<cell value="0" />
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="1" />
+			<cell value="1" />
+			<cell value="1" />
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="1"/>
+		</line>
+		<line>
+			<cell value="-1"/>
+			<cell value="-1"/>
+			<cell value="-1" />
+			<cell value="-1" />
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1"/>
+		</line>
+		
+	</map>
+	<dialogs>
+		<dialog text="Il y a plusieurs portes ici, et les câbles sont à différentes vitesses."/>
+		<dialog text="Cela ne représentera aucun problème pour notre intellect supérieur. L'or ça brille aussi, donc nous pouvons également ramasser cette pièce."/>
+	</dialogs>
+	<blockLimits>
+		<blockLimit blockType="Forward" limit="-1" />
+		<blockLimit blockType="TurnLeft" limit="3" />
+		<blockLimit blockType="TurnRight" limit="3" />
+		<blockLimit blockType="Wait" limit="0" />
+		<blockLimit blockType="Activate" limit="1" />
+		<blockLimit blockType="TurnBack" limit="0" />
+		<blockLimit blockType="IfThen" limit="0" />
+		<blockLimit blockType="IfElse" limit="0" />
+		<blockLimit blockType="ForLoop" limit="0" />
+		<blockLimit blockType="While" limit="0" />
+		<blockLimit blockType="Forever" limit="0" />
+		<blockLimit blockType="AndOperator" limit="0" />
+		<blockLimit blockType="OrOperator" limit="0" />
+		<blockLimit blockType="NotOperator" limit="0" />
+		<blockLimit blockType="WallFront" limit="0" />
+		<blockLimit blockType="Enemy" limit="0" />
+		<blockLimit blockType="RedArea" limit="0" />
+		<blockLimit blockType="FieldGate" limit="0" />
+		<blockLimit blockType="Terminal" limit="0" />
+		<blockLimit blockType="Exit" limit="0" />
+	</blockLimits>
+	<console posY="4" posX="5" direction="2" keep="2">
+		<path slotId="0" duration="0"/>
+		<path slotId="1" duration="5"/>
+		<path slotId="2" duration="4"/>
+		<path slotId="3" duration="6"/>
+	</console>
+
+	<door posX="4" posY="4" direction="2" slotId="0"/>
+	<door posX="1" posY="2" direction="0" slotId="1" color="#ff0000"/>
+	<door posX="3" posY="5" direction="0" slotId="2" color="#00ff00"/>
+	<door posX="1" posY="5" direction="0" slotId="3" color="#0000ff"/>
+	<coin posX="2" posY="6" />
+	<player associatedScriptName="Bob" posY="6" posX="5" direction="0" />
+	<script name="Bob" editMode="0" />
+	<score twoStars="0" threeStars="10500"/>
+</level>

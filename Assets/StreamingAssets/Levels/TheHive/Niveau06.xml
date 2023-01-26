@@ -1,0 +1,138 @@
+﻿<?xml version="1.0"?>
+<level>
+	<map>
+		<line>
+			<cell value="-1" />
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="-1" />
+			<cell value="1"/>
+			<cell value="3"/>
+			<cell value="1"/>
+			<cell value="3"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="0"/>
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="0"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="0"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1" />
+		</line>
+		
+	</map>
+	<dialogs>
+		<dialog text="Notre connexion mutuelle étant devenu meilleure, nous pouvons désormais inclure cet autre individu à notre conscience"/>
+		<dialog text="Aidons-les mutuellement à s'échapper !"/>
+	</dialogs>
+	<blockLimits>
+		<blockLimit blockType="Forward" limit="-1" />
+		<blockLimit blockType="TurnLeft" limit="-1" />
+		<blockLimit blockType="TurnRight" limit="-1" />
+		<blockLimit blockType="Wait" limit="-1" />
+		<blockLimit blockType="Activate" limit="-1" />
+		<blockLimit blockType="TurnBack" limit="0" />
+		<blockLimit blockType="IfThen" limit="0" />
+		<blockLimit blockType="IfElse" limit="0" />
+		<blockLimit blockType="ForLoop" limit="0" />
+		<blockLimit blockType="While" limit="0" />
+		<blockLimit blockType="Forever" limit="0" />
+		<blockLimit blockType="AndOperator" limit="0" />
+		<blockLimit blockType="OrOperator" limit="0" />
+		<blockLimit blockType="NotOperator" limit="0" />
+		<blockLimit blockType="WallFront" limit="0" />
+		<blockLimit blockType="Enemy" limit="0" />
+		<blockLimit blockType="RedArea" limit="0" />
+		<blockLimit blockType="FieldGate" limit="0" />
+		<blockLimit blockType="Terminal" limit="0" />
+		<blockLimit blockType="Exit" limit="0" />
+	</blockLimits>
+	<console posY="8" posX="1" direction="2" keep="2">
+		
+		
+		<path slotId="0" duration="1"/>
+		<path slotId="3" duration="9"/>
+	</console>
+	<console posX="4" posY="8" direction="2" keep="2">
+		<path slotId="1" duration="6"/>
+		<path slotId="2" duration="2"/>
+	</console>
+	<console posY="3" posX="1" direction="0" keep="2">
+		<path slotId="4" duration ="0"/>
+	</console>
+
+	<door posX="4" posY="6" direction="0" slotId="0"/>
+	<door posX="2" posY="2" direction="0" slotId="1" color="#ff0000"/>
+	<door posX="1" posY="4" direction="0" slotId="2" color="#00ff00"/>
+	<door posX="4" posY="2" direction="0" slotId="3" color="#0000ff"/>
+
+	<door posX ="3" posY="5" direction="2" slotId="4" color="#ffffff"/>
+	<coin posX="3" posY="5" />
+	<player associatedScriptName="Bob" posY="8" posX="1" direction="2" />
+	<player associatedScriptName="Bawb" posY="8" posX="4" direction="2" color="#0000aa"/>
+	<script name="Bob" editMode="0" />
+	<script name="Bawb" editMode="0" />
+	<score twoStars="0" threeStars="10500"/>
+</level>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0"?>
+<level>
+	<map>
+		<line>
+			<cell value="1"/>
+			<cell value="1" />
+			<cell value="1" />
+			<cell value="1" />
+			<cell value="1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="0" />
+			<cell value="3"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="1" />
+			<cell value="-1" />
+			<cell value="-1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="1" />
+			<cell value="-1" />
+			<cell value="-1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="1" />
+			<cell value="-1" />
+			<cell value="-1"/>
+		</line>
+		<line>
+			<cell value="1"/>
+			<cell value="0" />
+			<cell value="1" />
+			<cell value="-1" />
+			<cell value="-1"/>
+		</line>
+	</map>
+	<dialogs>
+		<dialog text="Les conduits électriques des humains étant fort peu avancés par rapport aux nôtres, ils sont lents"/>
+		<dialog text="De ce fait, les signaux partant des consoles mettent un certain temps à atteindre leur destination."/>
+		<dialog text="Nous pouvons utiliser cela à notre avantage, car les signaux ne sont pas constants,"/>
+		<dialog text="ils ne maintiennent les portes ouvertes que pendant un certain temps, et il faut donc passer au bon moment." />
+		<dialog text="Toutes ces informations sont disponibles sur les consoles."/>
+	</dialogs>
+	<blockLimits>
+		<blockLimit blockType="Forward" limit="-1" />
+		<blockLimit blockType="TurnLeft" limit="1" />
+		<blockLimit blockType="TurnRight" limit="2" />
+		<blockLimit blockType="Wait" limit="0" />
+		<blockLimit blockType="Activate" limit="1" />
+		<blockLimit blockType="TurnBack" limit="0" />
+		<blockLimit blockType="IfThen" limit="0" />
+		<blockLimit blockType="IfElse" limit="0" />
+		<blockLimit blockType="ForLoop" limit="0" />
+		<blockLimit blockType="While" limit="0" />
+		<blockLimit blockType="Forever" limit="0" />
+		<blockLimit blockType="AndOperator" limit="0" />
+		<blockLimit blockType="OrOperator" limit="0" />
+		<blockLimit blockType="NotOperator" limit="0" />
+		<blockLimit blockType="WallFront" limit="0" />
+		<blockLimit blockType="Enemy" limit="0" />
+		<blockLimit blockType="RedArea" limit="0" />
+		<blockLimit blockType="FieldGate" limit="0" />
+		<blockLimit blockType="Terminal" limit="0" />
+		<blockLimit blockType="Exit" limit="0" />
+	</blockLimits>
+	<console posY="3" posX="1" direction="2" keep="2">
+		<path slotId="0" duration="5"/>
+	</console>
+	<door posX="3" posY="1" direction="2" slotId="0"/>
+	<player associatedScriptName="Bob" posY="5" posX="1" direction="0" />
+	<script name="Bob" editMode="0" />
+	<score twoStars="0" threeStars="10500"/>
+</level>
