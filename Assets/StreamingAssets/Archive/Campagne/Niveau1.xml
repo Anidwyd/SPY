@@ -3,27 +3,32 @@
   <info>
     <func name="F5"/>
     <func name="F8"/>
-  </info>
+  </info> 
+
+  <!-- map -->
   <map>
-    <line><cell value="1" /><cell value="1" /><cell value="1" /></line>
-    <line><cell value="1" /><cell value="3" /><cell value="1" /></line>
-    <line><cell value="1" /><cell value="2" /><cell value="1" /></line>
-    <line><cell value="1" /><cell value="1" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="3" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="2" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
   </map>
-  <dialogs>
-	<dialog text="Bienvenue dans Spy !&#xA; Ton objectif est de t'échapper en atteignant la sortie (téléporteur rouge) !" />
-	<dialog text="Pour cela, il faut donner des ordres au robot en faisant glisser les actions dans le programme du robot." img="drophere.png" />
-	<dialog text="Tu peux utiliser le clic droit sur une action du script pour la supprimer, ou nettoyer tout le programme à l'aide de la petite balayette."  img="resetButton.png"/>
-	<dialog text="Tu peux aussi supprimer un programme avec la petite poubelle. Dans ce niveau elle est désactivée."  img="delButton.png"/>
-	<dialog text="A toi de jouer, essaye de déplacer l'action Avancer dans le programme du robot et clique sur le bouton lecture pour lancer le programme."  img="FirstActionAndPlay.png"/>
-  </dialogs>
+
+  <!-- <dialogs>
+    <dialog text="Tu peux maintenant utiliser l'action faire un demi-tour." img="TurnBackIcon.png" />
+    <dialog text="Attention !&#xA;Quand le robot tourne, il reste sur place." />
+  </dialogs> -->
+  
   <blockLimits>
     <blockLimit blockType="Forward" limit="-1" />
-    <blockLimit blockType="TurnLeft" limit="0" />
-    <blockLimit blockType="TurnRight" limit="0" />
-    <blockLimit blockType="Wait" limit="0" />
-    <blockLimit blockType="Activate" limit="0" />
-    <blockLimit blockType="TurnBack" limit="0" />
+    <blockLimit blockType="TurnLeft" limit="-1" />
+    <blockLimit blockType="TurnRight" limit="-1" />
+    <blockLimit blockType="Wait" limit="-1" />
+    <blockLimit blockType="Activate" limit="-1" />
+    <blockLimit blockType="TurnBack" limit="-1" />
     <blockLimit blockType="IfThen" limit="0" />
     <blockLimit blockType="IfElse" limit="0" />
     <blockLimit blockType="ForLoop" limit="0" />
@@ -39,7 +44,26 @@
     <blockLimit blockType="Terminal" limit="0" />
     <blockLimit blockType="Exit" limit="0" />
   </blockLimits>
-  <player associatedScriptName="Bob" posY="2" posX="1" direction="0" />
+
+  <!-- consoles -->
+  <console state="0" posY="6" posX="1" direction="3" keep="2">
+    <path slotId="0" duration="-1" />
+  </console>
+
+  <console state="0" posY="6" posX="3" direction="2" keep="2" >
+    <path slotId="1" duration="0" />
+  </console>
+
+  <!-- doors -->
+  <door slotId="0" posY="2" posX="1" direction="0" color="#ff0000" />
+  <door slotId="1" posY="2" posX="3" direction="0" color="#0000ff" />
+
+  <!-- players -->
+  <player associatedScriptName="Bob" posY="6" posX="1" direction="0" color="#ff0000" />
+  <player associatedScriptName="Peter" posY="6" posX="3" direction="0" color="#0000ff" />
+
   <script name="Bob" editMode="0" />
-  <score twoStars="7999" threeStars="10500"/>
+  <script name="Peter" editMode="0" />
+
+  <score twoStars="3249" threeStars="4249"/>
 </level>

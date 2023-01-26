@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 public class Actionable : MonoBehaviour {
-	public List<int> slotsID; // target slot this component control
+	// public List<int> slotsID; // target slot this component control
 	public Dictionary<int, DoorPath> paths = new Dictionary<int, DoorPath>();
 	
 	public int[] sinceStateActivated;

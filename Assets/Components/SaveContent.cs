@@ -23,11 +23,11 @@ public class SaveContent {
     [Serializable]
     public class RawActivable
     {
-        public List<int> slotID;
+        public Dictionary<int, DoorPath> paths;
         public bool state;
         public RawActivable(Actionable act)
         {
-            slotID = new List<int>(act.slotsID);
+            paths = new Dictionary<int, DoorPath>(act.paths);
             state = act.GetComponent<TurnedOn>();
         }
     }

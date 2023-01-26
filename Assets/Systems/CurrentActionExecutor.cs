@@ -50,24 +50,25 @@ public class CurrentActionExecutor : FSystem {
 			case BasicAction.ActionType.Activate:
 				Position agentPos = ca.agent.GetComponent<Position>(); 
 				
-				foreach (GameObject actGo in f_activableConsole) {
-					if (actGo.GetComponent<Position>().x == agentPos.x && actGo.GetComponent<Position>().y == agentPos.y){
+				foreach (GameObject actGo in f_activableConsole)
+				{
+					if (actGo.GetComponent<Position>().x != agentPos.x || actGo.GetComponent<Position>().y != agentPos.y)
+						continue;
 
-						Actionable actionable = actGo.GetComponent<Actionable>();
-						
-						// toggle actionable GameObject
-						if (actGo.GetComponent<TurnedOn>())
-						{
-							if (actionable.keepLimitReached(1)) continue;
-							GameObjectManager.removeComponent<TurnedOn>(actGo);
-						}
-						else
-						{
-							if (actionable.isStateActive[1]) continue;
-							GameObjectManager.addComponent<TurnedOn>(actGo);
-						}
-						actGo.GetComponent<AudioSource>().Play();
+					Actionable actionable = actGo.GetComponent<Actionable>();
+					
+					// toggle actionable GameObject
+					if (actGo.GetComponent<TurnedOn>())
+					{
+						if (actionable.keepLimitReached(1)) continue;
+						GameObjectManager.removeComponent<TurnedOn>(actGo);
 					}
+					else
+					{
+						if (actionable.isStateActive[1]) continue;
+						GameObjectManager.addComponent<TurnedOn>(actGo);
+					}
+					actGo.GetComponent<AudioSource>().Play();
 				}
 				ca.agent.GetComponent<Animator>().SetTrigger("Action");
 				break;

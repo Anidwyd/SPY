@@ -345,12 +345,11 @@ public class LevelGenerator : FSystem {
 		GameObjectManager.bind(decoration);
 	}
 
-	private void createConsole(int state, int gridX, int gridY, List<int> slotsID, Dictionary<int, DoorPath> paths, Direction.Dir orientation, int keep)
+	private void createConsole(int state, int gridX, int gridY, Dictionary<int, DoorPath> paths, Direction.Dir orientation, int keep)
 	{
 		GameObject console = Object.Instantiate<GameObject>(Resources.Load("Prefabs/ActivableConsole") as GameObject, gameData.LevelGO.transform.position + new Vector3(gridY * 3, 3, gridX * 3), Quaternion.Euler(0, 0, 0), gameData.LevelGO.transform);
 		
 		Actionable actionable = console.GetComponent<Actionable>();
-		actionable.slotsID = slotsID;
 		actionable.paths = paths;
 		actionable.keepActive = keep;
 		actionable.sinceStateActivated = new int[2];
@@ -462,7 +461,7 @@ public class LevelGenerator : FSystem {
 
 	private void readXMLConsole(XmlNode activableNode)
 	{
-		List<int> slotsID = new List<int>();
+		// List<int> slotsID = new List<int>();
 		Dictionary<int, DoorPath> paths = new Dictionary<int, DoorPath>();
 
 		int gridX = int.Parse(activableNode.Attributes.GetNamedItem("posX").Value);
@@ -490,7 +489,7 @@ public class LevelGenerator : FSystem {
 
 		int state = stateXml == null ? 0 : int.Parse(stateXml.Value);
 		int keep = keepXml == null ? 1 : int.Parse(keepXml.Value);
-		createConsole(state, gridX, gridY, slotsID, paths, direction, keep);
+		createConsole(state, gridX, gridY, paths, direction, keep);
 	}
 
 	// Lit le XML d'un script est g?n?re les game objects des instructions

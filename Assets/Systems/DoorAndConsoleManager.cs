@@ -120,17 +120,18 @@ public class DoorAndConsoleManager : FSystem
             // Parse all doors
             foreach (GameObject door in f_door)
             {
-                Transform parent = door.transform.parent;
-                parent.GetComponent<Animator>().SetTrigger(isOn == 1 ? "Open" : "Close");
-                parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
-                
-                Position doorPos = door.GetComponent<Position>();
                 ActivationSlot doorSlot = door.GetComponent<ActivationSlot>();
                 int slotID = doorSlot.slotID;
-                Color color = doorSlot.color;
 
                 // Check if door is controlled by this console
                 if (!actionable.paths.ContainsKey(slotID)) continue;
+                
+                Position doorPos = door.GetComponent<Position>();
+                Color color = doorSlot.color;
+                
+                Transform parent = door.transform.parent;
+                parent.GetComponent<Animator>().SetTrigger(isOn == 1 ? "Open" : "Close");
+                parent.GetComponent<Animator>().speed = gameData.gameSpeed_current;
 
                 // Build the path
                 DoorPath path = actionable.paths[slotID];
@@ -204,13 +205,19 @@ public class DoorAndConsoleManager : FSystem
         {
             Actionable actionable = console.GetComponent<Actionable>();
             
-            for (var i = 0; i < actionable.sinceStateActivated.Length; i++)
+            for (var i = 0; i < 2; i++)
             {
                 // if the state is active, increment the corresponding counter
                 if (!actionable.isStateActive[i]) continue;
+                
                 actionable.sinceStateActivated[i]++;
                 updatePaths(actionable, i);
+
+                Debug.Log($"[{actionable.GetInstanceID()}] incremented state {i}");
+
                 // if all signal have reached their slot, deactivate the state
+                if (actionable.sinceStateActivated[i] < actionable.keepActive) continue;
+                
                 actionable.isStateActive[i] = !actionable.paths.Values.All(path => path.pointers[i] >= path.length);
             }
 

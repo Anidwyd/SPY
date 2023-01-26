@@ -93,7 +93,7 @@ public class GameStateManager : FSystem {
         for (int i = 0; i < f_activables.Count && i < save.rawSave.activables.Count; i++)
         {
             Actionable act = f_activables.getAt(i).GetComponent<Actionable>();
-            act.slotsID = save.rawSave.activables[i].slotID;
+            act.paths = save.rawSave.activables[i].paths;
             if (save.rawSave.activables[i].state)
             {
                 if (act.GetComponent<TurnedOn>() == null)
