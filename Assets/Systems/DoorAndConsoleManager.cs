@@ -204,6 +204,10 @@ public class DoorAndConsoleManager : FSystem
         foreach (GameObject console in f_console)
         {
             Actionable actionable = console.GetComponent<Actionable>();
+            var stepDone = actionable.stepDone;
+            actionable.stepDone = false;
+            
+            if (stepDone) continue;
             
             for (var i = 0; i < 2; i++)
             {
@@ -220,6 +224,8 @@ public class DoorAndConsoleManager : FSystem
                 
                 actionable.isStateActive[i] = !actionable.paths.Values.All(path => path.pointers[i] >= path.length);
             }
+            
+            actionable.stepDone = true;
 
             // if the stay activated limit is reached, turn off the console
             if (!actionable.keepLimitReached()) continue;
