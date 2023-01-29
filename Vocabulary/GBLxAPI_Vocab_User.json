@@ -1,0 +1,339 @@
+{
+    "action": {},
+    "activity": {
+        "block": {
+            "description": {
+                "en-US": "a block"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/activity-types/block",
+            "name": {
+                "en-US": "block"
+            }
+        },
+        "briefing": {
+            "description": {
+                "en-US": "a briefing"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/activity-types/briefing",
+            "name": {
+                "en-US": "briefing"
+            }
+        },
+        "compaign": {
+            "description": {
+                "en-US": "a compaign of levels"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/activity-types/compaign",
+            "name": {
+                "en-US": "compaign"
+            }
+        },
+        "level": {
+            "description": {
+                "en-US": "a level"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/activity-types/level",
+            "name": {
+                "en-US": "level"
+            }
+        },
+        "program": {
+            "description": {
+                "en-US": "a set of blocks"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/activity-types/program",
+            "name": {
+                "en-US": "program"
+            }
+        },
+        "script": {
+            "description": {
+                "en-US": "a panel that contains a program"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/activity-types/script",
+            "name": {
+                "en-US": "script"
+            }
+        },
+        "session": {
+            "description": {
+                "en-US": "a game session that begins at game launch and ends at exit"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/activity-types/session",
+            "name": {
+                "en-US": "session"
+            }
+        }
+    },
+    "content": {},
+    "direction": {},
+    "domain": {},
+    "extension": {
+        "content": {
+            "description": {
+                "en-US": "content of a sequence of blocks"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/content",
+            "name": {
+                "en-US": "content"
+            }
+        },
+        "context": {
+            "description": {
+                "en-US": "context in wich a block is added/removed"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/from",
+            "name": {
+                "en-US": "context"
+            }
+        },
+        "date": {
+            "description": {
+                "en-US": "a date "
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/date",
+            "name": {
+                "en-US": "date"
+            }
+        },
+        "duration": {
+            "description": {
+                "en-US": "duration of an activity"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/duration",
+            "name": {
+                "en-US": "duration"
+            }
+        },
+        "error": {
+            "description": {
+                "en-US": "error type"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/error",
+            "name": {
+                "en-US": "error"
+            }
+        },
+        "nblevels": {
+            "description": {
+                "en-US": "the number of levels played"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/nblevels",
+            "name": {
+                "en-US": "nblevels"
+            }
+        },
+        "oldvalue": {
+            "description": {
+                "en-US": "old value of an object"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/oldvalue",
+            "name": {
+                "en-US": "oldvalue"
+            }
+        },
+        "score": {
+            "description": {
+                "en-US": "score at the end of a level"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/score",
+            "name": {
+                "en-US": "score"
+            }
+        },
+        "surrends": {
+            "description": {
+                "en-US": "number of times the actor exited a level without completing"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/surrends",
+            "name": {
+                "en-US": "surrends"
+            }
+        },
+        "trials": {
+            "description": {
+                "en-US": "number of trials for a level"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/trials",
+            "name": {
+                "en-US": "trials"
+            }
+        },
+        "value": {
+            "description": {
+                "en-US": "value of an object"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/extensions/value",
+            "name": {
+                "en-US": "value"
+            }
+        }
+    },
+    "focus": {},
+    "grade": {},
+    "link": {},
+    "position": {},
+    "skills": {},
+    "state": {},
+    "subdomain": {},
+    "time": {
+        "": {
+            "description": {
+                "en-US": "old value of an object"
+            },
+            "id": "",
+            "name": {
+                "en-US": ""
+            }
+        }
+    },
+    "topic": {},
+    "type": {},
+    "value": {},
+    "verb": {
+        "bugged": {
+            "description": {
+                "en-US": "indicates an error during program execution (boucle infinie, expression mal form\u00e9e, aucune action \u00e0 ex\u00e9cuter\u2026)"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/bugged",
+            "name": {
+                "en-US": "bugged"
+            }
+        },
+        "cleaned": {
+            "description": {
+                "en-US": "indicates that the actor cleans a script"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/cleaned",
+            "name": {
+                "en-US": "cleaned"
+            }
+        },
+        "closed": {
+            "description": {
+                "en-US": "indicates that the actor closes briefing dialogs"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/closed",
+            "name": {
+                "en-US": "closed"
+            }
+        },
+        "completed": {
+            "description": {
+                "en-US": "indicates that the actor completed a level"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/completed",
+            "name": {
+                "en-US": "completed"
+            }
+        },
+        "created": {
+            "description": {
+                "en-US": "indicates that the actor creates a new script"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/created",
+            "name": {
+                "en-US": "created"
+            }
+        },
+        "deleted": {
+            "description": {
+                "en-US": "indicates that the actor removes a block from the program"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/deleted",
+            "name": {
+                "en-US": "deleted"
+            }
+        },
+        "executed": {
+            "description": {
+                "en-US": "indicates that the actor executes a program"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/executed",
+            "name": {
+                "en-US": "executed"
+            }
+        },
+        "inserted": {
+            "description": {
+                "en-US": "indicates that the actor inserts a new block inside the program"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/inserted",
+            "name": {
+                "en-US": "inserted"
+            }
+        },
+        "modified": {
+            "description": {
+                "en-US": "indicates that the actor modifies for loop nb steps"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/modified",
+            "name": {
+                "en-US": "modified"
+            }
+        },
+        "nexted": {
+            "description": {
+                "en-US": "indicates that the actor went to the next level"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/nexted",
+            "name": {
+                "en-US": "nexted"
+            }
+        },
+        "openned": {
+            "description": {
+                "en-US": "indicates that the actor opens briefing dialogs"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/openned",
+            "name": {
+                "en-US": "openned"
+            }
+        },
+        "paused": {
+            "description": {
+                "en-US": "indicates that the actor pauses execution"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/paused",
+            "name": {
+                "en-US": "paused"
+            }
+        },
+        "renamed": {
+            "description": {
+                "en-US": "indicates that the actor renames a script"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/renamed",
+            "name": {
+                "en-US": "renamed"
+            }
+        },
+        "resumed": {
+            "description": {
+                "en-US": "indicates that the actor resumes execution"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/resumed",
+            "name": {
+                "en-US": "resumed"
+            }
+        },
+        "stepped": {
+            "description": {
+                "en-US": "indicates that the actor executes a new step"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/stepped",
+            "name": {
+                "en-US": "stepped"
+            }
+        },
+        "stopped": {
+            "description": {
+                "en-US": "indicates that the actor stops execution"
+            },
+            "id": "https://www.lip6.fr/mocah/invaliduri/verbs/stopped",
+            "name": {
+                "en-US": "stopped"
+            }
+        }
+    }
+}
