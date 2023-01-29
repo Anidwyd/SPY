@@ -65,6 +65,8 @@ public class StepSystem : FSystem {
                 GameObjectManager.addComponent<NewStep>(MainLoop.instance.gameObject);
                 gameData.totalStep++;
                 nbStep++;
+                Debug.Log(nbStep);
+                Debug.Log(gameData.totalStep);
                 if (newStepAskedByPlayer)
                 {
                     newStepAskedByPlayer = false;
