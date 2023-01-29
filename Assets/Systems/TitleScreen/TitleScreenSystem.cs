@@ -56,6 +56,9 @@ public class TitleScreenSystem : FSystem {
 	public TitleScreenSystem()
 	{
 		instance = this;
+		GBL_Interface.SendStatement("launched", "session", new Dictionary<string, string>() {
+					{ "date", DateTime.Now.ToString()}
+				});
 	}
 
 	protected override void onStart()
@@ -292,6 +295,15 @@ public class TitleScreenSystem : FSystem {
 	}
 
 	public void launchLevel(string campaignKey, string levelToLoad) {
+		GBL_Interface.SendStatement("launched", "compaign", new Dictionary<string, string>() {
+					{ "value", campaignKey},
+					{ "date",  DateTime.Now.ToString() }
+				});
+		Timer _t = new Timer();
+		_t.Start();
+		CompaignManager.compaignTimers[campaignKey] = _t;
+		CompaignManager.currentCompaign = campaignKey;
+
 		gameData.scenarioName = campaignKey;
 		gameData.levelToLoad = levelToLoad;
 		gameData.scenario = defaultCampaigns[campaignKey];
@@ -320,6 +332,10 @@ public class TitleScreenSystem : FSystem {
 
 	// See Quitter button in editor
 	public void quitGame(){
+		GBL_Interface.SendStatement("exited", "session", new Dictionary<string, string>() {
+					{ "duration", Time.realtimeSinceStartup.ToString()},
+					{"nbLevels", SessionManager.nbLevelsCompleted.ToString()}
+				});
 		Application.Quit();
 	}
 
