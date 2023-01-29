@@ -331,6 +331,10 @@ public class TitleScreenSystem : FSystem {
 
 	// See Quitter button in editor
 	public void quitGame(){
+		GBL_Interface.SendStatement("exited", "session", new Dictionary<string, string>() {
+					{ "duration", Time.realtimeSinceStartup.ToString()},
+					{"nbLevels", SessionManager.nbLevelsCompleted.ToString()}
+				});
 		Application.Quit();
 	}
 
