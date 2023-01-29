@@ -139,14 +139,44 @@ public class EndGameManager : FSystem {
 			//Check if next level exists in campaign
 			if (gameData.scenario.FindIndex(x => x == gameData.levelToLoad) >= gameData.scenario.Count - 1)
 				GameObjectManager.setGameObjectState(endPanel.transform.Find("NextLevel").gameObject, false);
+			LevelStatsManager.levelCompletionTimes[LevelStatsManager.currentLevel] = Time.timeAsDouble - LevelGenerator.level_start_time;
+
+			if (LevelStatsManager.levelScores.ContainsKey(LevelStatsManager.currentLevel))
+			{
+				if (_score > LevelStatsManager.levelScores[LevelStatsManager.currentLevel])
+				{
+					LevelStatsManager.levelScores[LevelStatsManager.currentLevel] = _score;
+				}
+			}
+			else
+			{
+				LevelStatsManager.levelScores[LevelStatsManager.currentLevel] = _score;
+				SessionManager.nbLevelsCompleted += 1;
+			}
+
+			if (CompaignManager.totalScores.ContainsKey(CompaignManager.currentCompaign))
+			{
+				CompaignManager.totalScores[CompaignManager.currentCompaign] += _score;
+			}
+			else
+			{
+				CompaignManager.totalScores[CompaignManager.currentCompaign] = _score;
+			}
+
+
+			LevelStatsManager.levelTimers[LevelStatsManager.currentLevel].Stop();
+			LevelStatsManager.latestFinishedDate = Time.timeAsDouble;
+
 			MainLoop.instance.StartCoroutine(delaySendStatement(endPanel, new
 			{
 				verb = "completed",
 				objectType = "level",
 				result = true,
 				success = 1,
-				resultExtensions = new Dictionary<string, string>() {
-					{ "score", _score.ToString() }
+				activityExtensions = new Dictionary<string, string>() {
+					{ "score", _score.ToString() },
+					{ "duration", LevelStatsManager.levelTimers[LevelStatsManager.currentLevel].Elapsed.TotalSeconds.ToString() },
+					{ "trials", LevelStatsManager.levelTrials[LevelStatsManager.currentLevel].ToString()}
 				}
 			}));
 		}
