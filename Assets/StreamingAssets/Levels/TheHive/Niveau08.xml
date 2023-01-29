@@ -45,15 +45,23 @@
 			<cell value="1" />
 			<cell value="0"/>
 			<cell value="1"/>
-			<cell value="-1"/>
-			<cell value="-1"/>
-			<cell value="-1" />
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1" />
 		</line>
 		<line>
 			<cell value="1" />
 			<cell value="0"/>
 			<cell value="1"/>
-			<cell value="-1"/>
+			<cell value="1"/>
+			<cell value="1"/>
+			<cell value="1" />
+		</line>
+		<line>
+			<cell value="1" />
+			<cell value="0"/>
+			<cell value="0"/>
+			<cell value="1"/>
 			<cell value="-1"/>
 			<cell value="-1" />
 		</line>
@@ -61,7 +69,7 @@
 			<cell value="1" />
 			<cell value="1"/>
 			<cell value="1"/>
-			<cell value="-1"/>
+			<cell value="1"/>
 			<cell value="-1"/>
 			<cell value="-1" />
 		</line>
@@ -92,18 +100,29 @@
 		<blockLimit blockType="Terminal" limit="0" />
 		<blockLimit blockType="Exit" limit="0" />
 	</blockLimits>
-	<console posY="4" posX="1" direction="0" keep="2">
-		<path slotId="0" duration="1"/>
+	<console posY="6" posX="1" direction="2" keep="2">
+		<path slotId="0" duration="5"/>
 	</console>
 
-	<door posX="4" posY="5" direction="0" slotId="0"/>
-	<player associatedScriptName="Bob" posY="4" posX="1" direction="0" />
+	<door posX="1" posY="5" direction="0" slotId="0"/>
+	<player associatedScriptName="Bob" posY="6" posX="1" direction="0" />
 	<script name="Bob" editMode="0" />
-	<enemy associatedScriptName="Guarde 1" posY="1" posX="4" direction="1" range="4" selfRange="False" typeRange="0" />
+	<enemy associatedScriptName="Guarde 1" posY="4" posX="4" direction="3" range="3" selfRange="False" typeRange="0" />
 	<script name="Guarde 1">
 		  <forever>
 			<action type="Forward"/>
 			<action type="Forward"/>
+			<action type="Forward"/>
+			<action type="TurnRight"/>
+			<action type="Forward"/>
+			<action type="Forward"/>
+			<action type="Forward"/>
+			<action type="TurnLeft"/>
+			<action type="TurnLeft"/>
+			<action type="Forward"/>
+			<action type="Forward"/>
+			<action type="Forward"/>
+			<action type="TurnLeft"/>
 			<action type="Forward"/>
 			<action type="Forward"/>
 			<action type="Forward"/>
