@@ -46,6 +46,7 @@ public class SendStatements : FSystem {
 
     // Fonction appelée depuis le javascript (voir Assets/WebGLTemplates/Custom/index.html) via le Wrapper du Système
     public void resetUserUniqueID()
+
     {
         PlayerPrefs.DeleteKey("playerName");
     }

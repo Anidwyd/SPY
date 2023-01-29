@@ -90,6 +90,8 @@ public class UISystem : FSystem {
 	// Lors d'une fin d'exécution de séquence, gére les différents éléments à ré-afficher ou si il faut sauvegarder la progression du joueur
 	private void levelFinished(GameObject go)
 	{
+
+		
 		// On réaffiche les différents panels pour la création de séquence
 		setExecutionView(false);
 
@@ -112,6 +114,7 @@ public class UISystem : FSystem {
 			PlayerPrefs.Save();
 		}
 		// for other end type, nothing to do more
+
 	}
 
 	// Use to process your families.
@@ -234,6 +237,15 @@ public class UISystem : FSystem {
 	// Permet de relancer le niveau au début
 	public void restartScene(){
 		initZeroVariableLevel();
+		LevelStatsManager.incrementTrials();
+		if (CompaignManager.totalTrials.ContainsKey(CompaignManager.currentCompaign))
+        {
+			CompaignManager.totalTrials[CompaignManager.currentCompaign] += 1;
+		} else
+        {
+			CompaignManager.totalTrials[CompaignManager.currentCompaign] = 1;
+		}
+		
 		GameObjectManager.loadScene("MainScene");
 	}
 
@@ -241,17 +253,59 @@ public class UISystem : FSystem {
 	// See TitleScreen and MainMenu buttons in editor
 	// Permet de revenir à la scéne titre
 	public void returnToTitleScreen(){
+		int score;
+		if (!LevelStatsManager.levelScores.ContainsKey(LevelStatsManager.currentLevel)){
+			score = 0;
+			if (CompaignManager.totalSurrends.ContainsKey(CompaignManager.currentCompaign))
+            {
+				CompaignManager.totalSurrends[CompaignManager.currentCompaign] += 1;
+			} else
+            {
+				CompaignManager.totalSurrends[CompaignManager.currentCompaign] = 1;
+			}
+			
+        } else
+        {
+			score = LevelStatsManager.levelScores[LevelStatsManager.currentLevel];
+
+		}
+
 		initZeroVariableLevel();
 		GameObjectManager.addComponent<ActionPerformedForLRS>(gameData.LevelGO, new
 		{
 			verb = "exited",
 			objectType = "level",
 			activityExtensions = new Dictionary<string, string>() {
-					{ "value", gameData.levelToLoad.Replace(Application.streamingAssetsPath + "/", "") }
+					{ "value", gameData.levelToLoad.Replace(Application.streamingAssetsPath + "/", "") },
+					{ "score", score.ToString()}
 				}
-		});
+		}) ;
 		gameData.actionsHistory = null;
+
+		
+
+
+		GameObjectManager.addComponent<ActionPerformedForLRS>(gameData.LevelGO, new
+		{
+			verb = "exited",
+			objectType = "compaign",
+			activityExtensions = new Dictionary<string, string>() {
+					{ "value", CompaignManager.getCurrentCompaign()},
+					{ "score", CompaignManager.getTotalScores(CompaignManager.currentCompaign).ToString()},
+					{ "trials", CompaignManager.getTotalTrials(CompaignManager.currentCompaign).ToString()},
+					{ "duration", CompaignManager.getCompaignTimers(CompaignManager.currentCompaign).ToString()},
+					{ "surrends", CompaignManager.getTotalSurrends(CompaignManager.currentCompaign).ToString()},
+					{ "nbLevels", CompaignManager.getTotalLevels(CompaignManager.currentCompaign).ToString()}
+				}
+		}); ;
+
+
 		GameObjectManager.loadScene("TitleScreen");
+
+
+
+
+
 	}
 
 
@@ -273,11 +327,11 @@ public class UISystem : FSystem {
 	{
 		GameObjectManager.addComponent<ActionPerformedForLRS>(gameData.LevelGO, new
 		{
-			verb = "exited",
+			verb = "nexted",
 			objectType = "level",
 			activityExtensions = new Dictionary<string, string>() {
-					{ "value", gameData.levelToLoad.Replace(Application.streamingAssetsPath + "/", "") }
-				}
+					{ "duration", (Time.timeAsDouble - LevelStatsManager.latestFinishedDate).ToString()}
+		}
 		});
 		// On imcrémente le numéro du niveau
 		gameData.levelToLoad = gameData.scenario[gameData.scenario.FindIndex(x => x == gameData.levelToLoad)+1];
@@ -371,9 +425,13 @@ public class UISystem : FSystem {
         if (menuEchap.activeInHierarchy)
         {
 			menuEchap.SetActive(false);
+			LevelStatsManager.levelTimers[LevelStatsManager.currentLevel].Start();
+			CompaignManager.compaignTimers[CompaignManager.currentCompaign].Start();
 		}// Et inversement
         else
         {
+			LevelStatsManager.levelTimers[LevelStatsManager.currentLevel].Stop();
+			CompaignManager.compaignTimers[CompaignManager.currentCompaign].Stop();
 			menuEchap.SetActive(true);
 		}
     }
