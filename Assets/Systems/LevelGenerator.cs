@@ -38,7 +38,8 @@ public class LevelGenerator : FSystem {
 	public TMP_Text levelName;
 	public GameObject canvas;
 	public GameObject buttonExecute;
-
+	// Variable for the level completion time computing
+	public static double level_start_time = 0;
 	[DllImport("__Internal")]
 	private static extern void HideHtmlButtons(); // call javascript
 
@@ -63,7 +64,36 @@ public class LevelGenerator : FSystem {
 			levelName.text = Path.GetFileNameWithoutExtension(gameData.levelToLoad);
 			if (Application.platform == RuntimePlatform.WebGLPlayer)
 				HideHtmlButtons();
-            GameObjectManager.addComponent<ActionPerformedForLRS>(gameData.LevelGO, new
+			// Level Stats for LRS
+			LevelStatsManager.currentLevel = gameData.levelToLoad;
+			LevelStatsManager.currentLevelStartTime = Time.timeAsDouble;
+			if (!LevelStatsManager.levelTrials.ContainsKey(gameData.levelToLoad))
+			{
+				LevelStatsManager.levelTrials[LevelStatsManager.currentLevel] = 1;
+			}
+			Timer _newTimer = new Timer();
+			_newTimer.Start();
+			LevelStatsManager.levelTimers[gameData.levelToLoad] = _newTimer;
+
+			// Compaign Stats for LRS
+			if (CompaignManager.totalLevels.ContainsKey(CompaignManager.currentCompaign))
+			{
+				CompaignManager.totalLevels[CompaignManager.currentCompaign] += 1;
+			}
+			else
+			{
+				CompaignManager.totalLevels[CompaignManager.currentCompaign] = 1;
+			}
+			if (CompaignManager.totalTrials.ContainsKey(CompaignManager.currentCompaign))
+			{
+				CompaignManager.totalTrials[CompaignManager.currentCompaign] += 1;
+			}
+			else
+			{
+				CompaignManager.totalTrials[CompaignManager.currentCompaign] = 1;
+			}
+
+			GameObjectManager.addComponent<ActionPerformedForLRS>(gameData.LevelGO, new
 			{
 				verb = "launched",
 				objectType = "level",
