@@ -2,81 +2,52 @@
 <level>
 	<map>
 		<line>
-			<cell value="1" />
-			<cell value="1"/>
-			<cell value="1"/>
-			<cell value="-1"/>
-			<cell value="-1"/>
-			<cell value="-1" />
+			<cell value="0" />
+			<cell value="0"/>
+			<cell value="0"/>
+			<cell value="0"/>
+			<cell value="0"/>
 		</line>
 		<line>
-			<cell value="1" />
+			<cell value="0" />
+			<cell value="0"/>
+			<cell value="0"/>
+			<cell value="0"/>
+			<cell value="0"/>
+		</line>
+		<line>
+			<cell value="0" />
+			<cell value="0"/>
 			<cell value="3"/>
-			<cell value="1"/>
-			<cell value="-1"/>
-			<cell value="-1"/>
-			<cell value="-1" />
+			<cell value="0"/>
+			<cell value="0"/>
 		</line>
 		<line>
 			<cell value="1" />
+			<cell value="1"/>
 			<cell value="0"/>
 			<cell value="1"/>
-			<cell value="-1"/>
-			<cell value="-1"/>
-			<cell value="-1" />
+			<cell value="1"/>
 		</line>
 		<line>
 			<cell value="1" />
+			<cell value="1"/>
 			<cell value="0"/>
 			<cell value="1"/>
 			<cell value="1"/>
-			<cell value="1"/>
-			<cell value="1" />
-		</line>
-		<line>
-			<cell value="1" />
-			<cell value="0"/>
-			<cell value="0"/>
-			<cell value="0"/>
-			<cell value="0"/>
-			<cell value="1" />
-		</line>
-		<line>
-			<cell value="1" />
-			<cell value="0"/>
-			<cell value="1"/>
-			<cell value="1"/>
-			<cell value="1"/>
-			<cell value="1" />
-		</line>
-		<line>
-			<cell value="1" />
-			<cell value="0"/>
-			<cell value="1"/>
-			<cell value="1"/>
-			<cell value="1"/>
-			<cell value="1" />
-		</line>
-		<line>
-			<cell value="1" />
-			<cell value="0"/>
-			<cell value="0"/>
-			<cell value="1"/>
-			<cell value="-1"/>
-			<cell value="-1" />
 		</line>
 		<line>
 			<cell value="1" />
 			<cell value="1"/>
 			<cell value="1"/>
 			<cell value="1"/>
-			<cell value="-1"/>
-			<cell value="-1" />
+			<cell value="1"/>
 		</line>
+		
 		
 	</map>
 	<dialogs>
-		<dialog text="Un drone de surveillance arrive, mais il va nous voir. Nous devons activer la console puis nous cacher le temps qu'elle se déclenche !"/>
+		<dialog text="Nous sommes enfin libre et pouvons désormais nous retrouver. Félicitons-nous, et allons goûter à ce que les humains appellent le champagne."/>
 	</dialogs>
 	<blockLimits>
 		<blockLimit blockType="Forward" limit="-1" />
