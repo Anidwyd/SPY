@@ -541,6 +541,7 @@ public class ParamCompetenceSystem : FSystem
 		addToScenario.interactable = true;
 	}
 
+
 	private IEnumerator GetMiniViewWebRequest(string miniViewUri)
 	{
 		UnityWebRequest www = UnityWebRequestTexture.GetTexture(miniViewUri);
