@@ -217,8 +217,6 @@ public class DoorAndConsoleManager : FSystem
                 actionable.sinceStateActivated[i]++;
                 updatePaths(actionable, i);
 
-                Debug.Log($"[{actionable.GetInstanceID()}] incremented state {i}");
-
                 // if all signal have reached their slot, deactivate the state
                 if (actionable.sinceStateActivated[i] < actionable.keepActive) continue;
                 
