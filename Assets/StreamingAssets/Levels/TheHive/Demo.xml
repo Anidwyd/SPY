@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<level>
+  <info>
+    <func name="F5"/>
+    <func name="F8"/>
+  </info>
+  <map>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="0" /><cell value="3" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="1" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="0" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="0" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="0" /><cell value="0" /><cell value="0" /><cell value="1" /></line>
+    <line><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /><cell value="1" /></line>
+  </map>
+
+  <blockLimits>
+    <blockLimit blockType="Forward" limit="-1" />
+    <blockLimit blockType="TurnLeft" limit="-1" />
+    <blockLimit blockType="TurnRight" limit="-1" />
+    <blockLimit blockType="Wait" limit="-1" />
+    <blockLimit blockType="Activate" limit="-1" />
+    <blockLimit blockType="TurnBack" limit="0" />
+    <blockLimit blockType="IfThen" limit="0" />
+    <blockLimit blockType="IfElse" limit="0" />
+    <blockLimit blockType="ForLoop" limit="0" />
+    <blockLimit blockType="While" limit="0" />
+    <blockLimit blockType="Forever" limit="0" />
+    <blockLimit blockType="AndOperator" limit="0" />
+    <blockLimit blockType="OrOperator" limit="0" />
+    <blockLimit blockType="NotOperator" limit="0" />
+    <blockLimit blockType="WallFront" limit="0" />
+    <blockLimit blockType="Enemy" limit="0" />
+    <blockLimit blockType="RedArea" limit="0" />
+    <blockLimit blockType="FieldGate" limit="0" />
+    <blockLimit blockType="Terminal" limit="0" />
+    <blockLimit blockType="Exit" limit="0" />
+  </blockLimits>
+
+  <console posY="5" posX="1" state="0" direction="3" keep="2">
+    <path slotId="0" duration="2" delay="1" />
+    <path slotId="1" />
+    <path slotId="2" duration="-1" />
+  </console>
+
+  <door posY="2" posX="1" slotId="0" direction="0" />
+  <door posY="2" posX="3" slotId="1" direction="0" color="#ff33b8" />
+  <door posY="1" posX="2" slotId="2" direction="3" color="#ff8b17" />
+
+  <player associatedScriptName="Bob" posY="5" posX="1" direction="0" />
+  <script name="Bob" editMode="0" />
+
+  <coin posX="1" posY="1" />
+  <score twoStars="4499" threeStars="5499"/>
+</level>
