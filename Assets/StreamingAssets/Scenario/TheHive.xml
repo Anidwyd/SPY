@@ -9,10 +9,5 @@
 	<level name = "Levels/TheHive/Niveau07.xml" />
 	<level name = "Levels/TheHive/Niveau08.xml" />
 	<level name = "Levels/TheHive/Niveau09.xml" />
-	<level name = "Levels/TheHive/Niveau10.xml" />
-	<level name = "Levels/TheHive/Niveau11.xml" />
-	<level name = "Levels/TheHive/Niveau12.xml" />
-	<level name = "Levels/TheHive/Niveau13.xml" />
-	<level name = "Levels/TheHive/Niveau14.xml" />
-	<level name = "Levels/TheHive/Niveau15.xml" />
+	<level name = "Levels/TheHive/Demo.xml" />
 </scenario>

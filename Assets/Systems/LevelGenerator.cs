@@ -393,7 +393,7 @@ public class LevelGenerator : FSystem {
 			console.AddComponent<TurnedOn>();
 		
 		GameObject consolePanel = Object.Instantiate(Resources.Load ("Prefabs/ConsolePanel") as GameObject, consoleContainer.gameObject.transform, false);
-		// Association de la console à son panel
+		// Association de la console ï¿½ son panel
 		consolePanel.GetComponentInChildren<LinkedWith>(true).target = console;
 		actionable.panel = consolePanel;
 		actionable.panel.transform.Find("Header").Find("KeepSignal").GetChild(1).GetComponent<TMP_Text>().text = actionable.keepActive.ToString();
@@ -510,7 +510,7 @@ public class LevelGenerator : FSystem {
 			XmlNode duration = child.Attributes.GetNamedItem("duration");
 			XmlNode delay = child.Attributes.GetNamedItem("delay");
 			
-			doorPath.duration = duration == null ? 1 : int.Parse(duration.Value);
+			doorPath.duration = duration == null ? 0 : int.Parse(duration.Value);
 			doorPath.delay = delay == null ? 0 : int.Parse(delay.Value);
 			doorPath.pointers = new float[2];
 			
